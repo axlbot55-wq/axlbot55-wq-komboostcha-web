@@ -1,253 +1,151 @@
-<!DOCTYPE html><html lang="en"><head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Komboostcha - Order Now</title>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&display=swap" rel="stylesheet">
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Komboostcha — Handcrafted Kombucha &amp; Greek Yoghurt</title>
+<meta property="og:title" content="Komboostcha — Fizzy & Refreshing Probiotic">
+<meta name="description" content="Handcrafted small-batch kombucha. Order now for delivery in QC &amp; Ortigas.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root{--ink:#1B1B1F;--bg:#FAFAF7;--panel:#fff;--border:#E8E5E0;--muted:#6F6E6C;--green:#2F5A2E;--green-l:#F2F7F1;--amber-l:#FFF6EC;--max-w:520px;--shadow:0 1px 3px rgba(0,0,0,.06),0 6px 16px rgba(0,0,0,.06)}
+:root{--ink:#1a1a1a;--ink-soft:#666;--bg:#0a0a0a;--surface:#141414;--surface2:#1e1e1e;--cream:#fafaf7;--border:rgba(255,255,255,.06);--border-light:rgba(255,255,255,.1);--green:#b8e36c;--green-dim:#8fb94a;--green-dark:#1e3610;--accent:#f0c040;--danger:#ff6b6b;--max-w:560px;--radius:20px;--radius-sm:14px}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Manrope',sans-serif;background:var(--bg);color:var(--ink);min-height:100vh}
-.header{background:var(--ink);color:#fff;padding:1rem;text-align:center;position:sticky;top:0;z-index:50}
-.header h1{font-size:1.3rem;font-weight:800}
-.header p{font-size:.7rem;color:rgba(255,255,255,.5);margin-top:.15rem}
-.header .logo{font-size:2.2rem;margin-bottom:.3rem}
-.tabs{display:flex;background:#fff;border-bottom:1px solid var(--border);position:sticky;top:85px;z-index:30}
-.tab{flex:1;text-align:center;padding:.7rem;font-size:.85rem;font-weight:700;color:var(--muted);cursor:pointer;border-bottom:3px solid transparent}
-.tab.active{color:var(--green);border-bottom-color:var(--green)}
-.view{display:none}.view.active{display:block}
-.content{max-width:var(--max-w);margin:0 auto;padding:1rem}
-.card{background:var(--panel);border-radius:14px;box-shadow:var(--shadow);padding:1.2rem;margin-bottom:1rem}
-.card h3{font-size:.95rem;font-weight:800;margin-bottom:.7rem}
-.card p{font-size:.75rem;color:var(--muted)}
-.delivery-badge{display:flex;align-items:center;gap:.5rem;padding:.55rem .75rem;background:var(--amber-l);border-radius:10px;font-size:.72rem;color:#D4720A;font-weight:700;margin-bottom:1rem}
-.batch-header{display:flex;justify-content:space-between;align-items:center}
-.batch-header h3{margin:0}
-.badge{font-size:.6rem;padding:.2rem .45rem;border-radius:20px;font-weight:700;text-transform:uppercase}
-.badge.ok{background:var(--green-l);color:var(--green)}
-.badge.warn{background:var(--amber-l);color:#D4720A}
-.badge.full{background:#FFF0F0;color:#C0392B}
-.progress-bar{height:6px;background:var(--border);border-radius:20px;margin:.4rem .7rem 0;overflow:hidden}
-.progress-fill{height:100%;background:var(--green);border-radius:20px;transition:width .4s}
-.progress-fill.warn{background:#D4720A}
-.progress-fill.full{background:#E74C3C}
-.product-row{display:flex;align-items:center;gap:.75rem;padding:.6rem 0;border-bottom:1px solid var(--border)}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--cream);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+.hero{position:relative;min-height:50vh;max-height:460px;display:flex;align-items:flex-end;padding:2rem 1.5rem;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 0%,rgba(10,10,10,.45) 60%,var(--bg) 100%),linear-gradient(135deg,#1a3a0e 0%,#0a1a04 50%,#1a1a0a 100%);z-index:0}
+.hero-content{position:relative;z-index:1;width:100%;max-width:var(--max-w)}
+.hero-tag{display:inline-block;font-size:.7rem;font-weight:600;color:var(--green);letter-spacing:.12em;text-transform:uppercase;padding:.35rem .8rem;border:1px solid rgba(184,227,108,.2);border-radius:20px;margin-bottom:.7rem;backdrop-filter:blur(10px);background:rgba(184,227,108,.05)}
+.hero h1{font-family:'DM Serif Display',serif;font-size:clamp(2.2rem,7.5vw,3.2rem);color:#fff;line-height:1.05;margin-bottom:.4rem}
+.hero p{color:rgba(255,255,255,.55);font-size:.85rem;line-height:1.6;max-width:400px}
+.tabs{display:flex;padding:0 1.5rem;max-width:var(--max-w);margin:1.2rem auto 0;background:var(--surface);border-radius:var(--radius-sm);padding:4px;gap:4px;border:1px solid var(--border-light)}
+.tab-btn{flex:1;text-align:center;padding:.65rem;font-size:.82rem;font-weight:700;color:var(--ink-soft);border-radius:10px;cursor:pointer;transition:.25s;border:none;background:none}
+.tab-btn.active{background:rgba(184,227,108,.1);color:var(--green)}
+.view{display:none}.view.active{display:block;animation:fadeUp .45s cubic-bezier(.4,0,.2,1)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.content{max-width:var(--max-w);margin:0 auto;padding:1.2rem 1.5rem 7rem}
+.card{background:var(--surface);border:1px solid var(--border-light);border-radius:var(--radius);padding:0;margin-bottom:1rem;overflow:hidden;transition:.3s}
+.card:hover{border-color:rgba(184,227,108,.15);box-shadow:0 8px 32px rgba(0,0,0,.2)}
+.card-inner{padding:1.3rem}
+.card h3{font-size:.92rem;font-weight:800;margin-bottom:.3rem;display:flex;align-items:center;gap:.5rem}
+.card-inner>p{font-size:.78rem;color:var(--ink-soft)}
+.batch-hero{width:100%;height:150px;position:relative;overflow:hidden}
+.batch-hero img{width:100%;height:100%;object-fit:cover;display:block;transition:.3s}
+.batch-hero .overlay{position:absolute;inset:0;background:linear-gradient(0deg,var(--surface) 10%,transparent 60%);display:flex;align-items:flex-end;padding:.8rem 1.3rem}
+.batch-badge{padding:.3rem .7rem;border-radius:20px;font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em}
+.badge.ok{background:rgba(184,227,108,.15);color:var(--green)}
+.badge.warn{background:rgba(240,192,64,.12);color:var(--accent)}
+.badge.full{background:rgba(255,107,107,.12);color:var(--danger)}
+.batch-meta{display:flex;justify-content:space-between;font-size:.68rem;color:var(--ink-soft);padding:0 .3rem}
+.progress-wrap{height:5px;background:var(--surface2);border-radius:20px;margin:.5rem .3rem;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--green-dim),var(--green));border-radius:20px;transition:width .6s cubic-bezier(.4,0,.2,1)}
+.progress-fill.warn{background:linear-gradient(90deg,#c89428,var(--accent))}
+.progress-fill.full{background:linear-gradient(90deg,#c0392b,var(--danger))}
+.delivery-banner{background:linear-gradient(135deg,#2a200a,#3a2a10);border:1px solid rgba(240,192,64,.1);border-radius:var(--radius-sm);padding:.65rem 1rem;margin-bottom:1rem;display:flex;align-items:center;gap:.6rem;font-size:.73rem;color:var(--accent);font-weight:600}
+.product-row{display:flex;align-items:center;gap:.8rem;padding:.9rem .3rem;border-bottom:1px solid var(--border)}
 .product-row:last-child{border-bottom:none}
-.product-row .icon{font-size:1.5rem}
-.product-row .info{flex:1}
-.product-row .info strong{font-size:.85rem;font-weight:700}
-.product-row .info span{font-size:.7rem;color:var(--muted)}
-.qty-ctrl{display:flex;align-items:center;gap:.45rem}
-.qty-ctrl button{width:30px;height:30px;border-radius:50%;border:1.5px solid var(--border);background:#fff;font-size:1rem;cursor:pointer}
-.qty-ctrl .qv{min-width:24px;text-align:center;font-weight:800;font-size:.9rem}
-.fg{margin-bottom:.8rem}
-.fg label{display:block;font-size:.7rem;font-weight:700;margin-bottom:.25rem;color:var(--muted)}
-.fg input,.fg select{width:100%;padding:.65rem .7rem;border:1.5px solid var(--border);border-radius:8px;font-family:inherit;font-size:.85rem;background:var(--bg)}
-.fg input:focus,.fg select:focus{outline:none;border-color:var(--green)}
-.totals{background:var(--green-l);border-radius:10px;padding:.7rem .9rem;margin:.8rem 0}
-.totals .tr{display:flex;justify-content:space-between;font-size:.8rem;margin-bottom:.15rem}
-.totals .tr.gt{font-weight:800;font-size:1rem;color:var(--green);margin:0}
-.cta-btn{width:100%;padding:.85rem;background:var(--green);color:#fff;border:none;border-radius:12px;font-family:inherit;font-size:.95rem;font-weight:800;cursor:pointer}
-.cta-btn:disabled{opacity:.4;pointer-events:none}
-.bottom-cta{position:sticky;bottom:0;padding:.8rem;max-width:var(--max-w);margin:0 auto}
-.admin-stats{display:flex;gap:.5rem;margin-bottom:1rem}
-.stat{flex:1;background:var(--green-l);padding:.6rem .3rem;border-radius:8px;text-align:center}
-.stat .sv{font-size:1.3rem;font-weight:800;color:var(--green)}
-.stat .sl{font-size:.6rem;color:var(--muted);margin-top:.1rem}
-.order-row{padding:.6rem 0;border-bottom:1px solid var(--border);font-size:.8rem}
+.product-img{width:56px;height:56px;border-radius:14px;object-fit:cover;background:var(--surface2);flex-shrink:0;display:block}
+.product-row .info{flex:1;min-width:0}
+.product-row .info strong{font-size:.88rem;font-weight:700;display:block;margin-bottom:.1rem}
+.product-row .info span{font-size:.7rem;color:var(--ink-soft);display:block}
+.price-tag{font-size:.82rem;font-weight:700;color:var(--green);white-space:nowrap;margin-right:.5rem}
+.qty-ctrl{display:flex;align-items:center;gap:2px;background:var(--surface2);border-radius:28px;padding:3px;border:1px solid var(--border-light)}
+.qty-ctrl button{width:34px;height:34px;border-radius:50%;border:none;background:transparent;font-size:1.1rem;cursor:pointer;color:var(--cream);transition:.15s}
+.qty-ctrl button:hover{background:var(--surface);color:var(--green)}
+.qty-ctrl button:active{transform:scale(.88)}
+.qty-ctrl .qv{min-width:28px;text-align:center;font-weight:800;font-size:.9rem;color:var(--cream)}
+.fg{margin-bottom:.9rem}
+.fg label{display:block;font-size:.7rem;font-weight:600;margin-bottom:.3rem;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.06em}
+.fg input,.fg select,.fg textarea{width:100%;padding:.7rem .85rem;border:1.5px solid var(--border-light);border-radius:var(--radius-sm);font-family:inherit;font-size:.85rem;background:var(--surface);color:var(--cream);transition:.2s}
+.fg textarea{height:56px;resize:vertical}
+.fg input:focus,.fg select:focus,.fg textarea:focus{outline:none;border-color:var(--green);box-shadow:0 0 0 3px rgba(184,227,108,.08)}
+.totals{background:linear-gradient(135deg,var(--green-dark),#162808);border:1px solid rgba(184,227,108,.12);border-radius:var(--radius);padding:1rem 1.1rem;margin:.8rem 0}
+.totals p{color:rgba(255,255,255,.45);font-size:.82rem}
+.totals .tr{display:flex;justify-content:space-between;font-size:.82rem;margin-bottom:.15rem;color:rgba(255,255,255,.75)}
+.totals .tr.gt{font-weight:800;font-size:1.15rem;color:var(--green);margin-top:.4rem;padding-top:.4rem;border-top:1px solid rgba(255,255,255,.06)}
+.cta-btn{width:100%;padding:.9rem;background:linear-gradient(135deg,var(--green),var(--green-dim));color:#0a0a0a;border:none;border-radius:var(--radius-sm);font-family:inherit;font-size:.95rem;font-weight:800;cursor:pointer;transition:.25s}
+.cta-btn:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 8px 30px rgba(184,227,108,.2)}
+.cta-btn:active:not(:disabled){transform:translateY(0)}
+.cta-btn:disabled{opacity:.25;pointer-events:none}
+.bottom-cta{position:fixed;bottom:0;left:0;right:0;padding:.8rem 1.5rem 1rem;background:linear-gradient(0deg,var(--bg) 50%,rgba(10,10,10,.95) 100%);max-width:var(--max-w);margin:0 auto;z-index:40;pointer-events:none}
+.bottom-cta button{pointer-events:all}
+.admin-stats{display:flex;gap:.5rem;margin-bottom:1.2rem}
+.stat{flex:1;background:var(--surface);border:1px solid var(--border-light);padding:.75rem .4rem;border-radius:var(--radius-sm);text-align:center}
+.stat .sv{font-size:1.35rem;font-weight:800;color:var(--green)}
+.stat .sl{font-size:.58rem;color:var(--ink-soft);margin-top:.1rem;text-transform:uppercase;letter-spacing:.06em}
+.order-row{padding:.7rem 0;border-bottom:1px solid var(--border);font-size:.8rem}
 .order-row:last-child{border-bottom:none}
-.order-row .oname{font-weight:800}
-.order-row .odetail{color:var(--muted);font-size:.7rem;margin-top:.15rem}
+.order-row .oname{font-weight:800;font-size:.88rem}
+.order-row .odetail{color:var(--ink-soft);font-size:.72rem;margin-top:.15rem}
 .oset{display:flex;gap:.3rem;margin-top:.35rem;flex-wrap:wrap}
-.oset button{padding:.25rem .5rem;border-radius:6px;border:1.5px solid var(--border);background:#fff;font-size:.6rem;font-weight:700;cursor:pointer}
-.oset button.on{background:var(--green-l);border-color:var(--green);color:var(--green)}
-.oset button.del{color:#C0392B}
-.toast{position:fixed;bottom:1rem;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:.7rem 1.2rem;border-radius:10px;font-size:.8rem;font-weight:700;z-index:100;opacity:0;transition:.2s;pointer-events:none}
-.toast.show{opacity:1}
-textarea.delmsg{width:100%;height:70px;font-family:inherit;font-size:.8rem;padding:.5rem;border:1px solid var(--border);border-radius:8px;resize:vertical}
+.oset button{padding:.28rem .55rem;border-radius:8px;border:1px solid var(--border-light);background:var(--surface);font-size:.62rem;font-weight:700;cursor:pointer;color:var(--ink-soft);transition:.15s}
+.oset button:hover{border-color:var(--green);color:var(--cream)}
+.oset button.on{background:var(--green-dark);border-color:var(--green);color:var(--green)}
+.oset button.del{color:var(--danger);border-color:rgba(255,107,107,.15)}
+.oset button.del:hover{border-color:var(--danger)}
+.toast{position:fixed;bottom:5rem;left:50%;transform:translateX(-50%) translateY(20px);background:var(--green);color:#0a0a0a;padding:.7rem 1.3rem;border-radius:12px;font-size:.82rem;font-weight:700;z-index:100;opacity:0;transition:.35s cubic-bezier(.4,0,.2,1);pointer-events:none}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+textarea.delmsg{width:100%;height:60px;font-family:inherit;font-size:.75rem;padding:.6rem;border:1px solid var(--border-light);border-radius:var(--radius-sm);resize:vertical;background:var(--surface);color:var(--cream)}
+@media(max-width:400px){.hero{min-height:42vh;max-height:380px}.hero h1{font-size:2rem}.product-img{width:48px;height:48px;border-radius:12px}.batch-hero{height:120px}}
 </style></head><body>
-<header class="header">
-  <div class="logo">🍵</div>
-  <h1>KOMBOOSTCHA</h1>
-  <p>Fizzy & Refreshing Probiotic</p>
-</header>
-<nav class="tabs">
-  <div class="tab active" id="tabOrder" onclick="showTab('order')">Order</div>
-  <div class="tab" id="tabAdmin" onclick="showTab('admin')">Admin</div>
-</nav>
-<div class="view active" id="orderView">
- <div class="content">
-  <div class="delivery-badge">Delivery: General QC + Ortigas</div>
-  <div class="card" id="batchCard"></div>
-  <div class="card">
-   <h3>Add to Order</h3>
-   <div class="product-row">
-    <div class="icon">🍵</div>
-    <div class="info"><strong>Kombucha</strong><span>500ml bottle</span></div>
-    <div class="qty-ctrl">
-     <button onclick="qty('kombo',-1)">−</button>
-     <span class="qv" id="qv-kombo">0</span>
-     <button onclick="qty('kombo',1)">+</button>
-    </div>
-   </div>
-   <div class="product-row">
-    <div class="icon">🥣</div>
-    <div class="info"><strong>HMGY</strong><span>Greek Yoghurt 475ml tub</span></div>
-    <div class="qty-ctrl">
-     <button onclick="qty('hmgy',-1)">−</button>
-     <span class="qv" id="qv-hmgy">0</span>
-     <button onclick="qty('hmgy',1)">+</button>
-    </div>
-   </div>
-  </div>
-  <div class="card">
-   <h3>Your Details</h3>
-   <div class="fg"><label>Name</label><input id="inName" placeholder="e.g. Carrie"></div>
-   <div class="fg"><label>WhatsApp Number</label><input id="inPhone" placeholder="e.g. 09171234567"></div>
-   <div class="fg"><label>Delivery Area</label>
-    <select id="inArea"><option value="">Select...</option><option value="QC">General QC</option><option value="Ortigas">Ortigas</option></select>
-   </div>
-   <div class="fg"><label>Notes (optional)</label><input id="inNotes" placeholder="Preferred delivery day, address notes"></div>
-  </div>
-  <div class="totals" id="totalsBox">
-   <p style="color:var(--muted);font-size:.8rem">Pick items above to see total</p>
-  </div>
- </div>
- <div class="bottom-cta">
-  <button class="cta-btn" id="submitBtn" disabled onclick="placeOrder()">Place Order</button>
- </div>
+<section class="hero"><div class="hero-content"><span class="hero-tag">Handcrafted Probiotic</span><h1>Komboostcha</h1><p>Small-batch kombucha &amp; Greek yoghurt, brewed with care. Delivered to QC &amp; Ortigas.</p></div></section>
+<div class="tabs"><button class="tab-btn active" id="tabOrder" onclick="showTab('order')">Order</button><button class="tab-btn" id="tabAdmin" onclick="showTab('admin')">Admin</button></div>
+<div class="view active" id="orderView"><div class="content">
+<div class="delivery-banner"><span>📍</span><span>Delivery: General QC + Ortigas</span></div>
+<div id="batchCard"></div>
+<div class="card"><div class="card-inner"><h3>🛒 Add to Order</h3>
+<div class="product-row">
+<img class="product-img" src="assets/kombucha-logo-v1.jpg" alt="Kombucha">
+<div class="info"><strong>Handcrafted Kombucha</strong><span>500ml bottle · Living probiotics</span></div>
+<span class="price-tag">₱350</span>
+<div class="qty-ctrl"><button onclick="qty('kombo',-1)">−</button><span class="qv" id="qv-kombo">0</span><button onclick="qty('kombo',1)">+</button></div>
 </div>
-<div class="view" id="adminView">
- <div class="content">
-  <div class="admin-stats" id="adminStats"></div>
-  <div class="card">
-   <h3>Manage Batch</h3>
-   <div class="fg"><label>Keg Number</label><input id="inKeg" type="number" placeholder="e.g. 17"></div>
-   <div class="fg"><label>Est. Yield (bottles)</label><input id="inYield" type="number" placeholder="e.g. 65"></div>
-   <div class="fg"><label>Est. Ready Date</label><input id="inDate" type="date"></div>
-   <button class="cta-btn" onclick="saveBatch()" style="margin-top:.5rem">Save Batch</button>
-  </div>
-  <div class="card">
-   <h3>Orders</h3>
-   <div id="ordersList"><p style="color:var(--muted);font-size:.8rem">No orders yet.</p></div>
-  </div>
-  <div class="card">
-   <h3>Delivery Msg</h3>
-   <p style="margin-bottom:.5rem">Template for delivery comms:</p>
-   <textarea class="delmsg" readonly>Hi [name]! Your Kboost is ready! I will DM you once on the way! - Komboostcha</textarea>
-  </div>
- </div>
+<div class="product-row">
+<img class="product-img" src="assets/bottling-tomorrow.jpg" alt="HMGY">
+<div class="info"><strong>HMGY Greek Yoghurt</strong><span>475ml tub · Thick &amp; creamy</span></div>
+<span class="price-tag">₱350</span>
+<div class="qty-ctrl"><button onclick="qty('hmgy',-1)">−</button><span class="qv" id="qv-hmgy">0</span><button onclick="qty('hmgy',1)">+</button></div>
+</div></div></div>
+<div class="card"><div class="card-inner"><h3>📋 Your Details</h3>
+<div class="fg"><label>Name</label><input id="inName" placeholder="e.g. Carrie"></div>
+<div class="fg"><label>WhatsApp</label><input id="inPhone" placeholder="09171234567" type="tel"></div>
+<div class="fg"><label>Delivery Area</label><select id="inArea"><option value="">Select...</option><option value="QC">General QC</option><option value="Ortigas">Ortigas</option></select></div>
+<div class="fg"><label>Notes</label><textarea id="inNotes" placeholder="Preferred delivery day, gate code..."></textarea></div>
+</div></div>
+<div class="totals" id="totalsBox"><p>Add items above to see total</p></div>
 </div>
+<div class="bottom-cta"><button class="cta-btn" id="submitBtn" disabled onclick="placeOrder()">Place Order</button></div>
+</div>
+<div class="view" id="adminView"><div class="content">
+<div class="admin-stats" id="adminStats"></div>
+<div class="card"><div class="card-inner"><h3>🍵 Manage Batch</h3>
+<div class="fg"><label>Keg Number</label><input id="inKeg" type="number" placeholder="e.g. 17"></div>
+<div class="fg"><label>Est. Yield (bottles)</label><input id="inYield" type="number" placeholder="e.g. 65"></div>
+<div class="fg"><label>Est. Ready Date</label><input id="inDate" type="date"></div>
+<button class="cta-btn" onclick="saveBatch()" style="margin-top:.5rem">Save Batch</button>
+</div></div>
+<div class="card"><div class="card-inner"><h3>📦 Orders</h3><div id="ordersList"><p style="color:var(--ink-soft);font-size:.82rem">No orders yet.</p></div></div></div>
+<div class="card"><div class="card-inner"><h3>📬 Delivery Template</h3>
+<p style="margin-bottom:.5rem;font-size:.72rem;color:var(--ink-soft)">Copy for WhatsApp:</p>
+<textarea class="delmsg" readonly>Hi [name]! Your Kboost is ready! I will DM you once on the way! — Komboostcha</textarea>
+</div></div>
+</div></div>
 <div class="toast" id="toast"></div>
 <script>
-var PRICE=350, DBK='komboostcha_v1';
-var S=loadS(), counts={kombo:0, hmgy:0};
+var PRICE=350,DBK='komboostcha_v1';
+var S=loadS(),counts={kombo:0,hmgy:0};
 function loadS(){try{return JSON.parse(localStorage.getItem(DBK))||{}}catch(e){return{}}}
 function saveS(){localStorage.setItem(DBK,JSON.stringify(S))}
 function batch(){return S.batch||null}
 function totKombo(){return(S.orders||[]).reduce(function(s,o){return s+(o.kombo||0)},0)}
-function saveBatch(){
- var keg=document.getElementById('inKeg').value;
- var yiel=parseInt(document.getElementById('inYield').value)||60;
- var date=document.getElementById('inDate').value||'';
- if(!keg){toast('Enter keg number');return}
- S.batch={keg:keg,yield:yiel,date:date};
- saveS();renderAll();toast('Keg '+keg+' created!');
-}
-function placeOrder(){
- var n=document.getElementById('inName').value.trim();
- var ph=document.getElementById('inPhone').value.trim();
- var a=document.getElementById('inArea').value;
- var nt=document.getElementById('inNotes').value.trim();
- if(!n){toast('Name please');return}
- if(!ph){toast('WhatsApp number');return}
- if(!a){toast('Select delivery area');return}
- if(counts.kombo===0&&counts.hmgy===0){toast('Add items first');return}
- var b=batch();
- if(b){var rem=Math.max(0,b.yield-totKombo());if(counts.kombo>rem){toast('Only '+rem+' bottles left!');return}}
- if(!S.orders)S.orders=[];
- S.orders.push({id:Date.now().toString(36)+Math.random().toString(36).slice(2,5),name:n,phone:ph,area:a,notes:nt,kombo:counts.kombo,hmgy:counts.hmgy,paid:false,served:false,ts:new Date().toISOString()});
- saveS();counts={kombo:0,hmgy:0};
- document.getElementById('qv-kombo').textContent='0';
- document.getElementById('qv-hmgy').textContent='0';
- document.getElementById('inName').value='';
- document.getElementById('inPhone').value='';
- document.getElementById('inArea').value='';
- document.getElementById('inNotes').value='';
- renderAll();toast('Order placed!');
-}
-function toggleOrder(id,field){
- S.orders=S.orders.map(function(o){if(o.id===id){var n={};for(var k in o) n[k]=o[k];n[field]=!o[field];return n}return o});
- saveS();renderAll();
-}
+function saveBatch(){var k=document.getElementById('inKeg').value;var y=parseInt(document.getElementById('inYield').value)||60;var d=document.getElementById('inDate').value||'';if(!k){toast('Enter keg number');return}S.batch={keg:k,yield:y,date:d};saveS();renderAll();toast('Keg '+k+' created!')}
+function placeOrder(){var n=document.getElementById('inName').value.trim();var ph=document.getElementById('inPhone').value.trim();var a=document.getElementById('inArea').value;var nt=document.getElementById('inNotes').value.trim();if(!n){toast('Name please');return}if(!ph){toast('WhatsApp number');return}if(!a){toast('Select delivery area');return}if(counts.kombo===0&&counts.hmgy===0){toast('Add items first');return}var b=batch();if(b){var rem=Math.max(0,b.yield-totKombo());if(counts.kombo>rem){toast('Only '+rem+' left!');return}}if(!S.orders)S.orders=[];S.orders.push({id:Date.now().toString(36)+Math.random().toString(36).slice(2,5),name:n,phone:ph,area:a,notes:nt,kombo:counts.kombo,hmgy:counts.hmgy,paid:false,served:false,ts:new Date().toISOString()});saveS();counts={kombo:0,hmgy:0};document.getElementById('qv-kombo').textContent='0';document.getElementById('qv-hmgy').textContent='0';document.getElementById('inName').value='';document.getElementById('inPhone').value='';document.getElementById('inArea').value='';document.getElementById('inNotes').value='';renderAll();toast('Order placed!')}
+function toggleOrder(id,f){S.orders=S.orders.map(function(o){if(o.id===id){var n={};for(var k in o)n[k]=o[k];n[f]=!o[f];return n}return o});saveS();renderAll()}
 function deleteOrder(id){S.orders=S.orders.filter(function(o){return o.id!==id});saveS();renderAll();toast('Deleted')}
 function qty(k,d){counts[k]=Math.max(0,counts[k]+d);document.getElementById('qv-'+k).textContent=counts[k];updateTotals()}
-function updateTotals(){
- var kt=counts.kombo*PRICE, ht=counts.hmgy*PRICE, gt=kt+ht;
- if(gt===0){document.getElementById('totalsBox').innerHTML='<p style="color:var(--muted);font-size:.8rem">Pick items to see total</p>';document.getElementById('submitBtn').disabled=true;return}
- var h='',p=String.fromCharCode(8369);
- if(counts.kombo>0)h+='<div class="tr"><span>'+counts.kombo+'x Kombucha</span><span>'+p+kt.toLocaleString()+'</span></div>';
- if(counts.hmgy>0)h+='<div class="tr"><span>'+counts.hmgy+'x HMGY</span><span>'+p+ht.toLocaleString()+'</span></div>';
- h+='<div class="tr gt"><span>Total</span><span>'+p+gt.toLocaleString()+'</span></div>';
- document.getElementById('totalsBox').innerHTML=h;
- document.getElementById('submitBtn').disabled=false;
-}
-function renderBatch(){
- var b=batch(),el=document.getElementById('batchCard');
- if(!b){el.innerHTML='<h3>Status</h3><p>Waiting for next batch...</p>';return}
- var ord=totKombo(),rem=Math.max(0,b.yield-ord),pct=Math.min(100,ord/b.yield*100);
- var badge='Taking Orders',bc='ok',fc='';
- if(rem<=5){badge='Almost Full';bc='warn';fc='warn'}
- if(ord>=b.yield){badge='Batch Full';bc='full';fc='full'}
- el.innerHTML='<div class="batch-header"><h3>🍵 Keg '+b.keg+'</h3><span class="badge '+bc+'">'+badge+'</span></div><p>Est. '+b.date+' · Max: '+b.yield+' bottles</p><div class="progress-bar"><div class="progress-fill '+fc+'" style="width:'+pct+'%"></div></div><div style="display:flex;justify-content:space-between;font-size:.7rem;color:var(--muted);margin-top:.25rem"><span>'+ord+' ordered</span><span>'+rem+' remain</span></div>';
-}
-function renderAdmin(){
- var os=S.orders||[],ord=os.length;
- var bt=totKombo(),yh=os.reduce(function(s,o){return s+(o.hmgy||0)},0);
- var rev=bt*PRICE+yh*PRICE,sv=os.filter(function(o){return o.served}).length;
- var p=String.fromCharCode(8369);
- document.getElementById('adminStats').innerHTML='<div class="stat"><div class="sv">'+ord+'</div><div class="sl">Orders</div></div><div class="stat"><div class="sv">'+bt+'</div><div class="sl">Bottles</div></div><div class="stat"><div class="sv">'+yh+'</div><div class="sl">HMGY</div></div><div class="stat"><div class="sv">'+p+(rev/1000).toFixed(1)+'k</div><div class="sl">Revenue</div></div>';
- var b=batch();
- if(b){document.getElementById('inKeg').value=b.keg||'';document.getElementById('inYield').value=b.yield||'';document.getElementById('inDate').value=b.date||''}
- var el=document.getElementById('ordersList');
- if(!os.length){el.innerHTML='<p style="color:var(--muted);font-size:.8rem">No orders yet.</p>';return}
- var rows=os.slice().reverse().map(function(o){
-  var d='';if(o.kombo)d+=o.kombo+'xB ';if(o.hmgy)d+=o.hmgy+'xH ';
-  var html='<div class="order-row" data-id="'+o.id+'">';
-  html+='<div class="oname">'+o.name+' <span class="badge ok" style="display:inline">'+o.area+'</span></div>';
-  html+='<div class="odetail">'+d+(o.paid?' Paid':' Waiting')+(o.served?' Served':'')+'</div>';
-  html+='<div class="oset">';
-  html+='<button data-action="paid" class="'+(o.paid?'on':'')+'">'+(o.paid?'Paid':'Mark Paid')+'</button>';
-  html+='<button data-action="served" class="'+(o.served?'on':'')+'">'+(o.served?'Served':'Mark Served')+'</button>';
-  html+='<button data-action="delete" class="del">X</button>';
-  html+='</div></div>';
-  return html;
- });
- el.innerHTML=rows.join('');
- el.querySelectorAll('.oset button').forEach(function(btn){
-  btn.onclick=function(){
-   var row=btn.closest('.order-row');
-   var id=row.getAttribute('data-id');
-   var act=btn.getAttribute('data-action');
-   if(act==='delete'){deleteOrder(id)}else{toggleOrder(id,act)}
-  };
- });
-}
-function showTab(tab){
- document.querySelectorAll('.view').forEach(function(v){v.classList.remove('active')});
- document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active')});
- if(tab==='admin'){
-  document.getElementById('adminView').classList.add('active');
-  document.getElementById('tabAdmin').classList.add('active');
-  renderAdmin();
- } else {
-  document.getElementById('orderView').classList.add('active');
-  document.getElementById('tabOrder').classList.add('active');
- }
-}
+function updateTotals(){var kt=counts.kombo*PRICE,ht=counts.hmgy*PRICE,gt=kt+ht;if(gt===0){document.getElementById('totalsBox').innerHTML='<p>Add items to see total</p>';document.getElementById('submitBtn').disabled=true;return}var h='',p=String.fromCharCode(8369);if(counts.kombo>0)h+='<div class="tr"><span>'+counts.kombo+'× Kombucha</span><span>'+p+kt.toLocaleString()+'</span></div>';if(counts.hmgy>0)h+='<div class="tr"><span>'+counts.hmgy+'× HMGY</span><span>'+p+ht.toLocaleString()+'</span></div>';h+='<div class="tr gt"><span>Total</span><span>'+p+gt.toLocaleString()+'</span></div>';document.getElementById('totalsBox').innerHTML=h;document.getElementById('submitBtn').disabled=false}
+function renderBatch(){var b=batch(),el=document.getElementById('batchCard');if(!b){el.innerHTML='';return}var ord=totKombo(),rem=Math.max(0,b.yield-ord),pct=Math.min(100,ord/b.yield*100);var badge='Taking Orders',bc='ok',fc='';if(rem<=5){badge='Almost Full';bc='warn';fc='warn'}if(ord>=b.yield){badge='Batch Full';bc='full';fc='full'}el.innerHTML='<div class="card"><div class="batch-hero"><img src="assets/good-news-bottling.jpg" alt="Bottling"><div class="overlay"><span class="batch-badge '+bc+'">'+badge+'</span></div></div><div class="card-inner"><h3>🍵 Keg '+b.keg+'</h3><p class="batch-meta"><span>Est. '+b.date+'</span><span>Max: '+b.yield+' bottles</span></p><div class="progress-wrap"><div class="progress-fill '+fc+'" style="width:'+pct+'%"></div></div><p class="batch-meta"><span>'+ord+' ordered</span><span>'+rem+' remain</span></p></div></div>'}
+function renderAdmin(){var os=S.orders||[],ord=os.length,bt=totKombo(),yh=os.reduce(function(s,o){return s+(o.hmgy||0)},0),rev=bt*PRICE+yh*PRICE,p=String.fromCharCode(8369);document.getElementById('adminStats').innerHTML='<div class="stat"><div class="sv">'+ord+'</div><div class="sl">Orders</div></div><div class="stat"><div class="sv">'+bt+'</div><div class="sl">Bottles</div></div><div class="stat"><div class="sv">'+yh+'</div><div class="sl">HMGY</div></div><div class="stat"><div class="sv">'+p+(rev/1000).toFixed(1)+'k</div><div class="sl">Revenue</div></div>';var b=batch();if(b){document.getElementById('inKeg').value=b.keg||'';document.getElementById('inYield').value=b.yield||'';document.getElementById('inDate').value=b.date||''}var el=document.getElementById('ordersList');if(!os.length){el.innerHTML='<p style="color:var(--ink-soft);font-size:.82rem">No orders yet.</p>';return}var rows=os.slice().reverse().map(function(o){var d='';if(o.kombo)d+=o.kombo+'×B ';if(o.hmgy)d+=o.hmgy+'×H ';var h='<div class="order-row" data-id="'+o.id+'"><div class="oname">'+esc(o.name)+' <span class="batch-badge ok" style="display:inline;font-size:.58rem;padding:.12rem .35rem">'+esc(o.area)+'</span></div><div class="odetail">'+esc(d)+(o.paid?' ✓ Paid':' ⏳ Waiting')+(o.served?' 📬 Served':'')+'</div><div class="oset"><button data-action="paid" class="'+(o.paid?'on':'')+'">'+(o.paid?'✓ Paid':'Mark Paid')+'</button><button data-action="served" class="'+(o.served?'on':'')+'">'+(o.served?'✓ Served':'Mark Served')+'</button><button data-action="delete" class="del">✕</button></div></div>';return h});el.innerHTML=rows.join('');el.querySelectorAll('.oset button').forEach(function(btn){btn.onclick=function(){var row=btn.closest('.order-row'),id=row.getAttribute('data-id'),act=btn.getAttribute('data-action');if(act==='delete'){deleteOrder(id)}else{toggleOrder(id,act)}}})}
+function showTab(t){document.querySelectorAll('.view').forEach(function(v){v.classList.remove('active')});document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active')});if(t==='admin'){document.getElementById('adminView').classList.add('active');document.getElementById('tabAdmin').classList.add('active');renderAdmin()}else{document.getElementById('orderView').classList.add('active');document.getElementById('tabOrder').classList.add('active')}}
 function toast(m){var t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(function(){t.classList.remove('show')},2200)}
 function esc(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML}
-function totalKomboOrdered(){return(S.orders||[]).reduce(function(s,o){return s+(o.kombo||0)},0)}
 function renderAll(){renderBatch();updateTotals();if(document.getElementById('adminView').classList.contains('active'))renderAdmin()}
 renderAll();
-</script>
-</body></html>
+</script></body></html>
