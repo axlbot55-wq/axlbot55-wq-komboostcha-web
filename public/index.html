@@ -4,6 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Komboostcha — Handcrafted Probiotics</title>
+<meta name="description" content="Small-batch kombucha and Greek yoghurt delivered in General QC and Ortigas. Order fresh live-culture fermented goods direct via WhatsApp.">
+<meta name="theme-color" content="#3B5C35">
+<meta property="og:title" content="Komboostcha — Handcrafted Probiotics">
+<meta property="og:description" content="Fresh small-batch kombucha and Greek yoghurt. Delivered to General QC & Ortigas.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -99,6 +103,12 @@
     opacity: 0.9;
   }
   .delivery-tag svg { width: 14px; height: 14px; }
+  .hero-cta-row { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin:0 0 1rem; }
+  .hero-cta-btn { display:inline-block; text-decoration:none; border-radius:100px; padding:11px 18px; font-size:13px; font-weight:600; transition:all .15s; }
+  .hero-cta-primary { background:#fff; color:var(--moss); }
+  .hero-cta-primary:hover { background:var(--cream-dark); }
+  .hero-cta-secondary { border:1px solid rgba(255,255,255,.24); color:#fff; background:rgba(255,255,255,.08); }
+  .hero-cta-secondary:hover { background:rgba(255,255,255,.14); }
 
   /* ── NAV TABS ── */
   .nav-tabs {
@@ -673,7 +683,12 @@
   <div class="badge-pill" id="logo-tap" onclick="secretTap()">Small-batch · QC & Ortigas</div>
   <h1>Komb<em>oost</em>cha</h1>
   <p>Real live-culture fermented foods — no shortcuts, no fillers. Fresh from our brew to your fridge.</p>
-  <div class="delivery-tag">
+  <div class="hero-cta-row">
+ <a href="#order-start" class="hero-cta-btn hero-cta-primary" onclick="switchTab('order')">Order this batch</a>
+ <a href="https://wa.me/639209106731?text=Hi%20Komboostcha%2C%20I%20have%20a%20few%20questions%20before%20ordering." class="hero-cta-btn hero-cta-secondary">Ask on WhatsApp</a>
+</div>
+
+<div class="delivery-tag">
     <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
     Delivered to General QC &amp; Ortigas
   </div>
@@ -694,6 +709,7 @@
 <!-- ════════ ORDER SECTION ════════ -->
 <div id="tab-order" class="section active">
   <div class="container">
+<div id="order-start"></div>
 
     <!-- Product Cards -->
     <div style="font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-top:0.75rem;margin-bottom:0.25rem">Live-culture fermented goods</div>
@@ -750,7 +766,7 @@
     <!-- WhatsApp strip -->
     <div style="display:flex;align-items:center;justify-content:space-between;background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:0.85rem 1.1rem;margin-bottom:1.2rem">
       <span style="font-size:13px;color:var(--text-mid)">Questions before ordering?</span>
-      <a href="https://wa.me/639209106731" class="wa-strip-btn">Chat on WhatsApp</a>
+      <a href="https://wa.me/639209106731?text=Hi%20Komboostcha%2C%20I%20have%20a%20few%20questions%20before%20ordering." class="wa-strip-btn">Chat on WhatsApp</a>
     </div>
 
     <div class="product-grid">
@@ -1027,7 +1043,7 @@
     <div style="background:var(--moss);color:#fff;border-radius:var(--radius);padding:1.5rem;text-align:center">
       <div style="font-family:'DM Serif Display',serif;font-size:1.3rem;margin-bottom:0.5rem">Curious? Questions?</div>
       <p style="font-size:14px;opacity:0.85;margin-bottom:1rem">We love talking fermentation. Reach out on WhatsApp.</p>
-      <a href="https://wa.me/639209106731" id="about-wa-link" style="display:inline-block;background:#25D366;color:#fff;text-decoration:none;padding:10px 24px;border-radius:100px;font-size:14px;font-weight:600">Message us on WhatsApp</a>
+      <a href="https://wa.me/639209106731?text=Hi%20Komboostcha%2C%20I%27m%20interested%20in%20your%20products." id="about-wa-link" style="display:inline-block;background:#25D366;color:#fff;text-decoration:none;padding:10px 24px;border-radius:100px;font-size:14px;font-weight:600">Message us on WhatsApp</a>
     </div>
   </div>
 </div>
@@ -1136,6 +1152,7 @@ function placeOrder() {
   const area = document.getElementById('cust-area').value;
   const notes = document.getElementById('cust-notes').value.trim();
   if (!name || !wa || !area) { showToast('Please fill in all required fields'); return; }
+  if (!/^\+?\d{10,15}$/.test(wa.replace(/[\s()-]/g,''))) { showToast('Enter a valid WhatsApp number'); return; }
   const total = qty.kombucha * prices.kombucha + qty.yoghurt * prices.yoghurt;
   const order = { name, wa, area, qty: {...qty}, total, time: new Date().toLocaleTimeString('en-PH', {hour:'2-digit',minute:'2-digit'}) };
   orders.push(order);
@@ -1203,7 +1220,7 @@ function renderSellerOrders() {
 }
 
 function sendWA(number, name) {
-  const msg = encodeURIComponent(`Hi ${name}! Your Kboost is ready! I'll DM you once I'm on the way! — Komboostcha 🌿`);
+  const msg = encodeURIComponent(`Hi ${name}! Your Komboostcha order is confirmed 🌿 I'll message you once I'm on the way.`);
   window.open(`https://wa.me/${number.replace(/\D/g,'')}?text=${msg}`, '_blank');
 }
 
