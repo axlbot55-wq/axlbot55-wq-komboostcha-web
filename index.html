@@ -6,6 +6,7 @@
 <title>Komboostcha — Handcrafted Probiotics</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="config.js"></script>
 <style>
   :root {
     --cream: #FAF6EF;
@@ -1058,291 +1059,52 @@
 <div class="toast" id="toast"></div>
 
 <script>
+const cfg = window.KOMBOOSTCHA_CONFIG || {};
+const STORE_ORDERS = 'komboostcha_orders_v3';
+const STORE_BATCHES = 'komboostcha_batches_v3';
+const STORE_UNLOCK = 'komboostcha_seller_unlocked_v3';
+const WA_NUMBER = String(cfg.waNumber || '639209106731').replace(/\D/g, '');
+const SELLER_PIN = String(cfg.sellerPin || '2025');
+const WEBHOOK = String(cfg.orderWebhookUrl || '').trim();
+const DEFAULT_BATCH = Object.assign({ id: 4, total: 18, remaining: 14, zones: ['General QC', 'Ortigas'], cutoffText: 'Order by Friday midnight for Sunday delivery' }, cfg.batch || {});
 const prices = { kombucha: 350, yoghurt: 350 };
 const labels = { kombucha: 'Kombucha 500ml', yoghurt: 'HMGY Yoghurt 475ml' };
-let qty = { kombucha: 0, yoghurt: 0 };
-let orders = [];
-
-// ── Availability config (seller updates these numbers) ──
-const BATCH_TOTAL = 18;
-const BATCH_REMAINING = 14; // update per batch
-const WA_NUMBER = '639209106731';
-
-function toggleAccordion(trigger) {
-  const body = trigger.nextElementSibling;
-  const isOpen = body.classList.contains('open');
-  body.classList.toggle('open', !isOpen);
-  trigger.classList.toggle('open', !isOpen);
-}
-
-function totalQtyOrdered() { return qty.kombucha + qty.yoghurt; }
-
-function changeQty(item, delta) {
-  const newVal = qty[item] + delta;
-  const newTotal = (totalQtyOrdered() - qty[item]) + newVal;
-  if (newTotal > BATCH_REMAINING) { showToast(`Only ${BATCH_REMAINING} bottles left this batch`); return; }
-  qty[item] = Math.max(0, newVal);
-  document.getElementById('qty-' + item).textContent = qty[item];
-  updateCartUI();
-  updateAvailBar();
-}
-
-function updateAvailBar() {
-  const used = totalQtyOrdered();
-  const remaining = Math.max(0, BATCH_REMAINING - used);
-  const pct = Math.round((remaining / BATCH_TOTAL) * 100);
-  const bar = document.getElementById('avail-bar');
-  const dot = document.getElementById('avail-dot');
-  bar.style.width = pct + '%';
-  document.getElementById('avail-remaining').textContent = remaining;
-  if (remaining <= 4) {
-    bar.classList.add('low');
-    dot.classList.add('urgent');
-    document.getElementById('avail-cutoff-text').textContent = remaining === 0 ? 'This batch is fully reserved' : `Only ${remaining} left — order before they're gone`;
-  } else {
-    bar.classList.remove('low');
-    dot.classList.remove('urgent');
-    document.getElementById('avail-cutoff-text').textContent = 'Order by Friday midnight for Sunday delivery';
-  }
-}
-
-function updateCartUI() {
-  const total = qty.kombucha * prices.kombucha + qty.yoghurt * prices.yoghurt;
-  const hasItems = qty.kombucha > 0 || qty.yoghurt > 0;
-
-  document.getElementById('empty-cart-hint').style.display = hasItems ? 'none' : 'block';
-  document.getElementById('cart-summary').style.display = hasItems ? 'block' : 'none';
-  document.getElementById('order-form').style.display = hasItems ? 'block' : 'none';
-
-  let lines = '';
-  if (qty.kombucha > 0) lines += `<div class="summary-row"><span>${labels.kombucha} ×${qty.kombucha}</span><span>₱${(qty.kombucha * prices.kombucha).toLocaleString()}</span></div>`;
-  if (qty.yoghurt > 0) lines += `<div class="summary-row"><span>${labels.yoghurt} ×${qty.yoghurt}</span><span>₱${(qty.yoghurt * prices.yoghurt).toLocaleString()}</span></div>`;
-  document.getElementById('summary-lines').innerHTML = lines;
-  document.getElementById('summary-total').textContent = '₱' + total.toLocaleString();
-
-  const floatBtn = document.getElementById('cart-float-btn');
-  const totalQty = qty.kombucha + qty.yoghurt;
-  if (hasItems && document.getElementById('tab-order').classList.contains('active') === false) {
-    floatBtn.classList.add('visible');
-  } else {
-    floatBtn.classList.remove('visible');
-  }
-  document.getElementById('float-count').textContent = totalQty;
-}
-
-function placeOrder() {
-  const name = document.getElementById('cust-name').value.trim();
-  const wa = document.getElementById('cust-wa').value.trim();
-  const area = document.getElementById('cust-area').value;
-  const notes = document.getElementById('cust-notes').value.trim();
-  if (!name || !wa || !area) { showToast('Please fill in all required fields'); return; }
-  const total = qty.kombucha * prices.kombucha + qty.yoghurt * prices.yoghurt;
-  const order = { name, wa, area, qty: {...qty}, total, time: new Date().toLocaleTimeString('en-PH', {hour:'2-digit',minute:'2-digit'}) };
-  orders.push(order);
-  renderSellerOrders();
-
-  // Build WhatsApp message to seller
-  const items = [];
-  if (qty.kombucha > 0) items.push(`Kombucha ×${qty.kombucha}`);
-  if (qty.yoghurt > 0) items.push(`Yoghurt ×${qty.yoghurt}`);
-  const msgLines = [
-    `🌿 *New Komboostcha Order*`,
-    ``,
-    `*Name:* ${name}`,
-    `*Items:* ${items.join(', ')}`,
-    `*Total:* ₱${total.toLocaleString()}`,
-    `*Area:* ${area}`,
-    `*Their WA:* ${wa}`,
-    notes ? `*Notes:* ${notes}` : null,
-    ``,
-    `_Sent from Komboostcha order page_`
-  ].filter(l => l !== null).join('\n');
-
-  const waURL = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msgLines)}`;
-  window.open(waURL, '_blank');
-
-  document.getElementById('success-msg').textContent = `Thanks, ${name}! Your order was sent to us via WhatsApp. We'll confirm delivery to ${area} shortly.`;
-  document.getElementById('order-form').style.display = 'none';
-  document.getElementById('cart-summary').style.display = 'none';
-  document.getElementById('empty-cart-hint').style.display = 'none';
-  document.getElementById('order-success').style.display = 'block';
-}
-
-function resetOrder() {
-  qty = { kombucha: 0, yoghurt: 0 };
-  document.getElementById('qty-kombucha').textContent = 0;
-  document.getElementById('qty-yoghurt').textContent = 0;
-  document.getElementById('cust-name').value = '';
-  document.getElementById('cust-wa').value = '';
-  document.getElementById('cust-area').value = '';
-  document.getElementById('cust-notes').value = '';
-  document.getElementById('order-success').style.display = 'none';
-  updateCartUI();
-}
-
-function renderSellerOrders() {
-  const container = document.getElementById('seller-orders');
-  document.getElementById('order-count-label').textContent = orders.length + ' pending';
-  if (!orders.length) {
-    container.innerHTML = '<div style="text-align:center;padding:2rem 0;color:var(--text-muted);font-size:14px">No orders yet.</div>';
-    return;
-  }
-  container.innerHTML = orders.map((o, i) => {
-    const items = [];
-    if (o.qty.kombucha) items.push(`Kombucha ×${o.qty.kombucha}`);
-    if (o.qty.yoghurt) items.push(`Yoghurt ×${o.qty.yoghurt}`);
-    return `<div class="order-row">
-      <div style="flex:1;min-width:0">
-        <div class="name">${o.name}</div>
-        <div class="details">${items.join(' · ')} · ${o.area} · ${o.time}</div>
-      </div>
-      <div class="amount">₱${o.total.toLocaleString()}</div>
-      <button class="wa-btn" onclick="sendWA('${o.wa}','${o.name}')">WA</button>
-    </div>`;
-  }).join('');
-}
-
-function sendWA(number, name) {
-  const msg = encodeURIComponent(`Hi ${name}! Your Kboost is ready! I'll DM you once I'm on the way! — Komboostcha 🌿`);
-  window.open(`https://wa.me/${number.replace(/\D/g,'')}?text=${msg}`, '_blank');
-}
-
-function switchTab(id) {
-  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('tab-' + id).classList.add('active');
-  const publicTabs = ['order','about'];
-  const idx = publicTabs.indexOf(id);
-  if (idx >= 0) document.querySelectorAll('.tab-btn')[idx].classList.add('active');
-  if (id !== 'order') document.getElementById('cart-float-btn').classList.remove('visible');
-}
-
-let tapCount = 0, tapTimer = null;
-const SELLER_PIN = '2025'; // ← change this to your preferred PIN
-
-function secretTap() {
-  tapCount++;
-  clearTimeout(tapTimer);
-  tapTimer = setTimeout(() => { tapCount = 0; }, 1800);
-  if (tapCount >= 5) {
-    tapCount = 0;
-    showPinModal();
-  }
-}
-
-function showPinModal() {
-  document.getElementById('pin-modal').style.display = 'flex';
-  document.getElementById('pin-input').value = '';
-  setTimeout(() => document.getElementById('pin-input').focus(), 100);
-}
-
-function closePinModal() {
-  document.getElementById('pin-modal').style.display = 'none';
-}
-
-function checkPin() {
-  const entered = document.getElementById('pin-input').value.trim();
-  if (entered === SELLER_PIN) {
-    closePinModal();
-    const nav = document.querySelector('.nav-tabs');
-    if (!document.getElementById('seller-tab-btn')) {
-      const btn = document.createElement('button');
-      btn.className = 'tab-btn';
-      btn.id = 'seller-tab-btn';
-      btn.textContent = 'Seller';
-      btn.onclick = () => switchTabSeller();
-      nav.appendChild(btn);
-    }
-    switchTabSeller();
-    showToast('Seller mode unlocked');
-  } else {
-    document.getElementById('pin-input').value = '';
-    document.getElementById('pin-error').style.display = 'block';
-    setTimeout(() => document.getElementById('pin-error').style.display = 'none', 2000);
-  }
-}
-
-function switchTabSeller() {
-  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('tab-seller').classList.add('active');
-  document.getElementById('seller-tab-btn').classList.add('active');
-  document.getElementById('cart-float-btn').classList.remove('visible');
-}
-
-function scrollToForm() {
-  setTimeout(() => document.getElementById('order-form').scrollIntoView({behavior:'smooth'}), 100);
-}
-
-function showAddBatch() {
-  document.getElementById('add-batch-form').style.display = 'block';
-  document.getElementById('new-date').valueAsDate = new Date(Date.now() + 8 * 86400000);
-}
-
-function saveBatch() {
-  const keg = document.getElementById('new-keg').value;
-  const yld = document.getElementById('new-yield').value;
-  const date = document.getElementById('new-date').value;
-  if (!keg || !yld || !date) { showToast('Fill in all batch fields'); return; }
-  const readyDate = new Date(date);
-  const daysLeft = Math.ceil((readyDate - new Date()) / 86400000);
-  const id = 'batch-' + Date.now();
-  const card = document.createElement('div');
-  card.className = 'batch-card';
-  card.id = id;
-  card.innerHTML = `<div class="batch-header">
-    <span class="batch-title">Keg #${keg}</span>
-    <span class="status-badge status-brewing">Brewing</span>
-  </div>
-  <div class="batch-stats">
-    <div class="stat-box"><div class="val">${yld}</div><div class="lbl">Bottles</div></div>
-    <div class="stat-box"><div class="val">${readyDate.toLocaleDateString('en-PH',{month:'short',day:'numeric'})}</div><div class="lbl">Ready date</div></div>
-    <div class="stat-box"><div class="val">${Math.max(0,daysLeft)}</div><div class="lbl">Days left</div></div>
-  </div>
-  <div style="display:flex;gap:8px">
-    <button class="btn-secondary" style="flex:1;font-size:12px" onclick="markReady('${id}')">Mark ready</button>
-    <button class="btn-secondary" style="flex:1;font-size:12px;color:var(--kombucha);border-color:var(--kombucha)" onclick="deleteBatch('${id}')">Remove</button>
-  </div>`;
-  document.getElementById('batch-list').prepend(card);
-  document.getElementById('add-batch-form').style.display = 'none';
-  document.getElementById('new-keg').value = '';
-  document.getElementById('new-yield').value = '';
-  showToast('Batch saved');
-}
-
-function markReady(id) {
-  const badge = document.querySelector('#' + id + ' .status-badge');
-  badge.className = 'status-badge status-ready';
-  badge.textContent = 'Ready';
-  showToast('Batch marked ready!');
-}
-
-function deleteBatch(id) {
-  document.getElementById(id).remove();
-}
-
-function copyTemplate() {
-  const txt = document.getElementById('wa-template-text').textContent;
-  navigator.clipboard.writeText(txt).then(() => showToast('Message copied!'));
-}
-
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2200);
-}
-
-// Compute days left for sample batch
-const readyDate = new Date('2025-04-12');
-const daysLeft = Math.ceil((readyDate - new Date()) / 86400000);
-document.getElementById('days-til').textContent = Math.max(0, daysLeft);
-
-// Wire WA number into About tab link
-document.getElementById('about-wa-link').href = 'https://wa.me/' + WA_NUMBER;
-
-// Init availability bar
-updateAvailBar();
+let qty = { kombucha: 0, yoghurt: 0 }, orders = [], batches = [], tapCount = 0, tapTimer = null;
+function safe(t){return String(t==null?'':t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;')}
+function showToast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');clearTimeout(window.__toastTimer);window.__toastTimer=setTimeout(()=>t.classList.remove('show'),2200)}
+function loadOrders(){try{orders=JSON.parse(localStorage.getItem(STORE_ORDERS)||'[]');if(!Array.isArray(orders))orders=[]}catch{orders=[]}}
+function saveOrders(){localStorage.setItem(STORE_ORDERS,JSON.stringify(orders))}
+function defaultBatchEntry(){return {id:'batch-'+DEFAULT_BATCH.id,name:'Keg #'+DEFAULT_BATCH.id,total:Number(DEFAULT_BATCH.total)||18,remaining:Number(DEFAULT_BATCH.remaining)||14,readyDate:'',status:'ready',cutoffText:DEFAULT_BATCH.cutoffText,zones:DEFAULT_BATCH.zones}}
+function loadBatches(){try{batches=JSON.parse(localStorage.getItem(STORE_BATCHES)||'[]');if(!Array.isArray(batches))batches=[]}catch{batches=[]}if(!batches.length){batches=[defaultBatchEntry()];saveBatches()}}
+function saveBatches(){localStorage.setItem(STORE_BATCHES,JSON.stringify(batches))}
+function currentBatch(){return batches[0]||defaultBatchEntry()}
+function totalQtyOrdered(){return qty.kombucha+qty.yoghurt}
+function updateStaticLinks(){const about=document.getElementById('about-wa-link');if(about)about.href='https://wa.me/'+WA_NUMBER}
+function updateBatchMeta(){const b=currentBatch();const n=String(b.name||('Keg #'+DEFAULT_BATCH.id)).match(/\d+/)?.[0]||DEFAULT_BATCH.id;const label=document.querySelector('.avail-label');if(label)label.textContent='Batch #'+n+' availability';const ready=document.getElementById('batch-ready-label');if(ready)ready.textContent=b.status==='brewing'?'Brewing now':'Ready to order'}
+function updateAvailBar(){const b=currentBatch();const total=Math.max(1,Number(b.total)||DEFAULT_BATCH.total||18);const remainingBase=Math.max(0,Number(b.remaining)||0);const remaining=Math.max(0,remainingBase-totalQtyOrdered());const pct=Math.max(0,Math.min(100,Math.round((remaining/total)*100)));document.getElementById('avail-bar').style.width=pct+'%';const count=document.querySelector('.avail-count');if(count)count.innerHTML=`<strong id="avail-remaining">${remaining}</strong> of ${total} bottles left`;const cutoff=document.getElementById('avail-cutoff-text');const dot=document.getElementById('avail-dot');const bar=document.getElementById('avail-bar');if(remaining===0){bar.classList.add('low');dot.classList.add('urgent');cutoff.textContent='This batch is fully reserved'}else if(remaining<=4){bar.classList.add('low');dot.classList.add('urgent');cutoff.textContent=`Only ${remaining} left — order before they're gone`}else{bar.classList.remove('low');dot.classList.remove('urgent');cutoff.textContent=b.cutoffText||DEFAULT_BATCH.cutoffText}}
+function updateCartUI(){const total=qty.kombucha*prices.kombucha+qty.yoghurt*prices.yoghurt;const has=totalQtyOrdered()>0;document.getElementById('empty-cart-hint').style.display=has?'none':'block';document.getElementById('cart-summary').style.display=has?'block':'none';document.getElementById('order-form').style.display=has?'block':'none';let lines='';if(qty.kombucha>0)lines+=`<div class="summary-row"><span>${labels.kombucha} ×${qty.kombucha}</span><span>₱${(qty.kombucha*prices.kombucha).toLocaleString()}</span></div>`;if(qty.yoghurt>0)lines+=`<div class="summary-row"><span>${labels.yoghurt} ×${qty.yoghurt}</span><span>₱${(qty.yoghurt*prices.yoghurt).toLocaleString()}</span></div>`;document.getElementById('summary-lines').innerHTML=lines;document.getElementById('summary-total').textContent='₱'+total.toLocaleString();const fb=document.getElementById('cart-float-btn');if(has&&!document.getElementById('tab-order').classList.contains('active'))fb.classList.add('visible');else fb.classList.remove('visible');document.getElementById('float-count').textContent=totalQtyOrdered()}
+function changeQty(item,delta){const b=currentBatch();const lim=Math.max(0,Number(b.remaining)||0);const nv=Math.max(0,qty[item]+delta);const nt=totalQtyOrdered()-qty[item]+nv;if(nt>lim){showToast(`Only ${lim} bottles left this batch`);return}qty[item]=nv;document.getElementById('qty-'+item).textContent=qty[item];updateCartUI();updateAvailBar()}
+async function sendBackend(order){if(!WEBHOOK)return false;try{const res=await fetch(WEBHOOK,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({source:'komboostcha-storefront',order})});return res.ok}catch{return false}}
+async function placeOrder(){const name=document.getElementById('cust-name').value.trim();const wa=document.getElementById('cust-wa').value.trim();const area=document.getElementById('cust-area').value;const notes=document.getElementById('cust-notes').value.trim();const waClean=wa.replace(/[\s()-]/g,'');if(!name||!wa||!area){showToast('Please fill in all required fields');return}if(!/^\+?\d{10,15}$/.test(waClean)){showToast('Enter a valid WhatsApp number');return}if(!totalQtyOrdered()){showToast('Add at least one item first');return}const total=qty.kombucha*prices.kombucha+qty.yoghurt*prices.yoghurt;const items=[];if(qty.kombucha>0)items.push(`Kombucha ×${qty.kombucha}`);if(qty.yoghurt>0)items.push(`Yoghurt ×${qty.yoghurt}`);const b=currentBatch();const order={id:Date.now(),name,wa:waClean,area,notes,qty:{...qty},items,total,batchId:b.id,batchName:b.name,time:new Date().toLocaleTimeString('en-PH',{hour:'2-digit',minute:'2-digit'}),createdAt:new Date().toISOString(),source:'storefront'};orders.unshift(order);saveOrders();if(batches.length){batches[0].remaining=Math.max(0,(Number(batches[0].remaining)||0)-totalQtyOrdered());saveBatches()}renderSellerOrders();renderBatches();updateBatchMeta();updateAvailBar();const synced=await sendBackend(order);const msg=['🌿 *New Komboostcha Order*','',`*Name:* ${name}`,`*Items:* ${items.join(', ')}`,`*Total:* ₱${total.toLocaleString()}`,`*Area:* ${area}`,`*Their WA:* ${waClean}`,notes?`*Notes:* ${notes}`:null,'',synced?'_Saved to backend log too._':'_WhatsApp/local fallback used._'].filter(Boolean).join('
+');window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`,'_blank');document.getElementById('success-msg').textContent=`Thanks, ${name}! Your order was sent to us via WhatsApp${synced?' and logged to the order sheet':''}. We'll confirm delivery to ${area} shortly.`;document.getElementById('order-form').style.display='none';document.getElementById('cart-summary').style.display='none';document.getElementById('empty-cart-hint').style.display='none';document.getElementById('order-success').style.display='block'}
+function resetOrder(){qty={kombucha:0,yoghurt:0};document.getElementById('qty-kombucha').textContent=0;document.getElementById('qty-yoghurt').textContent=0;document.getElementById('cust-name').value='';document.getElementById('cust-wa').value='';document.getElementById('cust-area').value='';document.getElementById('cust-notes').value='';document.getElementById('order-success').style.display='none';updateCartUI();updateAvailBar()}
+function sendWA(number,name){const clean=String(number||'').replace(/\D/g,'');const msg=encodeURIComponent(`Hi ${name}! Your Kboost is ready! I'll DM you once I'm on the way! — Komboostcha 🌿`);window.open(`https://wa.me/${clean}?text=${msg}`,'_blank')}
+function renderSellerOrders(){const c=document.getElementById('seller-orders');document.getElementById('order-count-label').textContent=orders.length+' pending';if(!orders.length){c.innerHTML='<div style="text-align:center;padding:2rem 0;color:var(--text-muted);font-size:14px">No orders yet — they appear here when customers submit them.</div>';return}c.innerHTML=orders.map(o=>`<div class="order-row"><div style="flex:1;min-width:0"><div class="name">${safe(o.name)}</div><div class="details">${safe((o.items||[]).join(' · '))} · ${safe(o.area)} · ${safe(o.time||'')}</div></div><div class="amount">₱${Number(o.total||0).toLocaleString()}</div><button class="wa-btn" onclick="sendWA(${JSON.stringify(String(o.wa||''))}, ${JSON.stringify(String(o.name||'Customer'))})">WA</button></div>`).join('')}
+function daysUntil(d){if(!d)return '—';const diff=Math.ceil((new Date(d)-new Date())/86400000);return Math.max(0,diff)}
+function renderBatches(){const list=document.getElementById('batch-list');if(!batches.length){list.innerHTML='<div class="batch-card">No batches yet.</div>';return}list.innerHTML=batches.map(b=>`<div class="batch-card" id="${safe(b.id)}"><div class="batch-header"><span class="batch-title">${safe(b.name)}</span><span class="status-badge ${b.status==='ready'?'status-ready':'status-brewing'}">${safe(b.status)}</span></div><div class="batch-stats"><div class="stat-box"><div class="val">${Number(b.total||0)}</div><div class="lbl">Bottles</div></div><div class="stat-box"><div class="val">${b.readyDate?safe(new Date(b.readyDate).toLocaleDateString('en-PH',{month:'short',day:'numeric'})):'—'}</div><div class="lbl">Ready date</div></div><div class="stat-box"><div class="val">${b.status==='ready'?Number(b.remaining||0):daysUntil(b.readyDate)}</div><div class="lbl">${b.status==='ready'?'Left':'Days left'}</div></div></div><div style="display:flex;gap:8px"><button class="btn-secondary" style="flex:1;font-size:12px" onclick="markReady(${JSON.stringify(String(b.id))})">Mark ${b.status==='ready'?'brewing':'ready'}</button><button class="btn-secondary" style="flex:1;font-size:12px;color:var(--kombucha);border-color:var(--kombucha)" onclick="deleteBatch(${JSON.stringify(String(b.id))})">Remove</button></div></div>`).join('')}
+function showAddBatch(){document.getElementById('add-batch-form').style.display='block';document.getElementById('new-date').valueAsDate=new Date(Date.now()+8*86400000)}
+function saveBatch(){const keg=document.getElementById('new-keg').value.trim();const yld=Number(document.getElementById('new-yield').value);const date=document.getElementById('new-date').value;if(!keg||!yld||!date){showToast('Fill in all batch fields');return}batches.unshift({id:'batch-'+Date.now(),name:'Keg #'+keg,total:yld,remaining:yld,readyDate:date,status:'brewing',cutoffText:DEFAULT_BATCH.cutoffText,zones:DEFAULT_BATCH.zones});saveBatches();renderBatches();updateBatchMeta();updateAvailBar();document.getElementById('add-batch-form').style.display='none';document.getElementById('new-keg').value='';document.getElementById('new-yield').value='';showToast('Batch saved')}
+function markReady(id){batches=batches.map(b=>b.id===id?{...b,status:b.status==='ready'?'brewing':'ready'}:b);saveBatches();renderBatches();updateBatchMeta();updateAvailBar();showToast('Batch updated')}
+function deleteBatch(id){batches=batches.filter(b=>b.id!==id);if(!batches.length)batches=[defaultBatchEntry()];saveBatches();renderBatches();updateBatchMeta();updateAvailBar();showToast('Batch removed')}
+function copyTemplate(){const txt=document.getElementById('wa-template-text').textContent;navigator.clipboard.writeText(txt).then(()=>showToast('Message copied!')).catch(()=>showToast('Could not copy message'))}
+function switchTab(id){document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));document.getElementById('tab-'+id).classList.add('active');const sellerBtn=document.getElementById('seller-tab-btn');if(id==='seller'&&sellerBtn)sellerBtn.classList.add('active');else{const publicTabs=['order','about'];const idx=publicTabs.indexOf(id);if(idx>=0)document.querySelectorAll('.tab-btn')[idx].classList.add('active')}if(id!=='order')document.getElementById('cart-float-btn').classList.remove('visible')}
+function ensureSellerTab(){const nav=document.querySelector('.nav-tabs');if(!document.getElementById('seller-tab-btn')){const btn=document.createElement('button');btn.className='tab-btn';btn.id='seller-tab-btn';btn.textContent='Seller';btn.onclick=()=>switchTab('seller');nav.appendChild(btn)}}
+function secretTap(){tapCount++;clearTimeout(tapTimer);tapTimer=setTimeout(()=>{tapCount=0},1800);if(tapCount>=5){tapCount=0;showPinModal()}}
+function showPinModal(){document.getElementById('pin-modal').style.display='flex';document.getElementById('pin-input').value='';setTimeout(()=>document.getElementById('pin-input').focus(),100)}
+function closePinModal(){document.getElementById('pin-modal').style.display='none'}
+function checkPin(){const entered=document.getElementById('pin-input').value.trim();if(entered===SELLER_PIN){localStorage.setItem(STORE_UNLOCK,'1');closePinModal();ensureSellerTab();switchTab('seller');showToast('Seller mode unlocked')}else{document.getElementById('pin-input').value='';document.getElementById('pin-error').style.display='block';setTimeout(()=>document.getElementById('pin-error').style.display='none',2000)}}
+function scrollToForm(){setTimeout(()=>{const form=document.getElementById('order-form');if(form&&form.style.display!=='none')form.scrollIntoView({behavior:'smooth'})},100)}
+(function init(){loadOrders();loadBatches();updateStaticLinks();updateBatchMeta();renderBatches();renderSellerOrders();updateCartUI();updateAvailBar();if(localStorage.getItem(STORE_UNLOCK)==='1')ensureSellerTab()})();
 </script>
 </body>
 </html>
