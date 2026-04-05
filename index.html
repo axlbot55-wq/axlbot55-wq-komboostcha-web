@@ -109,6 +109,34 @@
   .hero-cta-primary:hover { background:var(--cream-dark); }
   .hero-cta-secondary { border:1px solid rgba(255,255,255,.24); color:#fff; background:rgba(255,255,255,.08); }
   .hero-cta-secondary:hover { background:rgba(255,255,255,.14); }
+  .hero-meta-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; max-width:480px; margin:1.1rem auto 0; }
+  .hero-meta-card { background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.12); border-radius:14px; padding:12px 10px; }
+  .hero-meta-card strong { display:block; font-size:15px; font-weight:600; color:#fff; }
+  .hero-meta-card span { display:block; margin-top:2px; font-size:11px; opacity:.78; }
+  .section-lead { font-size:13px; color:var(--text-muted); line-height:1.6; margin:-2px 0 1rem; }
+  .order-steps { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin:0 0 1rem; }
+  .order-step { background:#fff; border:1px solid var(--border); border-radius:14px; padding:12px 10px; }
+  .order-step strong { display:block; font-size:12px; color:var(--moss); margin-bottom:4px; }
+  .order-step span { font-size:11px; color:var(--text-muted); line-height:1.45; display:block; }
+  .premium-note { background:linear-gradient(180deg,#fff,rgba(255,255,255,.94)); border:1px solid var(--border); border-radius:var(--radius); padding:1rem 1.1rem; margin-bottom:1rem; box-shadow:0 10px 24px rgba(59,92,53,.05); }
+  .premium-note strong { display:block; color:var(--moss); font-size:13px; margin-bottom:4px; }
+  .premium-note p { font-size:12px; color:var(--text-mid); line-height:1.6; }
+  .product-card { box-shadow:0 10px 24px rgba(59,92,53,.04); transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease; }
+  .product-card:hover { transform:translateY(-2px); box-shadow:0 14px 28px rgba(59,92,53,.08); border-color:var(--border-mid); }
+  .summary-meta { margin-top:10px; font-size:12px; color:var(--text-muted); line-height:1.5; }
+  .helper-inline { font-size:11px; color:var(--text-muted); margin-top:6px; }
+  .seller-toolbar { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:1rem; }
+  .seller-chip { display:inline-flex; align-items:center; gap:6px; background:#fff; border:1px solid var(--border); border-radius:100px; padding:8px 12px; font-size:12px; color:var(--text-mid); }
+  .seller-chip strong { color:var(--moss); }
+  .seller-helper { background:var(--moss-pale); border:1px solid var(--border); border-radius:var(--radius); padding:1rem 1.1rem; margin-bottom:1rem; }
+  .seller-helper h4 { font-size:14px; color:var(--moss); margin-bottom:4px; }
+  .seller-helper p { font-size:12px; color:var(--text-mid); line-height:1.6; }
+  .seller-actions { display:flex; gap:8px; margin-top:10px; flex-wrap:wrap; }
+  .status-line { font-size:11px; color:var(--text-muted); margin-top:8px; }
+  .status-line strong { color:var(--moss); }
+  .btn-ghost-lite { background:#fff; color:var(--moss); border:1px solid var(--border-mid); border-radius:var(--radius-sm); padding:.75rem 1rem; font-size:13px; font-weight:600; cursor:pointer; }
+  .btn-ghost-lite:hover { background:var(--moss-pale); }
+  @media(max-width:600px){ .hero-meta-grid,.order-steps{grid-template-columns:1fr;} }
 
   /* ── NAV TABS ── */
   .nav-tabs {
@@ -828,6 +856,7 @@
           <span>Total</span>
           <span id="summary-total">₱0</span>
         </div>
+        <div class="summary-meta">Delivery confirmation happens on WhatsApp. We only finalize once we've confirmed your area + batch availability.</div>
       </div>
     </div>
 
@@ -851,6 +880,7 @@
       <div class="form-section">
         <label>WhatsApp number</label>
         <input type="tel" id="cust-wa" placeholder="e.g. 09171234567">
+        <div class="helper-inline">Use the number we should message for confirmation and delivery updates.</div>
       </div>
       <div class="form-section">
         <label>Delivery area</label>
@@ -865,8 +895,8 @@
         <textarea id="cust-notes" placeholder="Delivery instructions, preferred time, etc."></textarea>
       </div>
 
-      <button class="btn-primary" onclick="placeOrder()">Confirm Order →</button>
-      <p style="font-size:12px;color:var(--text-muted);text-align:center;margin-top:0.75rem;">We'll confirm via WhatsApp before delivery.</p>
+      <button class="btn-primary" id="confirm-order-btn" onclick="placeOrder()">Send Order on WhatsApp →</button>
+      <p style="font-size:12px;color:var(--text-muted);text-align:center;margin-top:0.75rem;">We'll confirm via WhatsApp before delivery. If backend sync is enabled, your order is also saved automatically.</p>
     </div>
 
     <!-- Success State -->
@@ -888,6 +918,20 @@
 <!-- ════════ SELLER SECTION ════════ -->
 <div id="tab-seller" class="section">
   <div class="container">
+    <div class="seller-helper">
+      <h4>Seller mode</h4>
+      <p>This view is private to your browser after PIN unlock. Orders are kept locally for quick ops, and can also sync to a webhook / Google Sheets endpoint when configured.</p>
+      <div class="seller-actions">
+        <button class="btn-secondary" onclick="exportOrders()">Export orders JSON</button>
+        <button class="btn-ghost-lite" onclick="lockSellerMode()">Lock seller mode</button>
+      </div>
+      <div class="status-line" id="backend-status">Backend sync: <strong>WhatsApp-only fallback</strong></div>
+    </div>
+    <div class="seller-toolbar">
+      <div class="seller-chip">Batch left: <strong id="seller-remaining">14</strong></div>
+      <div class="seller-chip">Pending orders: <strong id="seller-pending">0</strong></div>
+      <div class="seller-chip">Mode: <strong id="seller-mode-state">Local</strong></div>
+    </div>
 
     <!-- Batch Tracker -->
     <div class="section-header" style="margin-top:0.5rem">
@@ -1078,11 +1122,15 @@ const prices = { kombucha: 350, yoghurt: 350 };
 const labels = { kombucha: 'Kombucha 500ml', yoghurt: 'HMGY Yoghurt 475ml' };
 let qty = { kombucha: 0, yoghurt: 0 };
 let orders = [];
+const STORAGE_KEY_ORDERS = 'komboostcha_orders_v1';
+const STORAGE_KEY_SELLER = 'komboostcha_seller_unlocked_v1';
 
 // ── Availability config (seller updates these numbers) ──
 const BATCH_TOTAL = 18;
 const BATCH_REMAINING = 14; // update per batch
 const WA_NUMBER = '639209106731';
+const ORDER_WEBHOOK_URL = ''; // optional: paste Google Apps Script / webhook URL here
+const ENABLE_BACKEND_SYNC = ORDER_WEBHOOK_URL.trim().length > 0;
 
 function toggleAccordion(trigger) {
   const body = trigger.nextElementSibling;
@@ -1106,6 +1154,8 @@ function changeQty(item, delta) {
 function updateAvailBar() {
   const used = totalQtyOrdered();
   const remaining = Math.max(0, BATCH_REMAINING - used);
+  const sellerRemaining = document.getElementById('seller-remaining');
+  if (sellerRemaining) sellerRemaining.textContent = remaining;
   const pct = Math.round((remaining / BATCH_TOTAL) * 100);
   const bar = document.getElementById('avail-bar');
   const dot = document.getElementById('avail-dot');
@@ -1146,7 +1196,8 @@ function updateCartUI() {
   document.getElementById('float-count').textContent = totalQty;
 }
 
-function placeOrder() {
+async function placeOrder() {
+  const btn = document.getElementById('confirm-order-btn');
   const name = document.getElementById('cust-name').value.trim();
   const wa = document.getElementById('cust-wa').value.trim();
   const area = document.getElementById('cust-area').value;
@@ -1154,14 +1205,16 @@ function placeOrder() {
   if (!name || !wa || !area) { showToast('Please fill in all required fields'); return; }
   if (!/^\+?\d{10,15}$/.test(wa.replace(/[\s()-]/g,''))) { showToast('Enter a valid WhatsApp number'); return; }
   const total = qty.kombucha * prices.kombucha + qty.yoghurt * prices.yoghurt;
-  const order = { name, wa, area, qty: {...qty}, total, time: new Date().toLocaleTimeString('en-PH', {hour:'2-digit',minute:'2-digit'}) };
-  orders.push(order);
-  renderSellerOrders();
 
   // Build WhatsApp message to seller
   const items = [];
   if (qty.kombucha > 0) items.push(`Kombucha ×${qty.kombucha}`);
   if (qty.yoghurt > 0) items.push(`Yoghurt ×${qty.yoghurt}`);
+  const order = { id: Date.now(), name, wa, area, notes, qty: {...qty}, total, items, createdAt: new Date().toISOString(), time: new Date().toLocaleTimeString('en-PH', {hour:'2-digit',minute:'2-digit'}) };
+  orders.push(order);
+  persistOrders();
+  renderSellerOrders();
+  if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
   const msgLines = [
     `🌿 *New Komboostcha Order*`,
     ``,
@@ -1175,14 +1228,18 @@ function placeOrder() {
     `_Sent from Komboostcha order page_`
   ].filter(l => l !== null).join('\n');
 
+  const backendOk = await sendOrderToBackend(order);
   const waURL = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msgLines)}`;
   window.open(waURL, '_blank');
 
-  document.getElementById('success-msg').textContent = `Thanks, ${name}! Your order was sent to us via WhatsApp. We'll confirm delivery to ${area} shortly.`;
+  document.getElementById('success-msg').textContent = backendOk
+    ? `Thanks, ${name}! Your order was sent to us via WhatsApp and saved to the order log. We'll confirm delivery to ${area} shortly.`
+    : `Thanks, ${name}! Your order was sent to us via WhatsApp. We'll confirm delivery to ${area} shortly.`;
   document.getElementById('order-form').style.display = 'none';
   document.getElementById('cart-summary').style.display = 'none';
   document.getElementById('empty-cart-hint').style.display = 'none';
   document.getElementById('order-success').style.display = 'block';
+  if (btn) { btn.disabled = false; btn.textContent = 'Send Order on WhatsApp →'; }
 }
 
 function resetOrder() {
@@ -1200,6 +1257,8 @@ function resetOrder() {
 function renderSellerOrders() {
   const container = document.getElementById('seller-orders');
   document.getElementById('order-count-label').textContent = orders.length + ' pending';
+  const sellerPending = document.getElementById('seller-pending');
+  if (sellerPending) sellerPending.textContent = orders.length;
   if (!orders.length) {
     container.innerHTML = '<div style="text-align:center;padding:2rem 0;color:var(--text-muted);font-size:14px">No orders yet.</div>';
     return;
@@ -1228,9 +1287,14 @@ function switchTab(id) {
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
   document.getElementById('tab-' + id).classList.add('active');
-  const publicTabs = ['order','about'];
-  const idx = publicTabs.indexOf(id);
-  if (idx >= 0) document.querySelectorAll('.tab-btn')[idx].classList.add('active');
+  if (id === 'seller') {
+    const sellerBtn = document.getElementById('seller-tab-btn');
+    if (sellerBtn) sellerBtn.classList.add('active');
+  } else {
+    const publicTabs = ['order','about'];
+    const idx = publicTabs.indexOf(id);
+    if (idx >= 0) document.querySelectorAll('.tab-btn')[idx].classList.add('active');
+  }
   if (id !== 'order') document.getElementById('cart-float-btn').classList.remove('visible');
 }
 
@@ -1257,19 +1321,24 @@ function closePinModal() {
   document.getElementById('pin-modal').style.display = 'none';
 }
 
+function ensureSellerTab() {
+  const nav = document.querySelector('.nav-tabs');
+  if (!document.getElementById('seller-tab-btn')) {
+    const btn = document.createElement('button');
+    btn.className = 'tab-btn';
+    btn.id = 'seller-tab-btn';
+    btn.textContent = 'Seller';
+    btn.onclick = () => switchTabSeller();
+    nav.appendChild(btn);
+  }
+}
+
 function checkPin() {
   const entered = document.getElementById('pin-input').value.trim();
   if (entered === SELLER_PIN) {
     closePinModal();
-    const nav = document.querySelector('.nav-tabs');
-    if (!document.getElementById('seller-tab-btn')) {
-      const btn = document.createElement('button');
-      btn.className = 'tab-btn';
-      btn.id = 'seller-tab-btn';
-      btn.textContent = 'Seller';
-      btn.onclick = () => switchTabSeller();
-      nav.appendChild(btn);
-    }
+    localStorage.setItem(STORAGE_KEY_SELLER, '1');
+    ensureSellerTab();
     switchTabSeller();
     showToast('Seller mode unlocked');
   } else {
@@ -1280,11 +1349,16 @@ function checkPin() {
 }
 
 function switchTabSeller() {
-  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('tab-seller').classList.add('active');
-  document.getElementById('seller-tab-btn').classList.add('active');
+  switchTab('seller');
   document.getElementById('cart-float-btn').classList.remove('visible');
+}
+
+function lockSellerMode() {
+  localStorage.removeItem(STORAGE_KEY_SELLER);
+  const btn = document.getElementById('seller-tab-btn');
+  if (btn) btn.remove();
+  switchTab('order');
+  showToast('Seller mode locked');
 }
 
 function scrollToForm() {
@@ -1350,6 +1424,51 @@ function showToast(msg) {
   setTimeout(() => t.classList.remove('show'), 2200);
 }
 
+function persistOrders() {
+  localStorage.setItem(STORAGE_KEY_ORDERS, JSON.stringify(orders));
+}
+
+function loadOrders() {
+  try {
+    orders = JSON.parse(localStorage.getItem(STORAGE_KEY_ORDERS) || '[]');
+    if (!Array.isArray(orders)) orders = [];
+  } catch (e) { orders = []; }
+}
+
+async function sendOrderToBackend(order) {
+  const backendState = document.getElementById('backend-status');
+  const sellerModeState = document.getElementById('seller-mode-state');
+  if (!ENABLE_BACKEND_SYNC) {
+    if (backendState) backendState.innerHTML = 'Backend sync: <strong>WhatsApp-only fallback</strong>';
+    if (sellerModeState) sellerModeState.textContent = 'Local';
+    return false;
+  }
+  try {
+    const res = await fetch(ORDER_WEBHOOK_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ source: 'komboostcha-web', order })
+    });
+    if (!res.ok) throw new Error('Webhook failed');
+    if (backendState) backendState.innerHTML = 'Backend sync: <strong>Connected</strong>';
+    if (sellerModeState) sellerModeState.textContent = 'Webhook';
+    return true;
+  } catch (e) {
+    if (backendState) backendState.innerHTML = 'Backend sync: <strong>Webhook failed, using WhatsApp fallback</strong>';
+    if (sellerModeState) sellerModeState.textContent = 'Fallback';
+    return false;
+  }
+}
+
+function exportOrders() {
+  const blob = new Blob([JSON.stringify(orders, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'komboostcha-orders.json';
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
 // Compute days left for sample batch
 const readyDate = new Date('2025-04-12');
 const daysLeft = Math.ceil((readyDate - new Date()) / 86400000);
@@ -1358,8 +1477,17 @@ document.getElementById('days-til').textContent = Math.max(0, daysLeft);
 // Wire WA number into About tab link
 document.getElementById('about-wa-link').href = 'https://wa.me/' + WA_NUMBER;
 
-// Init availability bar
+// Init state
+loadOrders();
+renderSellerOrders();
 updateAvailBar();
+if (localStorage.getItem(STORAGE_KEY_SELLER) === '1') ensureSellerTab();
+if (ENABLE_BACKEND_SYNC) {
+  const backendState = document.getElementById('backend-status');
+  const sellerModeState = document.getElementById('seller-mode-state');
+  if (backendState) backendState.innerHTML = 'Backend sync: <strong>Configured</strong>';
+  if (sellerModeState) sellerModeState.textContent = 'Webhook-ready';
+}
 </script>
 </body>
 </html>
