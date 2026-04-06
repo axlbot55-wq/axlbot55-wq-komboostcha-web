@@ -250,7 +250,7 @@ img { display: block; max-width: 100%; }
 <body>
 <div class="shell">
   <div class="topbar">
-    <div class="brand-mark"><span class="dot"></span><span id="logo-tap" onclick="secretTap()">Komboostcha · small-batch cultured goods</span></div>
+    <div class="brand-mark"><span class="dot"></span><span id="logo-tap">Komboostcha · small-batch cultured goods</span></div>
     <div class="mini-note" id="topbar-zones">Now accepting orders in General QC &amp; Ortigas</div>
   </div>
 
@@ -732,7 +732,7 @@ const DEFAULT_CONTENT = {
 };
 const prices = { kombucha: 350, yoghurt: 350 };
 const labels = { kombucha: 'Kombucha 500ml', yoghurt: 'HMGY Yoghurt 475ml' };
-let qty = { kombucha: 0, yoghurt: 0 }, orders = [], batches = [], tapCount = 0, tapTimer = null, editableContent = { ...DEFAULT_CONTENT };
+let qty = { kombucha: 0, yoghurt: 0 }, orders = [], batches = [], editableContent = { ...DEFAULT_CONTENT };
 function safe(t){return String(t==null?'':t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;')}
 function showToast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');clearTimeout(window.__toastTimer);window.__toastTimer=setTimeout(()=>t.classList.remove('show'),2200)}
 function setEditorStatus(text){const el=document.getElementById('editor-status'); if(el) el.textContent=text;}
@@ -775,14 +775,14 @@ function deleteBatch(id){batches=batches.filter(b=>b.id!==id);if(!batches.length
 function copyTemplate(){const txt=document.getElementById('wa-template-text').textContent;navigator.clipboard.writeText(txt).then(()=>showToast('Message copied!')).catch(()=>showToast('Could not copy message'))}
 function switchTab(id){document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));document.getElementById('tab-'+id).classList.add('active');const sellerBtn=document.getElementById('seller-tab-btn');if(id==='seller'&&sellerBtn)sellerBtn.classList.add('active');else{const publicTabs=['order','about'];const idx=publicTabs.indexOf(id);if(idx>=0)document.querySelectorAll('.tab-btn')[idx].classList.add('active')}if(id!=='order')document.getElementById('cart-float-btn').classList.remove('visible')}
 function ensureSellerTab(){const nav=document.querySelector('.nav-tabs');if(!document.getElementById('seller-tab-btn')){const btn=document.createElement('button');btn.className='tab-btn';btn.id='seller-tab-btn';btn.textContent='Seller';btn.onclick=()=>switchTab('seller');nav.appendChild(btn)}}
-function exitSellerMode(){localStorage.removeItem(STORE_UNLOCK);const sellerBtn=document.getElementById('seller-tab-btn');if(sellerBtn)sellerBtn.remove();switchTab('order');showToast('Seller mode closed')}
-function secretTap(){tapCount++;clearTimeout(tapTimer);tapTimer=setTimeout(()=>{tapCount=0},1800);if(tapCount>=5){tapCount=0;showPinModal()}}
+function exitSellerMode(){localStorage.removeItem(STORE_UNLOCK);const sellerBtn=document.getElementById('seller-tab-btn');if(sellerBtn)sellerBtn.remove();if(new URLSearchParams(location.search).has('seller')){location.href='./index.html';return}switchTab('order');showToast('Seller mode closed')}
 function showPinModal(){document.getElementById('pin-modal').style.display='flex';document.getElementById('pin-input').value='';setTimeout(()=>document.getElementById('pin-input').focus(),100)}
 function closePinModal(){document.getElementById('pin-modal').style.display='none'}
 function checkPin(){const entered=document.getElementById('pin-input').value.trim();if(entered===SELLER_PIN){localStorage.setItem(STORE_UNLOCK,'1');closePinModal();ensureSellerTab();switchTab('seller');loadOwnerEditor();showToast('Seller mode unlocked')}else{document.getElementById('pin-input').value='';document.getElementById('pin-error').style.display='block';setTimeout(()=>document.getElementById('pin-error').style.display='none',2000)}}
+function handleSellerRoute(){const isSellerRoute=new URLSearchParams(location.search).has('seller');if(!isSellerRoute)return;if(localStorage.getItem(STORE_UNLOCK)==='1'){ensureSellerTab();switchTab('seller');loadOwnerEditor();return}ensureSellerTab();showPinModal();}
 function scrollToForm(){setTimeout(()=>{const form=document.getElementById('order-form');if(form&&form.style.display!=='none')form.scrollIntoView({behavior:'smooth',block:'start'})},100)}
 function toggleAccordion(btn){const body=btn.nextElementSibling;const open=btn.classList.toggle('open');if(body)body.classList.toggle('open',open)}
-(async function init(){loadOrders();loadBatches();loadLocalContent(); updateStaticLinks(); updateBatchMeta(); updateCartUI(); updateAvailBar(); if(localStorage.getItem(STORE_UNLOCK)==='1') { ensureSellerTab(); } await fetchRemoteContent(); populateEditorForm();})();
+(async function init(){loadOrders();loadBatches();loadLocalContent(); updateStaticLinks(); updateBatchMeta(); updateCartUI(); updateAvailBar(); if(localStorage.getItem(STORE_UNLOCK)==='1') { ensureSellerTab(); } handleSellerRoute(); await fetchRemoteContent(); populateEditorForm();})();
 </script>
 </body>
 </html>
