@@ -67,10 +67,21 @@ img { display: block; max-width: 100%; }
 .hero-meta { display: flex; flex-wrap: wrap; gap: 10px; }
 .meta-chip { display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px; border-radius: 999px; background: rgba(255,253,248,0.7); border: 1px solid rgba(49,75,56,0.1); font-size: 13px; color: var(--ink-soft); }
 .hero-visual { display: grid; grid-template-rows: 1fr auto; gap: 16px; }
-.hero-image { position: relative; min-height: 360px; border-radius: 28px; overflow: hidden; background: linear-gradient(180deg, rgba(49,75,56,0.08), rgba(49,75,56,0.18)); isolation: isolate; }
-.hero-image img { width: 100%; height: 100%; object-fit: cover; object-position: center 38%; transform: scale(1.02); }
-.hero-image::before { content: ''; position: absolute; inset: 18px; border-radius: 24px; border: 1px solid rgba(255,251,245,0.45); z-index: 1; pointer-events: none; }
-.hero-image::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(17,20,18,0.04), rgba(17,20,18,0.34)); }
+.hero-image { position: relative; min-height: 360px; border-radius: 28px; overflow: hidden; background: radial-gradient(circle at top left, rgba(255,255,255,0.52), transparent 38%), linear-gradient(145deg, #f7f1e6 0%, #eadfca 48%, #d6c0a2 100%); isolation: isolate; }
+.hero-image::before { content: ''; position: absolute; inset: 18px; border-radius: 24px; border: 1px solid rgba(255,251,245,0.52); z-index: 1; pointer-events: none; }
+.hero-image::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(17,20,18,0.02), rgba(17,20,18,0.18)); }
+.hero-art { position: absolute; inset: 0; z-index: 0; }
+.hero-orb { position: absolute; border-radius: 50%; filter: blur(2px); opacity: 0.9; }
+.hero-orb-one { width: 280px; height: 280px; right: -60px; top: -40px; background: radial-gradient(circle, rgba(255,248,234,0.92) 0%, rgba(240,214,173,0.72) 42%, rgba(240,214,173,0) 72%); }
+.hero-orb-two { width: 220px; height: 220px; left: -50px; bottom: 18px; background: radial-gradient(circle, rgba(110,139,116,0.24) 0%, rgba(110,139,116,0) 72%); }
+.hero-plate { position: absolute; left: 50%; bottom: 26px; width: 76%; height: 38px; transform: translateX(-50%); border-radius: 999px; background: radial-gradient(circle at center, rgba(82,62,33,0.20), rgba(82,62,33,0) 72%); filter: blur(6px); }
+.hero-bottle { position: absolute; bottom: 52px; width: 110px; border-radius: 30px 30px 22px 22px; box-shadow: 0 26px 36px rgba(71,53,27,0.18); }
+.hero-bottle::before { content: ''; position: absolute; left: 50%; top: -42px; width: 28px; height: 48px; transform: translateX(-50%); border-radius: 14px 14px 8px 8px; }
+.hero-bottle::after { content: ''; position: absolute; left: 14px; right: 14px; top: 82px; height: 74px; border-radius: 18px; background: rgba(255,249,241,0.72); border: 1px solid rgba(255,255,255,0.7); }
+.hero-bottle-left { left: 48%; height: 210px; transform: translateX(-86%); background: linear-gradient(180deg, #7ea074 0%, #54724f 22%, #d08e34 23%, #9f6721 100%); }
+.hero-bottle-left::before { background: linear-gradient(180deg, #bd8d52, #8a602a); }
+.hero-bottle-right { left: 52%; height: 194px; transform: translateX(8%); background: linear-gradient(180deg, #f7f3ec 0%, #ebe2d3 24%, #f4fbfb 24%, #ece7de 100%); }
+.hero-bottle-right::before { background: linear-gradient(180deg, #d6c0a4, #a88458); }
 .hero-brand-card { position: absolute; left: 22px; top: 22px; z-index: 2; width: min(290px, calc(100% - 44px)); padding: 18px 18px 16px; border-radius: 24px; background: rgba(255,248,240,0.84); border: 1px solid rgba(255,255,255,0.7); backdrop-filter: blur(12px); box-shadow: 0 18px 40px rgba(29,36,30,0.14); }
 .hero-brand-mark { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
 .hero-brand-seal { width: 54px; height: 54px; border-radius: 50%; background: radial-gradient(circle at 30% 30%, #f2e5d0, #d7b68e 58%, #b97833 100%); box-shadow: inset 0 1px 0 rgba(255,255,255,0.55), 0 10px 20px rgba(91,58,18,0.16); flex: 0 0 auto; }
@@ -119,14 +130,24 @@ img { display: block; max-width: 100%; }
 .avail-cutoff .dot.urgent { background: var(--amber); }
 .product-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
 .product-card { display: flex; flex-direction: column; min-height: 100%; border-radius: 26px; overflow: hidden; background: var(--milk); border: 1px solid rgba(49,75,56,0.08); box-shadow: 0 16px 32px rgba(49,75,56,0.08); }
-.product-media { position: relative; min-height: 240px; background: linear-gradient(180deg, rgba(49,75,56,0.06), rgba(49,75,56,0.12)); }
+.product-media { position: relative; min-height: 240px; background: linear-gradient(180deg, rgba(49,75,56,0.06), rgba(49,75,56,0.12)); overflow: hidden; }
 .product-media.logo-media { background: linear-gradient(180deg, #fbf6ee 0%, #f3eadb 100%); isolation: isolate; }
-.product-img { width: 100%; height: 100%; object-fit: cover; }
-.logo-media .product-img { object-position: center top; transform: scale(1.05); }
-.logo-media::after { content: ''; position: absolute; inset: auto 0 0 0; height: 48%; background: linear-gradient(180deg, rgba(243,234,219,0) 0%, rgba(243,234,219,0.82) 30%, #f3eadb 100%); z-index: 1; }
+.product-art { position: absolute; inset: 0; }
+.product-media.logo-media::after { content: ''; position: absolute; inset: auto 0 0 0; height: 48%; background: linear-gradient(180deg, rgba(243,234,219,0) 0%, rgba(243,234,219,0.82) 30%, #f3eadb 100%); z-index: 1; }
+.product-kombucha-bottle { position: absolute; left: 50%; bottom: 42px; width: 94px; height: 170px; transform: translateX(-50%); border-radius: 28px 28px 20px 20px; background: linear-gradient(180deg, #7f9f73 0%, #55704f 20%, #d39038 21%, #a5681f 100%); box-shadow: 0 22px 32px rgba(89,63,26,0.16); }
+.product-kombucha-bottle::before { content: ''; position: absolute; left: 50%; top: -34px; width: 24px; height: 40px; transform: translateX(-50%); border-radius: 12px 12px 8px 8px; background: linear-gradient(180deg, #be8e57, #89602b); }
+.product-kombucha-bottle::after { content: ''; position: absolute; left: 12px; right: 12px; top: 66px; height: 60px; border-radius: 16px; background: rgba(255,249,241,0.7); border: 1px solid rgba(255,255,255,0.72); }
+.product-kombucha-ring { position: absolute; width: 180px; height: 180px; left: 50%; top: 16px; transform: translateX(-50%); border-radius: 50%; border: 1px solid rgba(139,103,52,0.14); background: radial-gradient(circle, rgba(255,251,245,0.82), rgba(255,251,245,0) 70%); }
 .logo-wordmark { position: absolute; left: 18px; right: 18px; bottom: 18px; z-index: 2; padding: 14px 16px; border-radius: 20px; background: rgba(255,251,245,0.9); border: 1px solid rgba(255,255,255,0.72); box-shadow: 0 16px 32px rgba(49,75,56,0.08); }
 .logo-wordmark-title { font-family: 'DM Serif Display', serif; font-size: 1.75rem; line-height: 0.95; letter-spacing: -0.03em; color: var(--moss); margin-bottom: 6px; }
 .logo-wordmark-sub { font-size: 0.85rem; line-height: 1.45; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-muted); font-weight: 700; }
+.product-media.yoghurt-media { background: linear-gradient(180deg, #f7f1e8 0%, #eadfcd 100%); }
+.product-yoghurt-jar { position: absolute; left: 50%; bottom: 38px; width: 128px; height: 140px; transform: translateX(-50%); border-radius: 24px 24px 30px 30px; background: linear-gradient(180deg, #fdfcf9 0%, #f0ebe2 100%); box-shadow: 0 24px 30px rgba(80,62,35,0.12); }
+.product-yoghurt-jar::before { content: ''; position: absolute; left: 50%; top: -18px; width: 142px; height: 26px; transform: translateX(-50%); border-radius: 999px; background: linear-gradient(180deg, #ccb18f, #b18e66); box-shadow: inset 0 2px 0 rgba(255,255,255,0.3); }
+.product-yoghurt-jar::after { content: ''; position: absolute; left: 16px; right: 16px; top: 42px; height: 42px; border-radius: 14px; background: linear-gradient(180deg, rgba(255,248,241,0.95), rgba(248,242,233,0.75)); border: 1px solid rgba(215,199,174,0.68); }
+.product-yoghurt-shadow { position: absolute; left: 50%; bottom: 20px; width: 170px; height: 24px; transform: translateX(-50%); border-radius: 999px; background: radial-gradient(circle at center, rgba(82,62,33,0.18), rgba(82,62,33,0) 72%); filter: blur(5px); }
+.product-yoghurt-spoon { position: absolute; right: 58px; top: 52px; width: 84px; height: 16px; border-radius: 999px; background: linear-gradient(90deg, rgba(193,162,125,0.94), rgba(164,128,90,0.94)); transform: rotate(-22deg); opacity: 0.78; }
+.product-yoghurt-spoon::after { content: ''; position: absolute; left: -8px; top: -8px; width: 28px; height: 28px; border-radius: 50%; background: rgba(245,237,227,0.92); }
 .product-badge { position: absolute; left: 16px; top: 16px; display: inline-flex; gap: 8px; flex-wrap: wrap; z-index: 2; }
 .tag { display: inline-flex; align-items: center; gap: 6px; padding: 7px 10px; border-radius: 999px; font-size: 11px; font-weight: 700; letter-spacing: 0.04em; background: rgba(255,251,245,0.86); color: var(--moss); border: 1px solid rgba(255,255,255,0.55); backdrop-filter: blur(10px); }
 .tag.amber { color: #8a5516; }
@@ -251,7 +272,13 @@ img { display: block; max-width: 100%; }
       </div>
       <div class="hero-visual">
         <div class="hero-image">
-          <img src="https://axlbot55-wq.github.io/axlbot55-wq-komboostcha-web/assets/kombucha-logo-v1.jpg" alt="Fresh bottled cultured goods from Komboostcha" onerror="this.src='https://axlbot55-wq.github.io/axlbot55-wq-komboostcha-web/assets/brand-system.jpg'">
+          <div class="hero-art" aria-hidden="true">
+            <div class="hero-orb hero-orb-one"></div>
+            <div class="hero-orb hero-orb-two"></div>
+            <div class="hero-bottle hero-bottle-left"></div>
+            <div class="hero-bottle hero-bottle-right"></div>
+            <div class="hero-plate"></div>
+          </div>
           <div class="hero-brand-card">
             <div class="hero-brand-mark">
               <div class="hero-brand-seal" aria-hidden="true"></div>
@@ -323,7 +350,10 @@ img { display: block; max-width: 100%; }
           <div class="product-grid">
             <article class="product-card">
               <div class="product-media logo-media">
-                <img class="product-img" src="https://axlbot55-wq.github.io/axlbot55-wq-komboostcha-web/assets/kombucha-logo-v1.jpg" alt="Komboostcha and yoghurt brand logos" onerror="this.style.background='#efe4d3';this.removeAttribute('src')">
+                <div class="product-art" aria-hidden="true">
+                  <div class="product-kombucha-ring"></div>
+                  <div class="product-kombucha-bottle"></div>
+                </div>
                 <div class="logo-wordmark">
                   <div class="logo-wordmark-title">Komboostcha</div>
                   <div class="logo-wordmark-sub">Kombucha & cultured yoghurt</div>
@@ -355,8 +385,12 @@ img { display: block; max-width: 100%; }
             </article>
 
             <article class="product-card">
-              <div class="product-media">
-                <img class="product-img" src="https://axlbot55-wq.github.io/axlbot55-wq-komboostcha-web/assets/kombucha-logo-v1.jpg" alt="HMGY Greek yoghurt" onerror="this.style.background='#f7f2ec';this.removeAttribute('src')">
+              <div class="product-media yoghurt-media">
+                <div class="product-art" aria-hidden="true">
+                  <div class="product-yoghurt-spoon"></div>
+                  <div class="product-yoghurt-jar"></div>
+                  <div class="product-yoghurt-shadow"></div>
+                </div>
                 <div class="product-badge">
                   <span class="tag">High protein</span>
                   <span class="tag amber">Thick · cultured overnight</span>

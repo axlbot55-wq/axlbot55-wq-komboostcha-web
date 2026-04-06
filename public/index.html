@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Komboostcha — Small-batch cultured goods</title>
+<title>Komboostcha — Small-batch kombucha & cultured yoghurt</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -67,10 +67,21 @@ img { display: block; max-width: 100%; }
 .hero-meta { display: flex; flex-wrap: wrap; gap: 10px; }
 .meta-chip { display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px; border-radius: 999px; background: rgba(255,253,248,0.7); border: 1px solid rgba(49,75,56,0.1); font-size: 13px; color: var(--ink-soft); }
 .hero-visual { display: grid; grid-template-rows: 1fr auto; gap: 16px; }
-.hero-image { position: relative; min-height: 360px; border-radius: 28px; overflow: hidden; background: linear-gradient(180deg, rgba(49,75,56,0.08), rgba(49,75,56,0.18)); isolation: isolate; }
-.hero-image img { width: 100%; height: 100%; object-fit: cover; object-position: center 38%; transform: scale(1.02); }
-.hero-image::before { content: ''; position: absolute; inset: 18px; border-radius: 24px; border: 1px solid rgba(255,251,245,0.45); z-index: 1; pointer-events: none; }
-.hero-image::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(17,20,18,0.04), rgba(17,20,18,0.34)); }
+.hero-image { position: relative; min-height: 360px; border-radius: 28px; overflow: hidden; background: radial-gradient(circle at top left, rgba(255,255,255,0.52), transparent 38%), linear-gradient(145deg, #f7f1e6 0%, #eadfca 48%, #d6c0a2 100%); isolation: isolate; }
+.hero-image::before { content: ''; position: absolute; inset: 18px; border-radius: 24px; border: 1px solid rgba(255,251,245,0.52); z-index: 1; pointer-events: none; }
+.hero-image::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(17,20,18,0.02), rgba(17,20,18,0.18)); }
+.hero-art { position: absolute; inset: 0; z-index: 0; }
+.hero-orb { position: absolute; border-radius: 50%; filter: blur(2px); opacity: 0.9; }
+.hero-orb-one { width: 280px; height: 280px; right: -60px; top: -40px; background: radial-gradient(circle, rgba(255,248,234,0.92) 0%, rgba(240,214,173,0.72) 42%, rgba(240,214,173,0) 72%); }
+.hero-orb-two { width: 220px; height: 220px; left: -50px; bottom: 18px; background: radial-gradient(circle, rgba(110,139,116,0.24) 0%, rgba(110,139,116,0) 72%); }
+.hero-plate { position: absolute; left: 50%; bottom: 26px; width: 76%; height: 38px; transform: translateX(-50%); border-radius: 999px; background: radial-gradient(circle at center, rgba(82,62,33,0.20), rgba(82,62,33,0) 72%); filter: blur(6px); }
+.hero-bottle { position: absolute; bottom: 52px; width: 110px; border-radius: 30px 30px 22px 22px; box-shadow: 0 26px 36px rgba(71,53,27,0.18); }
+.hero-bottle::before { content: ''; position: absolute; left: 50%; top: -42px; width: 28px; height: 48px; transform: translateX(-50%); border-radius: 14px 14px 8px 8px; }
+.hero-bottle::after { content: ''; position: absolute; left: 14px; right: 14px; top: 82px; height: 74px; border-radius: 18px; background: rgba(255,249,241,0.72); border: 1px solid rgba(255,255,255,0.7); }
+.hero-bottle-left { left: 48%; height: 210px; transform: translateX(-86%); background: linear-gradient(180deg, #7ea074 0%, #54724f 22%, #d08e34 23%, #9f6721 100%); }
+.hero-bottle-left::before { background: linear-gradient(180deg, #bd8d52, #8a602a); }
+.hero-bottle-right { left: 52%; height: 194px; transform: translateX(8%); background: linear-gradient(180deg, #f7f3ec 0%, #ebe2d3 24%, #f4fbfb 24%, #ece7de 100%); }
+.hero-bottle-right::before { background: linear-gradient(180deg, #d6c0a4, #a88458); }
 .hero-brand-card { position: absolute; left: 22px; top: 22px; z-index: 2; width: min(290px, calc(100% - 44px)); padding: 18px 18px 16px; border-radius: 24px; background: rgba(255,248,240,0.84); border: 1px solid rgba(255,255,255,0.7); backdrop-filter: blur(12px); box-shadow: 0 18px 40px rgba(29,36,30,0.14); }
 .hero-brand-mark { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
 .hero-brand-seal { width: 54px; height: 54px; border-radius: 50%; background: radial-gradient(circle at 30% 30%, #f2e5d0, #d7b68e 58%, #b97833 100%); box-shadow: inset 0 1px 0 rgba(255,255,255,0.55), 0 10px 20px rgba(91,58,18,0.16); flex: 0 0 auto; }
@@ -119,14 +130,24 @@ img { display: block; max-width: 100%; }
 .avail-cutoff .dot.urgent { background: var(--amber); }
 .product-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
 .product-card { display: flex; flex-direction: column; min-height: 100%; border-radius: 26px; overflow: hidden; background: var(--milk); border: 1px solid rgba(49,75,56,0.08); box-shadow: 0 16px 32px rgba(49,75,56,0.08); }
-.product-media { position: relative; min-height: 240px; background: linear-gradient(180deg, rgba(49,75,56,0.06), rgba(49,75,56,0.12)); }
+.product-media { position: relative; min-height: 240px; background: linear-gradient(180deg, rgba(49,75,56,0.06), rgba(49,75,56,0.12)); overflow: hidden; }
 .product-media.logo-media { background: linear-gradient(180deg, #fbf6ee 0%, #f3eadb 100%); isolation: isolate; }
-.product-img { width: 100%; height: 100%; object-fit: cover; }
-.logo-media .product-img { object-position: center top; transform: scale(1.05); }
-.logo-media::after { content: ''; position: absolute; inset: auto 0 0 0; height: 48%; background: linear-gradient(180deg, rgba(243,234,219,0) 0%, rgba(243,234,219,0.82) 30%, #f3eadb 100%); z-index: 1; }
+.product-art { position: absolute; inset: 0; }
+.product-media.logo-media::after { content: ''; position: absolute; inset: auto 0 0 0; height: 48%; background: linear-gradient(180deg, rgba(243,234,219,0) 0%, rgba(243,234,219,0.82) 30%, #f3eadb 100%); z-index: 1; }
+.product-kombucha-bottle { position: absolute; left: 50%; bottom: 42px; width: 94px; height: 170px; transform: translateX(-50%); border-radius: 28px 28px 20px 20px; background: linear-gradient(180deg, #7f9f73 0%, #55704f 20%, #d39038 21%, #a5681f 100%); box-shadow: 0 22px 32px rgba(89,63,26,0.16); }
+.product-kombucha-bottle::before { content: ''; position: absolute; left: 50%; top: -34px; width: 24px; height: 40px; transform: translateX(-50%); border-radius: 12px 12px 8px 8px; background: linear-gradient(180deg, #be8e57, #89602b); }
+.product-kombucha-bottle::after { content: ''; position: absolute; left: 12px; right: 12px; top: 66px; height: 60px; border-radius: 16px; background: rgba(255,249,241,0.7); border: 1px solid rgba(255,255,255,0.72); }
+.product-kombucha-ring { position: absolute; width: 180px; height: 180px; left: 50%; top: 16px; transform: translateX(-50%); border-radius: 50%; border: 1px solid rgba(139,103,52,0.14); background: radial-gradient(circle, rgba(255,251,245,0.82), rgba(255,251,245,0) 70%); }
 .logo-wordmark { position: absolute; left: 18px; right: 18px; bottom: 18px; z-index: 2; padding: 14px 16px; border-radius: 20px; background: rgba(255,251,245,0.9); border: 1px solid rgba(255,255,255,0.72); box-shadow: 0 16px 32px rgba(49,75,56,0.08); }
 .logo-wordmark-title { font-family: 'DM Serif Display', serif; font-size: 1.75rem; line-height: 0.95; letter-spacing: -0.03em; color: var(--moss); margin-bottom: 6px; }
 .logo-wordmark-sub { font-size: 0.85rem; line-height: 1.45; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-muted); font-weight: 700; }
+.product-media.yoghurt-media { background: linear-gradient(180deg, #f7f1e8 0%, #eadfcd 100%); }
+.product-yoghurt-jar { position: absolute; left: 50%; bottom: 38px; width: 128px; height: 140px; transform: translateX(-50%); border-radius: 24px 24px 30px 30px; background: linear-gradient(180deg, #fdfcf9 0%, #f0ebe2 100%); box-shadow: 0 24px 30px rgba(80,62,35,0.12); }
+.product-yoghurt-jar::before { content: ''; position: absolute; left: 50%; top: -18px; width: 142px; height: 26px; transform: translateX(-50%); border-radius: 999px; background: linear-gradient(180deg, #ccb18f, #b18e66); box-shadow: inset 0 2px 0 rgba(255,255,255,0.3); }
+.product-yoghurt-jar::after { content: ''; position: absolute; left: 16px; right: 16px; top: 42px; height: 42px; border-radius: 14px; background: linear-gradient(180deg, rgba(255,248,241,0.95), rgba(248,242,233,0.75)); border: 1px solid rgba(215,199,174,0.68); }
+.product-yoghurt-shadow { position: absolute; left: 50%; bottom: 20px; width: 170px; height: 24px; transform: translateX(-50%); border-radius: 999px; background: radial-gradient(circle at center, rgba(82,62,33,0.18), rgba(82,62,33,0) 72%); filter: blur(5px); }
+.product-yoghurt-spoon { position: absolute; right: 58px; top: 52px; width: 84px; height: 16px; border-radius: 999px; background: linear-gradient(90deg, rgba(193,162,125,0.94), rgba(164,128,90,0.94)); transform: rotate(-22deg); opacity: 0.78; }
+.product-yoghurt-spoon::after { content: ''; position: absolute; left: -8px; top: -8px; width: 28px; height: 28px; border-radius: 50%; background: rgba(245,237,227,0.92); }
 .product-badge { position: absolute; left: 16px; top: 16px; display: inline-flex; gap: 8px; flex-wrap: wrap; z-index: 2; }
 .tag { display: inline-flex; align-items: center; gap: 6px; padding: 7px 10px; border-radius: 999px; font-size: 11px; font-weight: 700; letter-spacing: 0.04em; background: rgba(255,251,245,0.86); color: var(--moss); border: 1px solid rgba(255,255,255,0.55); backdrop-filter: blur(10px); }
 .tag.amber { color: #8a5516; }
@@ -229,64 +250,70 @@ img { display: block; max-width: 100%; }
 <body>
 <div class="shell">
   <div class="topbar">
-    <div class="brand-mark"><span class="dot"></span><span id="logo-tap" onclick="secretTap()">Komboostcha · cultured goods</span></div>
-    <div class="mini-note" id="topbar-zones">Fresh batch drops for General QC &amp; Ortigas</div>
+    <div class="brand-mark"><span class="dot"></span><span id="logo-tap" onclick="secretTap()">Komboostcha · small-batch cultured goods</span></div>
+    <div class="mini-note" id="topbar-zones">Now accepting orders in General QC &amp; Ortigas</div>
   </div>
 
   <section class="hero">
     <div class="hero-grid">
       <div class="hero-copy">
         <div class="kicker"><span class="kicker-dot"></span>Small-batch ferments · Quezon City</div>
-        <h1 id="hero-title">Handcrafted <em>cultures</em> for the good fridge.</h1>
-        <p class="hero-sub" id="hero-subtitle">Quietly premium kombucha and thick cultured yoghurt — brewed in small runs, delivered fresh, and meant to feel like something worth reserving.</p>
+        <h1 id="hero-title">Fresh small-batch <em>cultures</em> for everyday drinking.</h1>
+        <p class="hero-sub" id="hero-subtitle">Small-batch kombucha and thick cultured yoghurt, brewed locally and delivered fresh in General QC and Ortigas. Clear ordering, chilled handoff, and no supermarket energy.</p>
         <div class="hero-actions">
-          <button class="btn-primary" onclick="switchTab('order');document.getElementById('tab-order').scrollIntoView({behavior:'smooth'})">Reserve this batch</button>
-          <button class="btn-secondary" onclick="switchTab('about')">See what’s brewing</button>
+          <button class="btn-primary" onclick="switchTab('order');document.getElementById('tab-order').scrollIntoView({behavior:'smooth'})">Start your order</button>
+          <button class="btn-secondary" onclick="switchTab('about')">Why Komboostcha</button>
         </div>
         <div class="hero-meta">
-          <div class="meta-chip">Sunday delivery cadence</div>
-          <div class="meta-chip">No fillers · no thickeners</div>
-          <div class="meta-chip">WhatsApp-first ordering</div>
+          <div class="meta-chip">General QC & Ortigas</div>
+          <div class="meta-chip">Chilled handoff</div>
+          <div class="meta-chip">WhatsApp confirmation</div>
         </div>
       </div>
       <div class="hero-visual">
         <div class="hero-image">
-          <img src="https://axlbot55-wq.github.io/axlbot55-wq-komboostcha-web/assets/bottling-tomorrow.jpg" alt="Fresh bottled cultured goods from Komboostcha" onerror="this.src='https://axlbot55-wq.github.io/axlbot55-wq-komboostcha-web/assets/brand-system.jpg'">
+          <div class="hero-art" aria-hidden="true">
+            <div class="hero-orb hero-orb-one"></div>
+            <div class="hero-orb hero-orb-two"></div>
+            <div class="hero-bottle hero-bottle-left"></div>
+            <div class="hero-bottle hero-bottle-right"></div>
+            <div class="hero-plate"></div>
+          </div>
           <div class="hero-brand-card">
             <div class="hero-brand-mark">
               <div class="hero-brand-seal" aria-hidden="true"></div>
               <div>
-                <div class="hero-brand-overline">Fresh batch house</div>
+                <div class="hero-brand-overline">Fresh batch goods</div>
                 <div class="hero-brand-title">Komboostcha</div>
               </div>
             </div>
-            <p class="hero-brand-sub">Small-batch cultured goods</p>
+            <p class="hero-brand-sub">Kombucha & cultured yoghurt</p>
           </div>
           <div class="floating-card">
-            <div class="floating-label">Current release</div>
+            <div class="floating-label">Fresh batch goods</div>
             <div class="floating-top">
               <div>
                 <strong id="batch-ready-label">Current batch</strong>
-                <span class="avail-label">Batch #4 availability</span>
+                <span class="avail-label">Fresh local release</span>
               </div>
               <div class="avail-count"><strong id="avail-remaining">14</strong> left</div>
             </div>
             <div class="avail-bar-track"><div class="avail-bar-fill" id="avail-bar" style="width:78%"></div></div>
-            <div class="floating-foot"><span class="dot" id="avail-dot"></span><span id="avail-cutoff-text">Order by Friday midnight for Sunday delivery</span></div>
+            <div class="floating-foot"><span class="dot" id="avail-dot"></span><span id="avail-cutoff-text">Fresh local delivery and pickup coordination</span></div>
           </div>
         </div>
         <div class="hero-notes">
           <div class="note-card">
             <div class="note-label">Delivery zones</div>
-            <div class="note-value" id="hero-zones-note">General QC and Ortigas for now — tight radius, better control, fresher handoff.</div>
+            <div class="note-value" id="hero-zones-note">Available in General QC and Ortigas with a tight delivery radius for fresher handoff and better batch control.</div>
           </div>
           <div class="note-card">
             <div class="note-label">Batch philosophy</div>
             <div class="note-value">We brew small so each release stays personal, traceable, and easy to reserve.</div>
           </div>
           <div class="note-card">
-            <div class="note-label">Order style</div>
-            <div class="note-value">Reserve here, confirm on WhatsApp, then we lock your delivery details cleanly.</div>
+            <div class="note-label">How ordering works</div>
+            <div class="note-value">Choose your items, review your total, then confirm delivery or pickup on WhatsApp.</div>
           </div>
         </div>
       </div>
@@ -307,26 +334,29 @@ img { display: block; max-width: 100%; }
               <span class="eyebrow">This week’s offering</span>
               <h2 class="panel-title">A small release, not a supermarket shelf.</h2>
             </div>
-            <div class="muted-badge">Fresh cultured goods · reserve while batch lasts</div>
+            <div class="muted-badge">Fresh cultured goods · order while the batch is open</div>
           </div>
           <p class="panel-copy">You’re not picking from an endless catalog. You’re reserving from the batch that’s live right now — which is exactly what makes it better.</p>
 
           <div class="avail-banner" id="avail-banner">
             <div class="avail-top">
-              <span class="avail-label">Batch #4 availability</span>
+              <span class="avail-label">Fresh local release</span>
               <span class="avail-count"><strong id="avail-remaining-banner">14</strong> of 18 bottles left</span>
             </div>
             <div class="avail-bar-track"><div class="avail-bar-fill" id="avail-bar-banner" style="width:78%"></div></div>
-            <div class="avail-cutoff"><span class="dot" id="avail-dot-banner"></span><span id="avail-cutoff-banner">Order by Friday midnight for Sunday delivery</span></div>
+            <div class="avail-cutoff"><span class="dot" id="avail-dot-banner"></span><span id="avail-cutoff-banner">Fresh local delivery and pickup coordination</span></div>
           </div>
 
           <div class="product-grid">
             <article class="product-card">
               <div class="product-media logo-media">
-                <img class="product-img" src="https://axlbot55-wq.github.io/axlbot55-wq-komboostcha-web/assets/kombucha-logo-v1.jpg" alt="Komboostcha and yoghurt brand logos" onerror="this.style.background='#efe4d3';this.removeAttribute('src')">
+                <div class="product-art" aria-hidden="true">
+                  <div class="product-kombucha-ring"></div>
+                  <div class="product-kombucha-bottle"></div>
+                </div>
                 <div class="logo-wordmark">
                   <div class="logo-wordmark-title">Komboostcha</div>
-                  <div class="logo-wordmark-sub">Small-batch cultured goods</div>
+                  <div class="logo-wordmark-sub">Kombucha & cultured yoghurt</div>
                 </div>
                 <div class="product-badge">
                   <span class="tag">Live cultures</span>
@@ -336,7 +366,7 @@ img { display: block; max-width: 100%; }
               <div class="product-body">
                 <div>
                   <div class="product-name">Handcrafted Kombucha</div>
-                  <p class="product-desc" id="kombucha-description">Light fizz, gentle acidity, clean finish. Brewed for people who want something fresher and less sugary than the usual shelf stuff.</p>
+                  <p class="product-desc" id="kombucha-description">Lightly sparkling, gently tart, and brewed for people who want something fresher and less sugary than the usual bottled options.</p>
                   <div class="product-meta">
                     <span>500ml glass bottle</span>
                     <span>Keep refrigerated</span>
@@ -355,8 +385,12 @@ img { display: block; max-width: 100%; }
             </article>
 
             <article class="product-card">
-              <div class="product-media">
-                <img class="product-img" src="https://axlbot55-wq.github.io/axlbot55-wq-komboostcha-web/assets/bottling-tomorrow.jpg" alt="HMGY Greek yoghurt" onerror="this.style.background='#f7f2ec';this.removeAttribute('src')">
+              <div class="product-media yoghurt-media">
+                <div class="product-art" aria-hidden="true">
+                  <div class="product-yoghurt-spoon"></div>
+                  <div class="product-yoghurt-jar"></div>
+                  <div class="product-yoghurt-shadow"></div>
+                </div>
                 <div class="product-badge">
                   <span class="tag">High protein</span>
                   <span class="tag amber">Thick · cultured overnight</span>
@@ -365,7 +399,7 @@ img { display: block; max-width: 100%; }
               <div class="product-body">
                 <div>
                   <div class="product-name">HMGY Greek Yoghurt</div>
-                  <p class="product-desc" id="yoghurt-description">Full-fat milk cultured and strained into a thick, creamy yoghurt with no thickeners, stabilizers, or fake texture tricks.</p>
+                  <p class="product-desc" id="yoghurt-description">Thick, creamy cultured yoghurt made from full-fat milk with no thickeners, stabilizers, or fake texture tricks.</p>
                   <div class="product-meta">
                     <span>475ml jar</span>
                     <span>5–7 days chilled</span>
@@ -390,10 +424,10 @@ img { display: block; max-width: 100%; }
               <svg class="chevron" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
             </button>
             <div class="accordion-body">
-              <div class="faq-item"><div class="faq-q">What is kombucha?</div><div class="faq-a">Fermented tea made with a live culture called a SCOBY. It’s naturally tart, lightly fizzy, and alive in the best way.</div></div>
-              <div class="faq-item"><div class="faq-q">What does it taste like?</div><div class="faq-a">Think crisp iced tea with a gentle tang rather than heavy sweetness. Each batch has a little personality — that’s the point.</div></div>
-              <div class="faq-item"><div class="faq-q">How should I store it?</div><div class="faq-a">Keep everything refrigerated once received. Kombucha keeps 2–3 weeks chilled; yoghurt is best within 5–7 days.</div></div>
-              <div class="faq-item"><div class="faq-q">Is this beginner-friendly?</div><div class="faq-a">Yes. The kombucha is brewed to stay approachable, and the yoghurt is straight-up comforting.</div></div>
+              <div class="faq-item"><div class="faq-q">What is kombucha?</div><div class="faq-a">Fermented tea with a naturally tangy, lightly sparkling profile. Ours is brewed to stay bright, refreshing, and beginner-friendly.</div></div>
+              <div class="faq-item"><div class="faq-q">What does it taste like?</div><div class="faq-a">Think crisp iced tea with gentle tang instead of heavy sweetness. Each batch has a little personality, but the goal is always refreshing and easy to drink.</div></div>
+              <div class="faq-item"><div class="faq-q">How should I store it?</div><div class="faq-a">Keep everything refrigerated once received. Kombucha keeps 2–3 weeks chilled, while yoghurt is best within 5–7 days.</div></div>
+              <div class="faq-item"><div class="faq-q">Is this beginner-friendly?</div><div class="faq-a">Yes. The kombucha is brewed to stay approachable, and the yoghurt is rich, mild, and easy to add to your fridge routine.</div></div>
             </div>
           </div>
 
@@ -412,9 +446,14 @@ img { display: block; max-width: 100%; }
           <div class="panel-header">
             <div>
               <span class="eyebrow">Reserve this batch</span>
-              <h2 class="panel-title">Guided checkout, then WhatsApp confirmation.</h2>
+              <h2 class="panel-title">Choose your items, then confirm on WhatsApp.</h2>
             </div>
-            <div class="muted-badge">Reserve first · finalize cleanly</div>
+            <div class="muted-badge">Simple order flow · local delivery</div>
+          </div>
+          <div class="faq-list" style="margin:0 0 18px 0">
+            <div class="faq-item"><div class="faq-q">1. Pick your items</div><div class="faq-a">Choose your kombucha, yoghurt, or both from the current batch.</div></div>
+            <div class="faq-item"><div class="faq-q">2. Review your reservation</div><div class="faq-a">Your total updates instantly so you can see exactly what you’re ordering.</div></div>
+            <div class="faq-item"><div class="faq-q">3. Confirm on WhatsApp</div><div class="faq-a">Send the order, then we finalize delivery or pickup details directly.</div></div>
           </div>
           <div class="order-layout">
             <div>
@@ -459,8 +498,8 @@ img { display: block; max-width: 100%; }
                       <textarea id="cust-notes" placeholder="Landmark, preferred handoff, delivery timing, etc."></textarea>
                     </div>
                   </div>
-                  <button class="btn-primary" style="width:100%;margin-top:8px" onclick="placeOrder()">Reserve this batch</button>
-                  <p class="form-note">We’ll confirm via WhatsApp before delivery. No weird checkout maze — just a clean handoff.</p>
+                  <button class="btn-primary" style="width:100%;margin-top:8px" onclick="placeOrder()">Send order for confirmation</button>
+                  <p class="form-note">We’ll confirm via WhatsApp before delivery or pickup. Keep everything refrigerated once received for best freshness.</p>
                 </div>
               </div>
 
@@ -605,7 +644,7 @@ img { display: block; max-width: 100%; }
         <div class="about-hero">
           <span class="eyebrow" style="color:rgba(255,255,255,0.72)">Why it feels different</span>
           <h2>Made with care, not with shortcut energy.</h2>
-          <p id="about-intro">Komboostcha is a small fermentation project built around fresh batches, honest ingredients, and a more personal delivery rhythm than standard food ordering.</p>
+          <p id="about-intro">Komboostcha is a small local fermentation project built around fresh batches, honest ingredients, and a simpler ordering experience for nearby customers.</p>
         </div>
         <div class="about-card">
           <span class="eyebrow">What we actually mean by small-batch</span>
@@ -630,8 +669,8 @@ img { display: block; max-width: 100%; }
         <div class="about-card">
           <div class="section-header"><h3>FAQ</h3></div>
           <div class="faq-list">
-            <div class="faq-item"><div class="faq-q" id="faq1q">How does ordering work?</div><div class="faq-a" id="faq1a">Reserve through the Order tab, then we confirm details on WhatsApp before delivery.</div></div>
-            <div class="faq-item"><div class="faq-q" id="faq2q">When do you deliver?</div><div class="faq-a" id="faq2a">Usually Sunday delivery, with the batch cutoff shown live on the order page.</div></div>
+            <div class="faq-item"><div class="faq-q" id="faq1q">How do I place an order?</div><div class="faq-a" id="faq1a">Choose your items in the Order tab, review your total, and send the order through WhatsApp so we can confirm delivery or pickup details.</div></div>
+            <div class="faq-item"><div class="faq-q" id="faq2q">Where do you deliver?</div><div class="faq-a" id="faq2a">We currently serve General QC and Ortigas. Batch cutoff and delivery timing are shown live on the order page.</div></div>
             <div class="faq-item"><div class="faq-q">How long does it stay fresh?</div><div class="faq-a">Kombucha keeps 2–3 weeks refrigerated. Yoghurt is best within 5–7 days chilled.</div></div>
             <div class="faq-item"><div class="faq-q">Can I order in bulk?</div><div class="faq-a">Yes — message ahead of release and we’ll see what can be reserved before the batch opens fully.</div></div>
           </div>
@@ -672,23 +711,23 @@ const FALLBACK_WA_NUMBER = String(cfg.waNumber || '639209106731').replace(/\D/g,
 const SELLER_PIN = String(cfg.sellerPin || '2025');
 const WEBHOOK = String(cfg.orderWebhookUrl || '').trim();
 const CONTENT_WEBHOOK = String(cfg.contentWebhookUrl || '').trim();
-const DEFAULT_BATCH = Object.assign({ id: 4, total: 18, remaining: 14, zones: ['General QC', 'Ortigas'], cutoffText: 'Order by Friday midnight for Sunday delivery' }, cfg.batch || {});
+const DEFAULT_BATCH = Object.assign({ id: 4, total: 18, remaining: 14, zones: ['General QC', 'Ortigas'], cutoffText: 'Fresh local delivery and pickup coordination' }, cfg.batch || {});
 const DEFAULT_CONTENT = {
-  heroTitle: 'Handcrafted <em>cultures</em> for the good fridge.',
-  heroSubtitle: 'Quietly premium kombucha and thick cultured yoghurt — brewed in small runs, delivered fresh, and meant to feel like something worth reserving.',
+  heroTitle: 'Fresh small-batch <em>cultures</em> for everyday drinking.',
+  heroSubtitle: 'Small-batch kombucha and thick cultured yoghurt, brewed locally and delivered fresh in General QC and Ortigas. Clear ordering, chilled handoff, and no supermarket energy.',
   kombuchaPrice: '350',
-  kombuchaDescription: 'Light fizz, gentle acidity, clean finish. Brewed for people who want something fresher and less sugary than the usual shelf stuff.',
+  kombuchaDescription: 'Lightly sparkling, gently tart, and brewed for people who want something fresher and less sugary than the usual bottled options.',
   yoghurtPrice: '350',
-  yoghurtDescription: 'Full-fat milk cultured and strained into a thick, creamy yoghurt with no thickeners, stabilizers, or fake texture tricks.',
+  yoghurtDescription: 'Thick, creamy cultured yoghurt made from full-fat milk with no thickeners, stabilizers, or fake texture tricks.',
   batchTotal: String(DEFAULT_BATCH.total || 18),
   batchRemaining: String(DEFAULT_BATCH.remaining || 14),
-  batchCutoffText: DEFAULT_BATCH.cutoffText || 'Order by Friday midnight for Sunday delivery',
+  batchCutoffText: DEFAULT_BATCH.cutoffText || 'Fresh local delivery and pickup coordination',
   deliveryZones: (DEFAULT_BATCH.zones || ['General QC', 'Ortigas']).join(', '),
-  aboutIntro: 'Komboostcha is a small fermentation project built around fresh batches, honest ingredients, and a more personal delivery rhythm than standard food ordering.',
-  faq1q: 'How does ordering work?',
-  faq1a: 'Reserve through the Order tab, then we confirm details on WhatsApp before delivery.',
-  faq2q: 'When do you deliver?',
-  faq2a: 'Usually Sunday delivery, with the batch cutoff shown live on the order page.',
+  aboutIntro: 'Komboostcha is a small local fermentation project built around fresh batches, honest ingredients, and a simpler ordering experience for nearby customers.',
+  faq1q: 'How do I place an order?',
+  faq1a: 'Choose your items in the Order tab, review your total, and send the order through WhatsApp so we can confirm delivery or pickup details.',
+  faq2q: 'Where do you deliver?',
+  faq2a: 'We currently serve General QC and Ortigas. Batch cutoff and delivery timing are shown live on the order page.',
   whatsAppNumber: FALLBACK_WA_NUMBER
 };
 const prices = { kombucha: 350, yoghurt: 350 };
@@ -708,10 +747,10 @@ function syncBatchFromContent(){if(!batches.length) batches=[defaultBatchEntry()
 function currentBatch(){return batches[0]||defaultBatchEntry()}
 function totalQtyOrdered(){return qty.kombucha+qty.yoghurt}
 function updateStaticLinks(){const wa=currentWaNumber(); ['about-wa-link','header-wa-link'].forEach(id=>{const el=document.getElementById(id);if(el)el.href='https://wa.me/'+wa}); const endpointLabel=document.getElementById('content-endpoint-label'); if(endpointLabel) endpointLabel.textContent=CONTENT_WEBHOOK || 'not set'; const mode=document.getElementById('editor-mode-label'); if(mode) mode.textContent=CONTENT_WEBHOOK ? 'Sheets sync enabled' : 'Local fallback mode';}
-function updateBatchMeta(){const b=currentBatch();const n=String(b.name||('Keg #'+DEFAULT_BATCH.id)).match(/\d+/)?.[0]||DEFAULT_BATCH.id;document.querySelectorAll('.avail-label').forEach(el=>el.textContent='Batch #'+n+' availability');const ready=document.getElementById('batch-ready-label');if(ready)ready.textContent=b.status==='brewing'?'Brewing now':'Ready to order'}
+function updateBatchMeta(){const b=currentBatch();const n=String(b.name||('Keg #'+DEFAULT_BATCH.id)).match(/\d+/)?.[0]||DEFAULT_BATCH.id;document.querySelectorAll('.avail-label').forEach(el=>el.textContent='Batch #'+n+' availability');const ready=document.getElementById('batch-ready-label');if(ready)ready.textContent=b.status==='brewing'?'Small-batch release':'Ready to order'}
 function applyAvailabilityState(remaining,total,text,isUrgent){const pct=Math.max(0,Math.min(100,Math.round((remaining/Math.max(1,total))*100)));['avail-bar','avail-bar-banner'].forEach(id=>{const el=document.getElementById(id);if(el){el.style.width=pct+'%';el.classList.toggle('low',!!isUrgent)}});['avail-dot','avail-dot-banner'].forEach(id=>{const el=document.getElementById(id);if(el)el.classList.toggle('urgent',!!isUrgent)});const remMain=document.getElementById('avail-remaining'); if(remMain) remMain.textContent=remaining; const remBanner=document.getElementById('avail-remaining-banner'); if(remBanner) remBanner.textContent=remaining; const countMain=document.querySelector('.floating-card .avail-count'); if(countMain) countMain.innerHTML=`<strong id="avail-remaining">${remaining}</strong> left`; const countBanner=document.querySelector('.avail-banner .avail-count'); if(countBanner) countBanner.innerHTML=`<strong id="avail-remaining-banner">${remaining}</strong> of ${total} bottles left`; const cutMain=document.getElementById('avail-cutoff-text'); if(cutMain) cutMain.textContent=text; const cutBanner=document.getElementById('avail-cutoff-banner'); if(cutBanner) cutBanner.textContent=text;}
 function updateAvailBar(){const b=currentBatch();const total=Math.max(1,Number(b.total)||DEFAULT_BATCH.total||18);const remainingBase=Math.max(0,Number(b.remaining)||0);const remaining=Math.max(0,remainingBase-totalQtyOrdered());let text=b.cutoffText||DEFAULT_BATCH.cutoffText;let urgent=false;if(remaining===0){text='This batch is fully reserved';urgent=true}else if(remaining<=4){text=`Only ${remaining} left — order before they're gone`;urgent=true}applyAvailabilityState(remaining,total,text,urgent)}
-function applyContent(content){editableContent=normalizeContent(content); prices.kombucha=Number(editableContent.kombuchaPrice)||350; prices.yoghurt=Number(editableContent.yoghurtPrice)||350; document.getElementById('hero-title').innerHTML=editableContent.heroTitle; document.getElementById('hero-subtitle').textContent=editableContent.heroSubtitle; document.getElementById('kombucha-description').textContent=editableContent.kombuchaDescription; document.getElementById('yoghurt-description').textContent=editableContent.yoghurtDescription; document.getElementById('kombucha-price').textContent='₱'+(Number(editableContent.kombuchaPrice)||0).toLocaleString(); document.getElementById('yoghurt-price').textContent='₱'+(Number(editableContent.yoghurtPrice)||0).toLocaleString(); document.getElementById('about-intro').textContent=editableContent.aboutIntro; document.getElementById('faq1q').textContent=editableContent.faq1q; document.getElementById('faq1a').textContent=editableContent.faq1a; document.getElementById('faq2q').textContent=editableContent.faq2q; document.getElementById('faq2a').textContent=editableContent.faq2a; const zonesText=String(editableContent.deliveryZones||'').trim(); document.getElementById('topbar-zones').textContent='Fresh batch drops for '+(zonesText||'General QC & Ortigas'); document.getElementById('hero-zones-note').textContent=(zonesText||'General QC, Ortigas')+' for now — tight radius, better control, fresher handoff.'; syncBatchFromContent(); updateStaticLinks(); updateBatchMeta(); updateAvailBar(); updateCartUI(); renderBatches(); renderSellerOrders(); populateEditorForm();}
+function applyContent(content){editableContent=normalizeContent(content); prices.kombucha=Number(editableContent.kombuchaPrice)||350; prices.yoghurt=Number(editableContent.yoghurtPrice)||350; document.getElementById('hero-title').innerHTML=editableContent.heroTitle; document.getElementById('hero-subtitle').textContent=editableContent.heroSubtitle; document.getElementById('kombucha-description').textContent=editableContent.kombuchaDescription; document.getElementById('yoghurt-description').textContent=editableContent.yoghurtDescription; document.getElementById('kombucha-price').textContent='₱'+(Number(editableContent.kombuchaPrice)||0).toLocaleString(); document.getElementById('yoghurt-price').textContent='₱'+(Number(editableContent.yoghurtPrice)||0).toLocaleString(); document.getElementById('about-intro').textContent=editableContent.aboutIntro; document.getElementById('faq1q').textContent=editableContent.faq1q; document.getElementById('faq1a').textContent=editableContent.faq1a; document.getElementById('faq2q').textContent=editableContent.faq2q; document.getElementById('faq2a').textContent=editableContent.faq2a; const zonesText=String(editableContent.deliveryZones||'').trim(); document.getElementById('topbar-zones').textContent='Now accepting orders in '+(zonesText||'General QC & Ortigas'); document.getElementById('hero-zones-note').textContent='Available in '+(zonesText||'General QC & Ortigas')+' with a tight delivery radius for fresher handoff and better batch control.'; syncBatchFromContent(); updateStaticLinks(); updateBatchMeta(); updateAvailBar(); updateCartUI(); renderBatches(); renderSellerOrders(); populateEditorForm();}
 function loadLocalContent(){try{const saved=JSON.parse(localStorage.getItem(STORE_CONTENT)||'null'); if(saved) applyContent(saved); else applyContent(DEFAULT_CONTENT);}catch{applyContent(DEFAULT_CONTENT)}}
 function saveLocalContent(){localStorage.setItem(STORE_CONTENT, JSON.stringify(editableContent));}
 async function fetchRemoteContent(){if(!CONTENT_WEBHOOK) return false; try{setEditorStatus('Loading from Sheets…'); const res=await fetch(CONTENT_WEBHOOK + (CONTENT_WEBHOOK.includes('?')?'&':'?') + 'action=content', {method:'GET'}); const data=await res.json(); if(data && data.ok && data.content){ applyContent(data.content); saveLocalContent(); setEditorStatus('Loaded from Sheets'); return true; } setEditorStatus('Remote content unavailable'); return false;}catch(err){setEditorStatus('Using local fallback'); return false;}}
@@ -726,9 +765,9 @@ function changeQty(item,delta){const b=currentBatch();const lim=Math.max(0,Numbe
 async function placeOrder(){const name=document.getElementById('cust-name').value.trim();const wa=document.getElementById('cust-wa').value.trim();const area=document.getElementById('cust-area').value;const notes=document.getElementById('cust-notes').value.trim();const waClean=wa.replace(/[\s()-]/g,'');if(!name||!wa||!area){showToast('Please fill in all required fields');return}if(!/^\+?\d{10,15}$/.test(waClean)){showToast('Enter a valid WhatsApp number');return}if(!totalQtyOrdered()){showToast('Add at least one item first');return}const total=qty.kombucha*prices.kombucha+qty.yoghurt*prices.yoghurt;const items=[];if(qty.kombucha>0)items.push(`Kombucha ×${qty.kombucha}`);if(qty.yoghurt>0)items.push(`Yoghurt ×${qty.yoghurt}`);const b=currentBatch();const order={id:Date.now(),name,wa:waClean,area,notes,qty:{...qty},items,total,batchId:b.id,batchName:b.name,time:new Date().toLocaleTimeString('en-PH',{hour:'2-digit',minute:'2-digit'}),createdAt:new Date().toISOString(),source:'storefront'};orders.unshift(order);saveOrders();if(batches.length){batches[0].remaining=Math.max(0,(Number(batches[0].remaining)||0)-totalQtyOrdered()); editableContent.batchRemaining=String(batches[0].remaining); saveLocalContent(); saveBatches()}renderSellerOrders();renderBatches();updateBatchMeta();updateAvailBar();const synced=await sendBackend(order);const msg=['🌿 *New Komboostcha Order*','',`*Name:* ${name}`,`*Items:* ${items.join(', ')}`,`*Total:* ₱${total.toLocaleString()}`,`*Area:* ${area}`,`*Their WA:* ${waClean}`,notes?`*Notes:* ${notes}`:null,'',synced?'_Saved to backend log too._':'_WhatsApp/local fallback used._'].filter(Boolean).join('\n');window.open(`https://wa.me/${currentWaNumber()}?text=${encodeURIComponent(msg)}`,'_blank');document.getElementById('success-msg').textContent=`Thanks, ${name}! Your order was sent to us via WhatsApp${synced?' and logged to the order sheet':''}. We'll confirm delivery to ${area} shortly.`;document.getElementById('order-form').style.display='none';document.getElementById('cart-summary').style.display='none';document.getElementById('empty-cart-hint').style.display='none';document.getElementById('order-success').style.display='block'}
 function resetOrder(){qty={kombucha:0,yoghurt:0};document.getElementById('qty-kombucha').textContent=0;document.getElementById('qty-yoghurt').textContent=0;document.getElementById('cust-name').value='';document.getElementById('cust-wa').value='';document.getElementById('cust-area').value='';document.getElementById('cust-notes').value='';document.getElementById('order-success').style.display='none';updateCartUI();updateAvailBar()}
 function sendWA(number,name){const clean=String(number||'').replace(/\D/g,'');const msg=encodeURIComponent(`Hi ${name}! Your Kboost is ready! I'll DM you once I'm on the way! — Komboostcha 🌿`);window.open(`https://wa.me/${clean}?text=${msg}`,'_blank')}
-function renderSellerOrders(){const c=document.getElementById('seller-orders');const label=document.getElementById('order-count-label');if(label)label.textContent=orders.length+' pending';if(!orders.length){c.innerHTML='<div class="batch-card" style="text-align:center;color:var(--ink-soft)">No orders yet — they appear here when customers submit them.</div>';return}c.innerHTML=orders.map(o=>`<div class="order-row"><div style="flex:1;min-width:0"><div class="name">${safe(o.name)}</div><div class="details">${safe((o.items||[]).join(' · '))} · ${safe(o.area)} · ${safe(o.time||'')}</div></div><div class="amount">₱${Number(o.total||0).toLocaleString()}</div><button class="wa-btn" onclick="sendWA(${JSON.stringify(String(o.wa||''))}, ${JSON.stringify(String(o.name||'Customer'))})">WA</button></div>`).join('')}
+function renderSellerOrders_DISABLED(){const c=document.getElementById('seller-orders');const label=document.getElementById('order-count-label');if(label)label.textContent=orders.length+' pending';if(!orders.length){c.innerHTML='<div class="batch-card" style="text-align:center;color:var(--ink-soft)">No orders yet — they appear here when customers submit them.</div>';return}c.innerHTML=orders.map(o=>`<div class="order-row"><div style="flex:1;min-width:0"><div class="name">${safe(o.name)}</div><div class="details">${safe((o.items||[]).join(' · '))} · ${safe(o.area)} · ${safe(o.time||'')}</div></div><div class="amount">₱${Number(o.total||0).toLocaleString()}</div><button class="wa-btn" onclick="sendWA(${JSON.stringify(String(o.wa||''))}, ${JSON.stringify(String(o.name||'Customer'))})">WA</button></div>`).join('')}
 function daysUntil(d){if(!d)return '—';const diff=Math.ceil((new Date(d)-new Date())/86400000);return Math.max(0,diff)}
-function renderBatches(){const list=document.getElementById('batch-list');if(!batches.length){list.innerHTML='<div class="batch-card">No batches yet.</div>';return}list.innerHTML=batches.map(b=>`<div class="batch-card" id="${safe(b.id)}"><div class="batch-header"><span class="batch-title">${safe(b.name)}</span><span class="status-badge ${b.status==='ready'?'status-ready':'status-brewing'}">${safe(b.status)}</span></div><div class="batch-stats"><div class="stat-box"><div class="val">${Number(b.total||0)}</div><div class="lbl">Bottles</div></div><div class="stat-box"><div class="val">${b.readyDate?safe(new Date(b.readyDate).toLocaleDateString('en-PH',{month:'short',day:'numeric'})):'—'}</div><div class="lbl">Ready date</div></div><div class="stat-box"><div class="val">${b.status==='ready'?Number(b.remaining||0):daysUntil(b.readyDate)}</div><div class="lbl">${b.status==='ready'?'Left':'Days left'}</div></div></div><div class="dialog-actions"><button class="btn-secondary" onclick="markReady(${JSON.stringify(String(b.id))})">Mark ${b.status==='ready'?'brewing':'ready'}</button><button class="btn-secondary" style="color:#9d5c18;border-color:rgba(157,92,24,0.26)" onclick="deleteBatch(${JSON.stringify(String(b.id))})">Remove</button></div></div>`).join('')}
+function renderBatches_DISABLED(){const list=document.getElementById('batch-list');if(!batches.length){list.innerHTML='<div class="batch-card">No batches yet.</div>';return}list.innerHTML=batches.map(b=>`<div class="batch-card" id="${safe(b.id)}"><div class="batch-header"><span class="batch-title">${safe(b.name)}</span><span class="status-badge ${b.status==='ready'?'status-ready':'status-brewing'}">${safe(b.status)}</span></div><div class="batch-stats"><div class="stat-box"><div class="val">${Number(b.total||0)}</div><div class="lbl">Bottles</div></div><div class="stat-box"><div class="val">${b.readyDate?safe(new Date(b.readyDate).toLocaleDateString('en-PH',{month:'short',day:'numeric'})):'—'}</div><div class="lbl">Ready date</div></div><div class="stat-box"><div class="val">${b.status==='ready'?Number(b.remaining||0):daysUntil(b.readyDate)}</div><div class="lbl">${b.status==='ready'?'Left':'Days left'}</div></div></div><div class="dialog-actions"><button class="btn-secondary" onclick="markReady(${JSON.stringify(String(b.id))})">Mark ${b.status==='ready'?'brewing':'ready'}</button><button class="btn-secondary" style="color:#9d5c18;border-color:rgba(157,92,24,0.26)" onclick="deleteBatch(${JSON.stringify(String(b.id))})">Remove</button></div></div>`).join('')}
 function showAddBatch(){document.getElementById('add-batch-form').style.display='block';document.getElementById('new-date').valueAsDate=new Date(Date.now()+8*86400000)}
 function saveBatch(){const keg=document.getElementById('new-keg').value.trim();const yld=Number(document.getElementById('new-yield').value);const date=document.getElementById('new-date').value;if(!keg||!yld||!date){showToast('Fill in all batch fields');return}batches.unshift({id:'batch-'+Date.now(),name:'Keg #'+keg,total:yld,remaining:yld,readyDate:date,status:'brewing',cutoffText:editableContent.batchCutoffText||DEFAULT_BATCH.cutoffText,zones:String(editableContent.deliveryZones||'').split(',').map(s=>s.trim()).filter(Boolean)});saveBatches();renderBatches();updateBatchMeta();updateAvailBar();document.getElementById('add-batch-form').style.display='none';document.getElementById('new-keg').value='';document.getElementById('new-yield').value='';showToast('Batch saved')}
 function markReady(id){batches=batches.map(b=>b.id===id?{...b,status:b.status==='ready'?'brewing':'ready'}:b);saveBatches();renderBatches();updateBatchMeta();updateAvailBar();showToast('Batch updated')}
@@ -743,7 +782,7 @@ function closePinModal(){document.getElementById('pin-modal').style.display='non
 function checkPin(){const entered=document.getElementById('pin-input').value.trim();if(entered===SELLER_PIN){localStorage.setItem(STORE_UNLOCK,'1');closePinModal();ensureSellerTab();switchTab('seller');loadOwnerEditor();showToast('Seller mode unlocked')}else{document.getElementById('pin-input').value='';document.getElementById('pin-error').style.display='block';setTimeout(()=>document.getElementById('pin-error').style.display='none',2000)}}
 function scrollToForm(){setTimeout(()=>{const form=document.getElementById('order-form');if(form&&form.style.display!=='none')form.scrollIntoView({behavior:'smooth',block:'start'})},100)}
 function toggleAccordion(btn){const body=btn.nextElementSibling;const open=btn.classList.toggle('open');if(body)body.classList.toggle('open',open)}
-(async function init(){loadOrders();loadBatches();loadLocalContent(); updateStaticLinks(); updateBatchMeta(); renderBatches(); renderSellerOrders(); updateCartUI(); updateAvailBar(); if(localStorage.getItem(STORE_UNLOCK)==='1') { ensureSellerTab(); } await fetchRemoteContent(); populateEditorForm();})();
+(async function init(){loadOrders();loadBatches();loadLocalContent(); updateStaticLinks(); updateBatchMeta(); updateCartUI(); updateAvailBar(); if(localStorage.getItem(STORE_UNLOCK)==='1') { ensureSellerTab(); } await fetchRemoteContent(); populateEditorForm();})();
 </script>
 </body>
 </html>
