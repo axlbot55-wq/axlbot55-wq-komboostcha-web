@@ -459,7 +459,10 @@ img { display: block; max-width: 100%; }
               <span class="eyebrow">Seller console</span>
               <h2 class="panel-title">Operational view, separate from the storefront.</h2>
             </div>
-            <button class="btn-secondary" onclick="showAddBatch()">+ New batch</button>
+            <div style="display:flex;gap:10px;flex-wrap:wrap">
+              <button class="btn-secondary" onclick="showAddBatch()">+ New batch</button>
+              <button class="btn-secondary" onclick="exitSellerMode()">Exit seller mode</button>
+            </div>
           </div>
 
           <div class="batch-grid">
@@ -706,6 +709,7 @@ function deleteBatch(id){batches=batches.filter(b=>b.id!==id);if(!batches.length
 function copyTemplate(){const txt=document.getElementById('wa-template-text').textContent;navigator.clipboard.writeText(txt).then(()=>showToast('Message copied!')).catch(()=>showToast('Could not copy message'))}
 function switchTab(id){document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));document.getElementById('tab-'+id).classList.add('active');const sellerBtn=document.getElementById('seller-tab-btn');if(id==='seller'&&sellerBtn)sellerBtn.classList.add('active');else{const publicTabs=['order','about'];const idx=publicTabs.indexOf(id);if(idx>=0)document.querySelectorAll('.tab-btn')[idx].classList.add('active')}if(id!=='order')document.getElementById('cart-float-btn').classList.remove('visible')}
 function ensureSellerTab(){const nav=document.querySelector('.nav-tabs');if(!document.getElementById('seller-tab-btn')){const btn=document.createElement('button');btn.className='tab-btn';btn.id='seller-tab-btn';btn.textContent='Seller';btn.onclick=()=>switchTab('seller');nav.appendChild(btn)}}
+function exitSellerMode(){localStorage.removeItem(STORE_UNLOCK);const sellerBtn=document.getElementById('seller-tab-btn');if(sellerBtn)sellerBtn.remove();switchTab('order');showToast('Seller mode closed')}
 function secretTap(){tapCount++;clearTimeout(tapTimer);tapTimer=setTimeout(()=>{tapCount=0},1800);if(tapCount>=5){tapCount=0;showPinModal()}}
 function showPinModal(){document.getElementById('pin-modal').style.display='flex';document.getElementById('pin-input').value='';setTimeout(()=>document.getElementById('pin-input').focus(),100)}
 function closePinModal(){document.getElementById('pin-modal').style.display='none'}
