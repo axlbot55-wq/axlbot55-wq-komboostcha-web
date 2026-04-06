@@ -3,1059 +3,1372 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Komboostcha — Handcrafted Probiotics</title>
+<title>Komboostcha — Small-batch cultured goods</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="config.js"></script>
 <style>
-  :root {
-    --cream: #FAF6EF;
-    --cream-dark: #F0E8D8;
-    --moss: #3B5C35;
-    --moss-light: #5A7F52;
-    --moss-pale: #DCE8D9;
-    --kombucha: #C2803A;
-    --kombucha-light: #F5DDB3;
-    --yogurt: #F7F2EC;
-    --text-dark: #1E2420;
-    --text-mid: #4A5B48;
-    --text-muted: #7A8C78;
-    --border: rgba(60,80,55,0.12);
-    --border-mid: rgba(60,80,55,0.22);
-    --radius: 16px;
-    --radius-sm: 8px;
-  }
+:root {
+  --cream: #f8f3ea;
+  --cream-deep: #efe5d5;
+  --stone: #d8ccb8;
+  --moss: #314b38;
+  --moss-soft: #4c6955;
+  --leaf: #728c76;
+  --amber: #b97833;
+  --amber-soft: #e7cfaa;
+  --milk: #fffdf8;
+  --ink: #1d241e;
+  --ink-soft: #546256;
+  --ink-muted: #7d887d;
+  --line: rgba(49,75,56,0.14);
+  --line-strong: rgba(49,75,56,0.26);
+  --radius: 22px;
+  --radius-sm: 14px;
+  --shadow-soft: 0 12px 40px rgba(49,75,56,0.08);
+  --shadow-card: 0 18px 50px rgba(49,75,56,0.10);
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background:
+    radial-gradient(circle at top left, rgba(255,255,255,0.7), transparent 34%),
+    linear-gradient(180deg, #fbf7f0 0%, var(--cream) 42%, #f6efe5 100%);
+  color: var(--ink);
+  min-height: 100vh;
+}
+a { color: inherit; }
+button, input, textarea, select { font: inherit; }
+button { cursor: pointer; }
+img { display: block; max-width: 100%; }
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+.shell {
+  width: min(100%, 1180px);
+  margin: 0 auto;
+  padding: 20px 18px 56px;
+}
 
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--cream);
-    color: var(--text-dark);
-    min-height: 100vh;
-  }
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 16px;
+  color: var(--ink-soft);
+}
+.brand-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.brand-mark .dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--amber), #cf9558);
+  box-shadow: 0 0 0 5px rgba(185,120,51,0.12);
+}
+.mini-note {
+  font-size: 13px;
+  color: var(--ink-muted);
+}
 
-  /* ── HERO ── */
-  .hero {
-    background: var(--moss);
-    color: #fff;
-    padding: 3rem 1.5rem 4rem;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-  }
-  .hero::before {
-    content: '';
-    position: absolute;
-    top: -60px; left: -60px;
-    width: 280px; height: 280px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.04);
-  }
-  .hero::after {
-    content: '';
-    position: absolute;
-    bottom: -80px; right: -40px;
-    width: 320px; height: 320px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.03);
-  }
-  .badge-pill {
-    display: inline-block;
-    background: rgba(255,255,255,0.12);
-    border: 1px solid rgba(255,255,255,0.2);
-    color: #fff;
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 5px 14px;
-    border-radius: 100px;
-    margin-bottom: 1.2rem;
-  }
-  .hero h1 {
-    font-family: 'DM Serif Display', serif;
-    font-size: clamp(2.6rem, 8vw, 4rem);
-    font-weight: 400;
-    line-height: 1.05;
-    margin-bottom: 0.75rem;
-    letter-spacing: -0.01em;
-  }
-  .hero h1 em { font-style: italic; color: var(--kombucha-light); }
-  .hero p {
-    font-size: 1rem;
-    opacity: 0.8;
-    max-width: 340px;
-    margin: 0 auto 1.8rem;
-    line-height: 1.6;
-  }
-  .delivery-tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    background: rgba(255,255,255,0.1);
-    border-radius: 100px;
-    padding: 7px 14px;
-    font-size: 13px;
-    opacity: 0.9;
-  }
-  .delivery-tag svg { width: 14px; height: 14px; }
+.hero {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.55);
+  border-radius: 34px;
+  background:
+    radial-gradient(circle at 80% 18%, rgba(231,207,170,0.35), transparent 24%),
+    radial-gradient(circle at 12% 18%, rgba(255,255,255,0.7), transparent 20%),
+    linear-gradient(135deg, #f5ecde 0%, #efe1cc 48%, #e6d5bc 100%);
+  box-shadow: var(--shadow-card);
+  padding: 24px;
+  margin-bottom: 18px;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: auto -60px -100px auto;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: rgba(49,75,56,0.06);
+  filter: blur(4px);
+}
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.9fr;
+  gap: 24px;
+  align-items: stretch;
+}
+.hero-copy,
+.hero-visual {
+  position: relative;
+  z-index: 1;
+}
+.kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 14px;
+  border: 1px solid rgba(49,75,56,0.1);
+  border-radius: 999px;
+  background: rgba(255,253,248,0.82);
+  color: var(--moss);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 18px;
+  backdrop-filter: blur(8px);
+}
+.kicker .kicker-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--amber);
+}
+.hero h1 {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(3.1rem, 10vw, 6.4rem);
+  line-height: 0.92;
+  letter-spacing: -0.035em;
+  margin-bottom: 18px;
+  max-width: 8ch;
+}
+.hero h1 em {
+  font-style: italic;
+  color: var(--amber);
+}
+.hero-sub {
+  max-width: 38rem;
+  font-size: 1.04rem;
+  line-height: 1.72;
+  color: var(--ink-soft);
+  margin-bottom: 24px;
+}
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+.btn-primary,
+.btn-secondary,
+.btn-ghost,
+.qty-btn,
+.wa-btn,
+.cart-float {
+  transition: transform 220ms var(--ease), background 220ms var(--ease), border-color 220ms var(--ease), color 220ms var(--ease), box-shadow 220ms var(--ease), opacity 220ms var(--ease);
+}
+.btn-primary:hover,
+.btn-secondary:hover,
+.btn-ghost:hover,
+.qty-btn:hover,
+.wa-btn:hover,
+.cart-float:hover {
+  transform: translateY(-1px);
+}
+.btn-primary {
+  border: none;
+  background: var(--moss);
+  color: #fff;
+  padding: 14px 22px;
+  border-radius: 999px;
+  font-weight: 700;
+  box-shadow: 0 14px 28px rgba(49,75,56,0.18);
+}
+.btn-secondary {
+  border: 1px solid var(--line-strong);
+  background: rgba(255,253,248,0.7);
+  color: var(--moss);
+  padding: 13px 20px;
+  border-radius: 999px;
+  font-weight: 600;
+}
+.btn-ghost {
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--moss);
+  padding: 13px 0;
+  font-weight: 600;
+}
+.hero-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.meta-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: rgba(255,253,248,0.7);
+  border: 1px solid rgba(49,75,56,0.1);
+  font-size: 13px;
+  color: var(--ink-soft);
+}
 
-  /* ── NAV TABS ── */
-  .nav-tabs {
-    display: flex;
-    background: var(--cream-dark);
-    border-bottom: 1px solid var(--border);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
-  .tab-btn {
-    flex: 1;
-    padding: 0.9rem 0.5rem;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--text-muted);
-    background: none;
-    border: none;
-    cursor: pointer;
-    border-bottom: 2px solid transparent;
-    transition: all 0.2s;
-  }
-  .tab-btn.active {
-    color: var(--moss);
-    border-bottom-color: var(--moss);
-  }
+.hero-visual {
+  display: grid;
+  grid-template-rows: 1fr auto;
+  gap: 16px;
+}
+.hero-image {
+  position: relative;
+  min-height: 360px;
+  border-radius: 28px;
+  overflow: hidden;
+  background: linear-gradient(180deg, rgba(49,75,56,0.08), rgba(49,75,56,0.18));
+}
+.hero-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.hero-image::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(17,20,18,0.02), rgba(17,20,18,0.25));
+}
+.floating-card {
+  position: absolute;
+  right: 18px;
+  bottom: 18px;
+  width: min(240px, calc(100% - 36px));
+  background: rgba(255,251,245,0.92);
+  border: 1px solid rgba(255,255,255,0.75);
+  border-radius: 22px;
+  padding: 16px;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 18px 40px rgba(29,36,30,0.14);
+}
+.floating-label {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+.floating-top {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.floating-top strong {
+  display: block;
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.55rem;
+  line-height: 1;
+  color: var(--moss);
+}
+.floating-top span {
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+.avail-bar-track {
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(49,75,56,0.10);
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+.avail-bar-fill {
+  height: 100%;
+  width: 70%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--moss), #6d8a70);
+}
+.avail-bar-fill.low {
+  background: linear-gradient(90deg, #af6b2a, #d39960);
+}
+.floating-foot {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--ink-soft);
+  font-size: 13px;
+}
+.floating-foot .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--moss);
+}
+.floating-foot .dot.urgent { background: var(--amber); }
 
-  /* ── SECTIONS ── */
-  .section { display: none; }
-  .section.active { display: block; }
-  .container { max-width: 480px; margin: 0 auto; padding: 1.5rem; }
+.hero-notes {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+.note-card {
+  background: rgba(255,251,245,0.72);
+  border: 1px solid rgba(49,75,56,0.1);
+  border-radius: 20px;
+  padding: 14px;
+}
+.note-label {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.note-value {
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--ink);
+}
 
-  /* ── PRODUCT CARDS ── */
-  .product-grid { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 1.5rem; }
-  .product-card {
-    background: #fff;
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    overflow: hidden;
-    display: flex;
-    gap: 0;
-  }
-  .product-img {
-    width: 110px;
-    min-height: 130px;
-    object-fit: cover;
-    flex-shrink: 0;
-  }
-  .product-body {
-    padding: 1rem 1rem 1rem 1rem;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-  .product-name {
-    font-family: 'DM Serif Display', serif;
-    font-size: 1.1rem;
-    font-weight: 400;
-    color: var(--text-dark);
-    line-height: 1.2;
-    margin-bottom: 3px;
-  }
-  .product-desc {
-    font-size: 12px;
-    color: var(--text-muted);
-    margin-bottom: 0.8rem;
-    line-height: 1.4;
-  }
-  .product-footer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .price {
-    font-size: 1.15rem;
-    font-weight: 600;
-    color: var(--moss);
-  }
-  .qty-control {
-    display: flex;
-    align-items: center;
-    gap: 0;
-    border: 1px solid var(--border-mid);
-    border-radius: 100px;
-    overflow: hidden;
-  }
-  .qty-btn {
-    width: 32px; height: 32px;
-    background: none;
-    border: none;
-    font-size: 18px;
-    cursor: pointer;
-    color: var(--moss);
-    display: flex; align-items: center; justify-content: center;
-    transition: background 0.15s;
-  }
-  .qty-btn:hover { background: var(--moss-pale); }
-  .qty-display {
-    min-width: 28px;
-    text-align: center;
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--text-dark);
-  }
-  .probiotic-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 6px; }
-  .tag {
-    font-size: 10px;
-    padding: 2px 8px;
-    border-radius: 100px;
-    background: var(--moss-pale);
-    color: var(--moss);
-    font-weight: 500;
-  }
-  .tag.amber { background: var(--kombucha-light); color: #7A4A0A; }
+.nav-tabs {
+  position: sticky;
+  top: 0;
+  z-index: 80;
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+  margin-bottom: 20px;
+  background: rgba(248,243,234,0.84);
+  border: 1px solid rgba(255,255,255,0.65);
+  border-radius: 20px;
+  backdrop-filter: blur(14px);
+  box-shadow: 0 10px 24px rgba(49,75,56,0.06);
+}
+.tab-btn {
+  flex: 1;
+  padding: 14px 12px;
+  border-radius: 14px;
+  border: none;
+  background: transparent;
+  color: var(--ink-muted);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.tab-btn.active {
+  background: var(--moss);
+  color: #fff;
+  box-shadow: 0 10px 20px rgba(49,75,56,0.16);
+}
 
-  /* ── ORDER SUMMARY ── */
-  .order-summary {
-    background: var(--moss-pale);
-    border-radius: var(--radius);
-    padding: 1.2rem;
-    margin-bottom: 1.5rem;
-  }
-  .summary-row {
-    display: flex;
-    justify-content: space-between;
-    font-size: 14px;
-    color: var(--text-mid);
-    padding: 4px 0;
-  }
-  .summary-total {
-    display: flex;
-    justify-content: space-between;
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--moss);
-    margin-top: 8px;
-    padding-top: 8px;
-    border-top: 1px solid var(--border-mid);
-  }
-  .empty-cart {
-    text-align: center;
-    padding: 2.5rem 1rem;
-    color: var(--text-muted);
-    font-size: 14px;
-  }
-  .empty-cart .big { font-size: 2.5rem; margin-bottom: 0.5rem; }
+.section { display: none; }
+.section.active { display: block; }
+.section-stack {
+  display: grid;
+  gap: 18px;
+}
+.panel {
+  background: rgba(255,251,245,0.78);
+  border: 1px solid rgba(255,255,255,0.65);
+  border-radius: 28px;
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+}
+.panel-inner { padding: 24px; }
+.panel-header {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+.eyebrow {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.panel-title,
+.section-header h3,
+.about-hero h2 {
+  font-family: 'DM Serif Display', serif;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+.panel-title { font-size: clamp(1.7rem, 4vw, 2.5rem); line-height: 1.02; }
+.panel-copy { color: var(--ink-soft); line-height: 1.7; max-width: 42rem; }
+.section-header { display: flex; justify-content: space-between; align-items: end; gap: 14px; margin-bottom: 16px; }
+.section-header h3 { font-size: 1.55rem; }
+.section-kicker {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  font-weight: 700;
+  margin-bottom: 7px;
+}
+.muted-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(49,75,56,0.07);
+  color: var(--moss);
+  border: 1px solid rgba(49,75,56,0.12);
+  padding: 9px 14px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+}
 
-  /* ── FORM ── */
-  .form-section { margin-bottom: 1.5rem; }
-  .form-section label {
-    display: block;
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--text-mid);
-    text-transform: uppercase;
-    letter-spacing: 0.07em;
-    margin-bottom: 6px;
-  }
-  .form-section input,
-  .form-section select,
-  .form-section textarea {
-    width: 100%;
-    padding: 0.75rem 1rem;
-    border: 1px solid var(--border-mid);
-    border-radius: var(--radius-sm);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 15px;
-    background: #fff;
-    color: var(--text-dark);
-    outline: none;
-    transition: border 0.15s;
-  }
-  .form-section input:focus,
-  .form-section select:focus,
-  .form-section textarea:focus {
-    border-color: var(--moss);
-  }
-  .form-section textarea { height: 80px; resize: vertical; }
+.avail-banner {
+  background: linear-gradient(135deg, rgba(255,248,238,0.9), rgba(244,234,217,0.88));
+  border: 1px solid rgba(185,120,51,0.16);
+  border-radius: 24px;
+  padding: 18px;
+  margin-bottom: 18px;
+}
+.avail-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+.avail-label,
+.avail-count {
+  font-size: 13px;
+}
+.avail-label {
+  color: var(--ink-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-weight: 700;
+}
+.avail-count {
+  color: var(--moss);
+  font-weight: 700;
+}
+.avail-cutoff {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--ink-soft);
+  font-size: 13px;
+}
+.avail-cutoff .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--moss);
+}
+.avail-cutoff .dot.urgent { background: var(--amber); }
 
-  /* ── BUTTONS ── */
-  .btn-primary {
-    width: 100%;
-    padding: 1rem;
-    background: var(--moss);
-    color: #fff;
-    border: none;
-    border-radius: var(--radius-sm);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.15s, transform 0.1s;
-  }
-  .btn-primary:hover { background: var(--moss-light); }
-  .btn-primary:active { transform: scale(0.99); }
-  .btn-primary:disabled { background: var(--text-muted); cursor: not-allowed; }
+.utility-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 18px;
+}
 
-  .btn-secondary {
-    padding: 0.65rem 1.2rem;
-    background: none;
-    color: var(--moss);
-    border: 1.5px solid var(--moss);
-    border-radius: var(--radius-sm);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 13px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.15s;
-  }
-  .btn-secondary:hover { background: var(--moss-pale); }
+.product-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+.product-card {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  border-radius: 26px;
+  overflow: hidden;
+  background: var(--milk);
+  border: 1px solid rgba(49,75,56,0.08);
+  box-shadow: 0 16px 32px rgba(49,75,56,0.08);
+}
+.product-media {
+  position: relative;
+  min-height: 240px;
+  background: linear-gradient(180deg, rgba(49,75,56,0.06), rgba(49,75,56,0.12));
+}
+.product-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.product-badge {
+  position: absolute;
+  left: 16px;
+  top: 16px;
+  display: inline-flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  background: rgba(255,251,245,0.86);
+  color: var(--moss);
+  border: 1px solid rgba(255,255,255,0.55);
+  backdrop-filter: blur(10px);
+}
+.tag.amber { color: #8a5516; }
+.product-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 20px;
+}
+.product-name {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.8rem;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.product-desc {
+  color: var(--ink-soft);
+  line-height: 1.65;
+  margin-bottom: 14px;
+  font-size: 14px;
+}
+.product-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.product-meta span {
+  padding: 7px 10px;
+  border-radius: 999px;
+  background: #f4eee2;
+  color: var(--ink-soft);
+  font-size: 12px;
+}
+.product-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+.price-wrap small {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.price {
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: var(--moss);
+}
+.qty-control {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: #fcfaf5;
+}
+.qty-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
+  border: none;
+  background: var(--cream-deep);
+  color: var(--moss);
+  font-size: 20px;
+}
+.qty-display {
+  min-width: 38px;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 700;
+}
 
-  /* ── SELLER: BATCH TRACKER ── */
-  .batch-card {
-    background: #fff;
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 1.2rem;
-    margin-bottom: 1rem;
-  }
-  .batch-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
-  }
-  .batch-title {
-    font-family: 'DM Serif Display', serif;
-    font-size: 1.1rem;
-    color: var(--text-dark);
-  }
-  .status-badge {
-    font-size: 11px;
-    font-weight: 600;
-    padding: 3px 10px;
-    border-radius: 100px;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-  }
-  .status-brewing { background: var(--kombucha-light); color: #7A4A0A; }
-  .status-ready { background: var(--moss-pale); color: var(--moss); }
-  .status-delivered { background: #e8e8e8; color: #666; }
+.order-layout {
+  display: grid;
+  grid-template-columns: 0.95fr 1.05fr;
+  gap: 18px;
+}
+.order-summary {
+  background: linear-gradient(180deg, #f7f1e7, #f2eadc);
+  border-radius: 24px;
+  padding: 20px;
+  border: 1px solid rgba(49,75,56,0.08);
+}
+.summary-row,
+.summary-total {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+.summary-row {
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(49,75,56,0.08);
+  color: var(--ink-soft);
+  font-size: 14px;
+}
+.summary-total {
+  padding-top: 16px;
+  margin-top: 8px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--moss);
+}
+.empty-cart {
+  border-radius: 24px;
+  background: #fffdf9;
+  border: 1px dashed rgba(49,75,56,0.18);
+  padding: 32px 18px;
+  text-align: center;
+  color: var(--ink-soft);
+}
+.empty-cart .big { font-size: 2.6rem; margin-bottom: 10px; }
+.form-shell {
+  background: #fffdf9;
+  border-radius: 24px;
+  border: 1px solid rgba(49,75,56,0.08);
+  padding: 22px;
+}
+.form-grid {
+  display: grid;
+  gap: 16px;
+}
+.form-section label {
+  display: block;
+  margin-bottom: 7px;
+  font-size: 12px;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  font-weight: 700;
+}
+.form-section input,
+.form-section select,
+.form-section textarea {
+  width: 100%;
+  border: 1px solid rgba(49,75,56,0.12);
+  background: #fff;
+  color: var(--ink);
+  border-radius: 16px;
+  padding: 14px 15px;
+  outline: none;
+}
+.form-section textarea { min-height: 110px; resize: vertical; }
+.form-section input:focus,
+.form-section select:focus,
+.form-section textarea:focus {
+  border-color: rgba(49,75,56,0.38);
+  box-shadow: 0 0 0 4px rgba(49,75,56,0.08);
+}
+.form-note {
+  margin-top: 10px;
+  color: var(--ink-muted);
+  font-size: 13px;
+  line-height: 1.6;
+}
 
-  .batch-stats {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 8px;
-    margin-bottom: 1rem;
-  }
-  .stat-box {
-    background: var(--cream);
-    border-radius: var(--radius-sm);
-    padding: 0.6rem 0.7rem;
-    text-align: center;
-  }
-  .stat-box .val {
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: var(--moss);
-  }
-  .stat-box .lbl {
-    font-size: 10px;
-    color: var(--text-muted);
-    margin-top: 1px;
-  }
+.accordion,
+.wa-strip,
+.about-card,
+.template-box,
+.batch-card,
+.order-row,
+.success-state {
+  background: #fffdf9;
+  border: 1px solid rgba(49,75,56,0.08);
+  border-radius: 24px;
+  box-shadow: 0 12px 24px rgba(49,75,56,0.04);
+}
+.accordion { margin-top: 18px; overflow: hidden; }
+.accordion-trigger {
+  width: 100%;
+  padding: 20px;
+  border: none;
+  background: transparent;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  text-align: left;
+  color: var(--moss);
+  font-weight: 700;
+}
+.accordion-trigger .chevron {
+  width: 18px;
+  height: 18px;
+  transition: transform 240ms var(--ease);
+}
+.accordion-trigger.open .chevron { transform: rotate(180deg); }
+.accordion-body { display: none; padding: 0 20px 20px; }
+.accordion-body.open { display: block; }
+.faq-item { padding: 14px 0; border-bottom: 1px solid rgba(49,75,56,0.08); }
+.faq-item:last-child { border-bottom: none; padding-bottom: 0; }
+.faq-q { font-weight: 700; margin-bottom: 6px; }
+.faq-a { color: var(--ink-soft); line-height: 1.65; font-size: 14px; }
 
-  /* ── ORDERS TABLE ── */
-  .orders-list { display: flex; flex-direction: column; gap: 0.75rem; }
-  .order-row {
-    background: #fff;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    padding: 0.9rem 1rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 12px;
-  }
-  .order-row .name { font-weight: 500; font-size: 14px; }
-  .order-row .details { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
-  .order-row .amount { font-size: 14px; font-weight: 600; color: var(--moss); white-space: nowrap; }
-  .wa-btn {
-    background: #25D366;
-    color: #fff;
-    border: none;
-    border-radius: 6px;
-    padding: 5px 10px;
-    font-size: 11px;
-    font-weight: 600;
-    cursor: pointer;
-    white-space: nowrap;
-  }
+.wa-strip {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 20px;
+  margin-top: 18px;
+}
+.wa-strip-copy strong {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 1rem;
+  color: var(--ink);
+}
+.wa-strip-copy span { font-size: 14px; color: var(--ink-soft); }
+.wa-strip-btn,
+.wa-btn {
+  border: none;
+  border-radius: 999px;
+  background: #25D366;
+  color: #fff;
+  font-weight: 700;
+}
+.wa-strip-btn {
+  padding: 12px 18px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
 
-  /* ── DELIVERY TEMPLATE ── */
-  .template-box {
-    background: #fff;
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 1.2rem;
-    margin-bottom: 1rem;
-  }
-  .template-text {
-    font-size: 14px;
-    color: var(--text-mid);
-    line-height: 1.7;
-    margin-bottom: 1rem;
-    font-style: italic;
-    background: var(--cream);
-    padding: 0.75rem;
-    border-radius: var(--radius-sm);
-  }
+.about-grid {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 18px;
+}
+.about-hero {
+  padding: 24px;
+  border-radius: 28px;
+  background: linear-gradient(180deg, rgba(49,75,56,0.96), rgba(62,90,72,0.95));
+  color: #fff;
+}
+.about-hero h2 { font-size: clamp(2rem, 5vw, 3.2rem); line-height: 0.98; margin-bottom: 14px; color: #fff; }
+.about-hero p { max-width: 34rem; line-height: 1.72; opacity: 0.86; }
+.process-list,
+.faq-list { display: grid; gap: 14px; }
+.about-card { padding: 20px; }
+.process-step { display: flex; gap: 14px; }
+.step-num {
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  background: var(--cream-deep);
+  color: var(--moss);
+  font-weight: 700;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+.step-content h4 { margin-bottom: 6px; font-size: 1rem; }
+.step-content p { color: var(--ink-soft); line-height: 1.7; font-size: 14px; }
 
-  /* ── ABOUT ── */
-  .about-hero {
-    background: var(--moss);
-    color: #fff;
-    border-radius: var(--radius);
-    padding: 2rem 1.5rem;
-    text-align: center;
-    margin-bottom: 1.5rem;
-  }
-  .about-hero h2 {
-    font-family: 'DM Serif Display', serif;
-    font-size: 1.8rem;
-    margin-bottom: 0.5rem;
-  }
-  .about-hero p { opacity: 0.8; font-size: 14px; line-height: 1.7; }
-  .process-step {
-    display: flex;
-    gap: 1rem;
-    padding: 1rem 0;
-    border-bottom: 1px solid var(--border);
-  }
-  .process-step:last-child { border-bottom: none; }
-  .step-num {
-    width: 32px; height: 32px;
-    background: var(--moss-pale);
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-weight: 600;
-    font-size: 13px;
-    color: var(--moss);
-    flex-shrink: 0;
-  }
-  .step-content h4 { font-size: 14px; font-weight: 600; color: var(--text-dark); margin-bottom: 3px; }
-  .step-content p { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+.batch-grid,
+.seller-lower {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+.batch-card,
+.template-box { padding: 20px; }
+.batch-header,
+.order-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+.batch-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.35rem;
+}
+.status-badge {
+  padding: 7px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 700;
+}
+.status-ready { background: rgba(49,75,56,0.11); color: var(--moss); }
+.status-brewing { background: rgba(185,120,51,0.13); color: #91581f; }
+.batch-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin: 16px 0;
+}
+.stat-box {
+  padding: 12px;
+  border-radius: 18px;
+  background: #f6efe4;
+  text-align: center;
+}
+.stat-box .val { font-size: 1.2rem; font-weight: 700; color: var(--moss); }
+.stat-box .lbl { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-muted); margin-top: 4px; }
+.orders-list { display: grid; gap: 12px; }
+.order-row { padding: 16px; }
+.order-row .name { font-weight: 700; margin-bottom: 4px; }
+.order-row .details { font-size: 13px; color: var(--ink-soft); }
+.order-row .amount { font-weight: 700; color: var(--moss); }
+.wa-btn { padding: 10px 14px; }
+.template-text { color: var(--ink-soft); line-height: 1.7; margin-bottom: 16px; }
 
-  /* ── SUCCESS STATE ── */
-  .success-state {
-    display: none;
-    text-align: center;
-    padding: 3rem 1.5rem;
-  }
-  .success-icon {
-    width: 72px; height: 72px;
-    background: var(--moss-pale);
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    margin: 0 auto 1.5rem;
-  }
-  .success-icon svg { width: 36px; height: 36px; color: var(--moss); }
-  .success-state h2 {
-    font-family: 'DM Serif Display', serif;
-    font-size: 1.8rem;
-    margin-bottom: 0.75rem;
-  }
-  .success-state p { color: var(--text-muted); font-size: 14px; line-height: 1.7; }
+.success-state {
+  display: none;
+  margin-top: 18px;
+  padding: 28px 22px;
+  text-align: center;
+}
+.success-icon {
+  width: 66px;
+  height: 66px;
+  margin: 0 auto 16px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: rgba(49,75,56,0.08);
+  color: var(--moss);
+}
+.success-icon svg { width: 28px; height: 28px; }
+.success-state h2 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 2rem;
+  font-weight: 400;
+  margin-bottom: 8px;
+}
+.success-state p { color: var(--ink-soft); line-height: 1.7; }
 
-  /* ── TOAST ── */
-  .toast {
-    position: fixed;
-    bottom: 24px;
-    left: 50%;
-    transform: translateX(-50%) translateY(80px);
-    background: var(--moss);
-    color: #fff;
-    padding: 12px 20px;
-    border-radius: 100px;
-    font-size: 14px;
-    font-weight: 500;
-    transition: transform 0.3s ease;
-    z-index: 999;
-    white-space: nowrap;
-  }
-  .toast.show { transform: translateX(-50%) translateY(0); }
+.cart-float {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 120;
+  display: none;
+  align-items: center;
+  gap: 12px;
+  border: none;
+  border-radius: 999px;
+  padding: 14px 18px;
+  background: var(--moss);
+  color: #fff;
+  box-shadow: 0 16px 34px rgba(49,75,56,0.22);
+  font-weight: 700;
+}
+.cart-float.visible { display: inline-flex; }
+.cart-count {
+  min-width: 28px;
+  height: 28px;
+  padding: 0 8px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.16);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 26px;
+  transform: translateX(-50%) translateY(80px);
+  padding: 12px 16px;
+  border-radius: 999px;
+  background: rgba(29,36,30,0.92);
+  color: #fff;
+  font-size: 14px;
+  z-index: 200;
+  opacity: 0;
+  transition: transform 260ms var(--ease), opacity 260ms var(--ease);
+}
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
 
-  /* ── SECTION HEADER ── */
-  .section-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    margin-bottom: 1rem;
-  }
-  .section-header h3 {
-    font-family: 'DM Serif Display', serif;
-    font-size: 1.3rem;
-    font-weight: 400;
-    color: var(--text-dark);
-  }
-  .section-header span { font-size: 12px; color: var(--text-muted); }
+#pin-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 220;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(20,24,21,0.52);
+  backdrop-filter: blur(10px);
+}
+.pin-dialog {
+  width: min(100%, 360px);
+  background: #fffdf9;
+  border-radius: 28px;
+  padding: 24px;
+  box-shadow: 0 26px 60px rgba(20,24,21,0.22);
+}
+.pin-dialog h3 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.8rem;
+  font-weight: 400;
+  margin-bottom: 6px;
+}
+.pin-dialog p {
+  color: var(--ink-soft);
+  line-height: 1.65;
+  margin-bottom: 16px;
+}
+#pin-input {
+  width: 100%;
+  border-radius: 18px;
+  border: 1px solid var(--line);
+  padding: 16px;
+  text-align: center;
+  letter-spacing: 0.26em;
+  font-size: 1.4rem;
+  margin-bottom: 10px;
+}
+#pin-error {
+  display: none;
+  color: #9d5c18;
+  font-size: 13px;
+  margin-bottom: 12px;
+  font-weight: 700;
+}
+.dialog-actions { display: flex; gap: 10px; }
+.dialog-actions button { flex: 1; }
 
-  .divider { height: 1px; background: var(--border); margin: 1.5rem 0; }
+@media (max-width: 960px) {
+  .hero-grid,
+  .utility-grid,
+  .order-layout,
+  .about-grid,
+  .batch-grid,
+  .seller-lower,
+  .product-grid {
+    grid-template-columns: 1fr;
+  }
+  .hero-notes { grid-template-columns: 1fr; }
+  .hero-image { min-height: 300px; }
+}
+@media (max-width: 640px) {
+  .shell { padding: 14px 12px 42px; }
+  .hero { padding: 16px; border-radius: 28px; }
+  .panel-inner,
+  .about-hero,
+  .about-card,
+  .batch-card,
+  .template-box,
+  .form-shell,
+  .order-summary { padding: 18px; }
+  .topbar { flex-direction: column; align-items: flex-start; }
+  .hero-actions,
+  .wa-strip,
+  .panel-header,
+  .section-header,
+  .avail-top,
+  .batch-header,
+  .order-row,
+  .product-footer { flex-direction: column; align-items: flex-start; }
+  .wa-strip-btn,
+  .btn-primary,
+  .btn-secondary { width: 100%; justify-content: center; }
+  .tab-btn { font-size: 12px; padding: 12px 8px; }
+  .hero h1 { max-width: none; }
+}
 
-  /* ── AVAILABILITY BAR ── */
-  .avail-banner {
-    background: #fff;
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 1rem 1.1rem;
-    margin-bottom: 1.2rem;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
   }
-  .avail-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .avail-label { font-size: 13px; font-weight: 600; color: var(--text-dark); }
-  .avail-count { font-size: 12px; color: var(--text-muted); }
-  .avail-count strong { color: var(--kombucha); font-weight: 700; }
-  .avail-bar-track {
-    height: 6px;
-    background: var(--cream-dark);
-    border-radius: 100px;
-    overflow: hidden;
-  }
-  .avail-bar-fill {
-    height: 100%;
-    border-radius: 100px;
-    background: var(--moss);
-    transition: width 0.4s ease;
-  }
-  .avail-bar-fill.low { background: var(--kombucha); }
-  .avail-cutoff {
-    font-size: 11px;
-    color: var(--text-muted);
-    display: flex;
-    align-items: center;
-    gap: 5px;
-  }
-  .avail-cutoff span.dot {
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: var(--moss);
-    flex-shrink: 0;
-  }
-  .avail-cutoff span.dot.urgent { background: var(--kombucha); }
-
-  /* ── CART FLOAT ── */
-  .cart-float {
-    position: fixed;
-    bottom: 24px;
-    right: 20px;
-    background: var(--moss);
-    color: #fff;
-    border: none;
-    border-radius: 100px;
-    padding: 12px 20px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    display: none;
-    align-items: center;
-    gap: 8px;
-    box-shadow: 0 4px 16px rgba(30,60,30,0.25);
-    z-index: 98;
-    transition: all 0.2s;
-  }
-  .cart-float:hover { background: var(--moss-light); }
-  .cart-float.visible { display: flex; }
-  .cart-count {
-    background: var(--kombucha);
-    border-radius: 100px;
-    font-size: 12px;
-    padding: 2px 7px;
-    font-weight: 700;
-  }
-
-  /* ── DELIVERY ZONE STRIP ── */
-  .zone-strip {
-    background: var(--kombucha-light);
-    border-bottom: 1px solid rgba(194,128,58,0.2);
-    padding: 9px 1.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 7px;
-    font-size: 12px;
-    font-weight: 500;
-    color: #7A4A0A;
-  }
-  .zone-strip svg { width: 13px; height: 13px; flex-shrink: 0; }
-
-  /* ── KOMBUCHA ACCORDION ── */
-  .accordion {
-    background: #fff;
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    overflow: hidden;
-    margin-bottom: 1.2rem;
-  }
-  .accordion-trigger {
-    width: 100%;
-    background: none;
-    border: none;
-    padding: 0.9rem 1.1rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    cursor: pointer;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--moss);
-    text-align: left;
-  }
-  .accordion-trigger .chevron {
-    width: 16px; height: 16px;
-    transition: transform 0.25s;
-    flex-shrink: 0;
-    color: var(--moss);
-  }
-  .accordion-trigger.open .chevron { transform: rotate(180deg); }
-  .accordion-body {
-    display: none;
-    padding: 0 1.1rem 1rem;
-    border-top: 1px solid var(--border);
-  }
-  .accordion-body.open { display: block; }
-  .faq-item { padding: 0.85rem 0; border-bottom: 1px solid var(--border); }
-  .faq-item:last-child { border-bottom: none; padding-bottom: 0; }
-  .faq-q { font-size: 13px; font-weight: 600; color: var(--text-dark); margin-bottom: 5px; }
-  .faq-a { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
-
-  /* ── WA CTA STRIP ── */
-  .wa-strip {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    background: #fff;
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 0.9rem 1.1rem;
-    margin-bottom: 1.2rem;
-    text-decoration: none;
-  }
-  .wa-strip-text { font-size: 13px; color: var(--text-mid); }
-  .wa-strip-btn {
-    background: #25D366;
-    color: #fff;
-    border: none;
-    border-radius: 100px;
-    padding: 6px 14px;
-    font-size: 12px;
-    font-weight: 600;
-    white-space: nowrap;
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-block;
-  }
+}
 </style>
 </head>
 <body>
-
-<!-- HERO -->
-<div class="hero">
-  <div class="badge-pill" id="logo-tap" onclick="secretTap()">Small-batch · QC & Ortigas</div>
-  <h1>Komb<em>oost</em>cha</h1>
-  <p>Real live-culture fermented foods — no shortcuts, no fillers. Fresh from our brew to your fridge.</p>
-  <div class="delivery-tag">
-    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-    Delivered to General QC &amp; Ortigas
+<div class="shell">
+  <div class="topbar">
+    <div class="brand-mark"><span class="dot"></span><span id="logo-tap" onclick="secretTap()">Komboostcha · cultured goods</span></div>
+    <div class="mini-note">Fresh batch drops for General QC &amp; Ortigas</div>
   </div>
-</div>
 
-<!-- DELIVERY ZONE STRIP -->
-<div class="zone-strip">
-  <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-  We deliver to <strong style="margin:0 3px">General QC</strong> and <strong style="margin:0 3px">Ortigas</strong> only
-</div>
-
-<!-- NAV TABS -->
-<div class="nav-tabs">
-  <button class="tab-btn active" onclick="switchTab('order')">Order</button>
-  <button class="tab-btn" onclick="switchTab('about')">About</button>
-</div>
-
-<!-- ════════ ORDER SECTION ════════ -->
-<div id="tab-order" class="section active">
-  <div class="container">
-
-    <!-- Product Cards -->
-    <div style="font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-top:0.75rem;margin-bottom:0.25rem">Live-culture fermented goods</div>
-    <div class="section-header" style="margin-top:0">
-      <h3>This Week's Batch</h3>
-      <span id="batch-ready-label">Ready to order</span>
-    </div>
-
-    <!-- Availability banner -->
-    <div class="avail-banner" id="avail-banner">
-      <div class="avail-top">
-        <span class="avail-label">Batch #4 availability</span>
-        <span class="avail-count"><strong id="avail-remaining">14</strong> of 18 bottles left</span>
+  <section class="hero">
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <div class="kicker"><span class="kicker-dot"></span>Small-batch ferments · Quezon City</div>
+        <h1>Handcrafted <em>cultures</em> for the good fridge.</h1>
+        <p class="hero-sub">Quietly premium kombucha and thick cultured yoghurt — brewed in small runs, delivered fresh, and meant to feel like something worth reserving.</p>
+        <div class="hero-actions">
+          <button class="btn-primary" onclick="switchTab('order');document.getElementById('tab-order').scrollIntoView({behavior:'smooth'})">Reserve this batch</button>
+          <button class="btn-secondary" onclick="switchTab('about')">See what’s brewing</button>
+        </div>
+        <div class="hero-meta">
+          <div class="meta-chip">Sunday delivery cadence</div>
+          <div class="meta-chip">No fillers · no thickeners</div>
+          <div class="meta-chip">WhatsApp-first ordering</div>
+        </div>
       </div>
-      <div class="avail-bar-track">
-        <div class="avail-bar-fill" id="avail-bar" style="width:78%"></div>
-      </div>
-      <div class="avail-cutoff">
-        <span class="dot" id="avail-dot"></span>
-        <span id="avail-cutoff-text">Order by Friday midnight for Sunday delivery</span>
-      </div>
-    </div>
-
-    <!-- New to kombucha accordion -->
-    <div class="accordion">
-      <button class="accordion-trigger" onclick="toggleAccordion(this)">
-        New to kombucha? Here's what to expect
-        <svg class="chevron" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
-      </button>
-      <div class="accordion-body">
-        <div class="faq-item">
-          <div class="faq-q">What is kombucha?</div>
-          <div class="faq-a">Kombucha is fermented tea — brewed with a live culture called a SCOBY. It's naturally fizzy, lightly tart, and contains live beneficial bacteria.</div>
+      <div class="hero-visual">
+        <div class="hero-image">
+          <img src="https://axlbot55-wq.github.io/axlbot55-wq-komboostcha-web/assets/brand-system.jpg" alt="Komboostcha bottled cultured goods" onerror="this.src='https://axlbot55-wq.github.io/axlbot55-wq-komboostcha-web/assets/kombucha-logo-v1.jpg'">
+          <div class="floating-card">
+            <div class="floating-label">Current release</div>
+            <div class="floating-top">
+              <div>
+                <strong id="batch-ready-label">Ready to order</strong>
+                <span class="avail-label">Batch #4 availability</span>
+              </div>
+              <div class="avail-count"><strong id="avail-remaining">14</strong> left</div>
+            </div>
+            <div class="avail-bar-track"><div class="avail-bar-fill" id="avail-bar" style="width:78%"></div></div>
+            <div class="floating-foot"><span class="dot" id="avail-dot"></span><span id="avail-cutoff-text">Order by Friday midnight for Sunday delivery</span></div>
+          </div>
         </div>
-        <div class="faq-item">
-          <div class="faq-q">What does it taste like?</div>
-          <div class="faq-a">Think slightly effervescent iced tea with a gentle tang. Not vinegary, not overly sweet. Every batch has natural variation — that's part of what makes it handcrafted.</div>
-        </div>
-        <div class="faq-item">
-          <div class="faq-q">Is it safe? It's fermented at home?</div>
-          <div class="faq-a">Each batch is brewed in a clean, dedicated setup with careful handling and fresh bottling. Fermentation and natural acidity are part of what makes kombucha stable — but if you have specific health concerns, message us on WhatsApp before ordering.</div>
-        </div>
-        <div class="faq-item">
-          <div class="faq-q">How do I store it?</div>
-          <div class="faq-a">Keep it refrigerated once you receive it. It stays fresh for 2–3 weeks chilled. Drink within a few days of opening.</div>
-        </div>
-        <div class="faq-item" style="border-bottom:none;padding-bottom:0">
-          <div class="faq-q">What about the Greek yoghurt?</div>
-          <div class="faq-a">Full-fat milk cultured overnight and strained — thick, creamy, no thickeners or additives. Best consumed within 5–7 days. Keep refrigerated.</div>
+        <div class="hero-notes">
+          <div class="note-card">
+            <div class="note-label">Delivery zones</div>
+            <div class="note-value">General QC and Ortigas for now — tight radius, better control, fresher handoff.</div>
+          </div>
+          <div class="note-card">
+            <div class="note-label">Batch philosophy</div>
+            <div class="note-value">We brew small so each release stays personal, traceable, and easy to reserve.</div>
+          </div>
+          <div class="note-card">
+            <div class="note-label">Order style</div>
+            <div class="note-value">Reserve here, confirm on WhatsApp, then we lock your delivery details cleanly.</div>
+          </div>
         </div>
       </div>
     </div>
+  </section>
 
-    <!-- WhatsApp strip -->
-    <div style="display:flex;align-items:center;justify-content:space-between;background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:0.85rem 1.1rem;margin-bottom:1.2rem">
-      <span style="font-size:13px;color:var(--text-mid)">Questions before ordering?</span>
-      <a href="https://wa.me/639209106731" class="wa-strip-btn">Chat on WhatsApp</a>
+  <div class="nav-tabs">
+    <button class="tab-btn active" onclick="switchTab('order')">Order</button>
+    <button class="tab-btn" onclick="switchTab('about')">About</button>
+  </div>
+
+  <main id="tab-order" class="section active">
+    <div class="section-stack">
+      <section class="panel">
+        <div class="panel-inner">
+          <div class="panel-header">
+            <div>
+              <span class="eyebrow">This week’s offering</span>
+              <h2 class="panel-title">A small release, not a supermarket shelf.</h2>
+            </div>
+            <div class="muted-badge">Fresh cultured goods · reserve while batch lasts</div>
+          </div>
+          <p class="panel-copy">You’re not picking from an endless catalog. You’re reserving from the batch that’s live right now — which is exactly what makes it better.</p>
+
+          <div class="avail-banner" id="avail-banner">
+            <div class="avail-top">
+              <span class="avail-label">Batch #4 availability</span>
+              <span class="avail-count"><strong id="avail-remaining-banner">14</strong> of 18 bottles left</span>
+            </div>
+            <div class="avail-bar-track"><div class="avail-bar-fill" id="avail-bar-banner" style="width:78%"></div></div>
+            <div class="avail-cutoff"><span class="dot" id="avail-dot-banner"></span><span id="avail-cutoff-banner">Order by Friday midnight for Sunday delivery</span></div>
+          </div>
+
+          <div class="product-grid">
+            <article class="product-card">
+              <div class="product-media">
+                <img class="product-img" src="https://axlbot55-wq.github.io/axlbot55-wq-komboostcha-web/assets/kombucha-logo-v1.jpg" alt="Handcrafted Kombucha bottle" onerror="this.style.background='#dce8d9';this.removeAttribute('src')">
+                <div class="product-badge">
+                  <span class="tag">Live cultures</span>
+                  <span class="tag amber">Bright · easy first sip</span>
+                </div>
+              </div>
+              <div class="product-body">
+                <div>
+                  <div class="product-name">Handcrafted Kombucha</div>
+                  <p class="product-desc">Light fizz, gentle acidity, clean finish. Brewed for people who want something fresher and less sugary than the usual shelf stuff.</p>
+                  <div class="product-meta">
+                    <span>500ml glass bottle</span>
+                    <span>Keep refrigerated</span>
+                    <span>Best for first-timers</span>
+                  </div>
+                </div>
+                <div class="product-footer">
+                  <div class="price-wrap"><small>Per bottle</small><div class="price">₱350</div></div>
+                  <div class="qty-control">
+                    <button class="qty-btn" aria-label="Decrease kombucha quantity" onclick="changeQty('kombucha',-1)">−</button>
+                    <span class="qty-display" id="qty-kombucha">0</span>
+                    <button class="qty-btn" aria-label="Increase kombucha quantity" onclick="changeQty('kombucha',1)">+</button>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article class="product-card">
+              <div class="product-media">
+                <img class="product-img" src="https://axlbot55-wq.github.io/axlbot55-wq-komboostcha-web/assets/bottling-tomorrow.jpg" alt="HMGY Greek yoghurt" onerror="this.style.background='#f7f2ec';this.removeAttribute('src')">
+                <div class="product-badge">
+                  <span class="tag">High protein</span>
+                  <span class="tag amber">Thick · cultured overnight</span>
+                </div>
+              </div>
+              <div class="product-body">
+                <div>
+                  <div class="product-name">HMGY Greek Yoghurt</div>
+                  <p class="product-desc">Full-fat milk cultured and strained into a thick, creamy yoghurt with no thickeners, stabilizers, or fake texture tricks.</p>
+                  <div class="product-meta">
+                    <span>475ml jar</span>
+                    <span>5–7 days chilled</span>
+                    <span>No additives</span>
+                  </div>
+                </div>
+                <div class="product-footer">
+                  <div class="price-wrap"><small>Per jar</small><div class="price">₱350</div></div>
+                  <div class="qty-control">
+                    <button class="qty-btn" aria-label="Decrease yoghurt quantity" onclick="changeQty('yoghurt',-1)">−</button>
+                    <span class="qty-display" id="qty-yoghurt">0</span>
+                    <button class="qty-btn" aria-label="Increase yoghurt quantity" onclick="changeQty('yoghurt',1)">+</button>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <div class="accordion">
+            <button class="accordion-trigger" onclick="toggleAccordion(this)">
+              New to kombucha? Here’s what to expect.
+              <svg class="chevron" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+            </button>
+            <div class="accordion-body">
+              <div class="faq-item"><div class="faq-q">What is kombucha?</div><div class="faq-a">Fermented tea made with a live culture called a SCOBY. It’s naturally tart, lightly fizzy, and alive in the best way.</div></div>
+              <div class="faq-item"><div class="faq-q">What does it taste like?</div><div class="faq-a">Think crisp iced tea with a gentle tang rather than heavy sweetness. Each batch has a little personality — that’s the point.</div></div>
+              <div class="faq-item"><div class="faq-q">How should I store it?</div><div class="faq-a">Keep everything refrigerated once received. Kombucha keeps 2–3 weeks chilled; yoghurt is best within 5–7 days.</div></div>
+              <div class="faq-item"><div class="faq-q">Is this beginner-friendly?</div><div class="faq-a">Yes. The kombucha is brewed to stay approachable, and the yoghurt is straight-up comforting.</div></div>
+            </div>
+          </div>
+
+          <div class="wa-strip">
+            <div class="wa-strip-copy">
+              <strong>Need a sanity check before you order?</strong>
+              <span>Ask about storage, flavor profile, batch timing, or bulk reservations.</span>
+            </div>
+            <a href="https://wa.me/639209106731" id="header-wa-link" class="wa-strip-btn">Chat on WhatsApp</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-inner">
+          <div class="panel-header">
+            <div>
+              <span class="eyebrow">Reserve this batch</span>
+              <h2 class="panel-title">Guided checkout, then WhatsApp confirmation.</h2>
+            </div>
+            <div class="muted-badge">Reserve first · finalize cleanly</div>
+          </div>
+          <div class="order-layout">
+            <div>
+              <div id="cart-summary" style="display:none">
+                <div class="order-summary">
+                  <div class="section-kicker">Selected items</div>
+                  <div class="section-header" style="margin-bottom:10px"><h3 style="font-size:1.3rem">Your reservation</h3></div>
+                  <div id="summary-lines"></div>
+                  <div class="summary-total"><span>Total</span><span id="summary-total">₱0</span></div>
+                </div>
+              </div>
+              <div id="empty-cart-hint" class="empty-cart">
+                <div class="big">🌿</div>
+                Add something above and this batch becomes yours to reserve.
+              </div>
+            </div>
+
+            <div>
+              <div id="order-form" style="display:none">
+                <div class="form-shell">
+                  <div class="section-kicker">Delivery details</div>
+                  <div class="section-header" style="margin-bottom:14px"><h3 style="font-size:1.35rem">Where should we send it?</h3></div>
+                  <div class="form-grid">
+                    <div class="form-section">
+                      <label for="cust-name">Your name</label>
+                      <input type="text" id="cust-name" placeholder="e.g. Maria Santos">
+                    </div>
+                    <div class="form-section">
+                      <label for="cust-wa">WhatsApp number</label>
+                      <input type="tel" id="cust-wa" placeholder="e.g. 09171234567">
+                    </div>
+                    <div class="form-section">
+                      <label for="cust-area">Delivery area</label>
+                      <select id="cust-area">
+                        <option value="">Choose your area…</option>
+                        <option value="General QC">General QC</option>
+                        <option value="Ortigas">Ortigas</option>
+                      </select>
+                    </div>
+                    <div class="form-section">
+                      <label for="cust-notes">Notes (optional)</label>
+                      <textarea id="cust-notes" placeholder="Landmark, preferred handoff, delivery timing, etc."></textarea>
+                    </div>
+                  </div>
+                  <button class="btn-primary" style="width:100%;margin-top:8px" onclick="placeOrder()">Reserve this batch</button>
+                  <p class="form-note">We’ll confirm via WhatsApp before delivery. No weird checkout maze — just a clean handoff.</p>
+                </div>
+              </div>
+
+              <div class="success-state" id="order-success">
+                <div class="success-icon"><svg fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div>
+                <h2>Reservation sent.</h2>
+                <p id="success-msg">We’ll reach out on WhatsApp to confirm your delivery.</p>
+                <button class="btn-secondary" style="margin-top:16px" onclick="resetOrder()">Place another order</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
+  </main>
 
-    <div class="product-grid">
-      <!-- Kombucha -->
-      <div class="product-card">
-        <img class="product-img" src="https://axlbot55-wq.github.io/axlbot55-wq-komboostcha-web/assets/kombucha-logo-v1.jpg" alt="Kombucha" onerror="this.style.background='#DCE8D9';this.removeAttribute('src')">
-        <div class="product-body">
+  <main id="tab-seller" class="section">
+    <div class="section-stack">
+      <section class="panel" style="background:linear-gradient(180deg,#f4eee2,#efe5d6)">
+        <div class="panel-inner">
+          <div class="panel-header">
+            <div>
+              <span class="eyebrow">Seller console</span>
+              <h2 class="panel-title">Operational view, separate from the storefront.</h2>
+            </div>
+            <button class="btn-secondary" onclick="showAddBatch()">+ New batch</button>
+          </div>
+
+          <div class="batch-grid">
+            <div>
+              <div id="batch-list">
+                <div class="batch-card" id="sample-batch">
+                  <div class="batch-header"><span class="batch-title">Keg #4</span><span class="status-badge status-brewing">Brewing</span></div>
+                  <div class="batch-stats">
+                    <div class="stat-box"><div class="val">18</div><div class="lbl">Bottles</div></div>
+                    <div class="stat-box"><div class="val">Apr 12</div><div class="lbl">Ready date</div></div>
+                    <div class="stat-box"><div class="val">—</div><div class="lbl">Days left</div></div>
+                  </div>
+                  <div class="dialog-actions">
+                    <button class="btn-secondary" onclick="markReady('sample-batch')">Mark ready</button>
+                    <button class="btn-secondary" style="color:#9d5c18;border-color:rgba(157,92,24,0.26)" onclick="deleteBatch('sample-batch')">Remove</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <div id="add-batch-form" style="display:none" class="batch-card">
+                <div class="section-kicker">New production run</div>
+                <div class="section-header" style="margin-bottom:12px"><h3 style="font-size:1.35rem">Create a batch</h3></div>
+                <div class="form-section"><label for="new-keg">Keg number</label><input type="number" id="new-keg" placeholder="e.g. 5"></div>
+                <div class="form-section"><label for="new-yield">Estimated yield</label><input type="number" id="new-yield" placeholder="e.g. 20"></div>
+                <div class="form-section"><label for="new-date">Ready date</label><input type="date" id="new-date"></div>
+                <div class="dialog-actions"><button class="btn-primary" onclick="saveBatch()">Save</button><button class="btn-secondary" onclick="document.getElementById('add-batch-form').style.display='none'">Cancel</button></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-inner seller-lower">
           <div>
-            <div class="probiotic-tags">
-              <span class="tag">Live cultures</span>
-              <span class="tag amber">Great for first-timers</span>
-            </div>
-            <div class="product-name">Handcrafted Kombucha</div>
-            <div class="product-desc">500ml · Lightly fizzy, gently tart · Keep refrigerated</div>
-          </div>
-          <div class="product-footer">
-            <div class="price">₱350</div>
-            <div class="qty-control">
-              <button class="qty-btn" onclick="changeQty('kombucha',-1)">−</button>
-              <span class="qty-display" id="qty-kombucha">0</span>
-              <button class="qty-btn" onclick="changeQty('kombucha',1)">+</button>
+            <div class="section-header"><h3>Orders</h3><span id="order-count-label" class="muted-badge">0 pending</span></div>
+            <div class="orders-list" id="seller-orders">
+              <div class="batch-card" style="text-align:center;color:var(--ink-soft)">No orders yet — they appear here when customers submit them.</div>
             </div>
           </div>
-        </div>
-      </div>
-
-      <!-- Yoghurt -->
-      <div class="product-card">
-        <img class="product-img" src="https://axlbot55-wq.github.io/axlbot55-wq-komboostcha-web/assets/bottling-tomorrow.jpg" alt="Greek Yoghurt" onerror="this.style.background='#F7F2EC';this.removeAttribute('src')">
-        <div class="product-body">
           <div>
-            <div class="probiotic-tags">
-              <span class="tag">High protein</span>
-              <span class="tag amber">No thickeners</span>
-            </div>
-            <div class="product-name">HMGY Greek Yoghurt</div>
-            <div class="product-desc">475ml · Thick & creamy, strained overnight · Keep refrigerated</div>
-          </div>
-          <div class="product-footer">
-            <div class="price">₱350</div>
-            <div class="qty-control">
-              <button class="qty-btn" onclick="changeQty('yoghurt',-1)">−</button>
-              <span class="qty-display" id="qty-yoghurt">0</span>
-              <button class="qty-btn" onclick="changeQty('yoghurt',1)">+</button>
+            <div class="section-header"><h3>Delivery message</h3></div>
+            <div class="template-box">
+              <div class="template-text" id="wa-template-text">Hi [name]! Your Kboost is ready. I’ll DM you once I’m on the way. — Komboostcha 🌿</div>
+              <button class="btn-secondary" style="width:100%" onclick="copyTemplate()">Copy message</button>
             </div>
           </div>
         </div>
-      </div>
+      </section>
     </div>
+  </main>
 
-    <!-- Order Summary -->
-    <div id="cart-summary" style="display:none">
-      <div class="order-summary">
-        <div class="section-header" style="margin-bottom:0.5rem">
-          <h3 style="font-size:1rem">Your order</h3>
+  <main id="tab-about" class="section">
+    <div class="section-stack">
+      <section class="about-grid">
+        <div class="about-hero">
+          <span class="eyebrow" style="color:rgba(255,255,255,0.72)">Why it feels different</span>
+          <h2>Made with care, not with shortcut energy.</h2>
+          <p>Komboostcha is a small fermentation project built around fresh batches, honest ingredients, and a more personal delivery rhythm than standard food ordering.</p>
         </div>
-        <div id="summary-lines"></div>
-        <div class="summary-total">
-          <span>Total</span>
-          <span id="summary-total">₱0</span>
+        <div class="about-card">
+          <span class="eyebrow">What we actually mean by small-batch</span>
+          <div class="faq-list">
+            <div class="faq-item"><div class="faq-q">Limited quantity by design</div><div class="faq-a">We’d rather run out than let the product feel anonymous.</div></div>
+            <div class="faq-item"><div class="faq-q">Tight delivery radius</div><div class="faq-a">General QC and Ortigas let us keep handoff quality high.</div></div>
+            <div class="faq-item"><div class="faq-q">WhatsApp confirmation</div><div class="faq-a">Human, direct, and clear instead of a bloated checkout flow.</div></div>
+          </div>
         </div>
-      </div>
+      </section>
+
+      <section class="about-grid">
+        <div class="about-card">
+          <div class="section-header"><h3>How we make it</h3></div>
+          <div class="process-list">
+            <div class="process-step"><div class="step-num">1</div><div class="step-content"><h4>Build the base</h4><p>Tea, sugar, and live culture begin the first fermentation — enough time to develop acidity, fizz potential, and character.</p></div></div>
+            <div class="process-step"><div class="step-num">2</div><div class="step-content"><h4>Watch the batch closely</h4><p>Small production means less hiding. Every run is easier to monitor, taste, and bottle at the right moment.</p></div></div>
+            <div class="process-step"><div class="step-num">3</div><div class="step-content"><h4>Bottle and chill</h4><p>Fresh bottling keeps the release feeling alive. You get it meant for the fridge, not for sitting in a warehouse.</p></div></div>
+            <div class="process-step"><div class="step-num">4</div><div class="step-content"><h4>Culture the yoghurt overnight</h4><p>Full-fat milk is cultured and strained into something thick, spoonable, and clean-tasting — with no texture cheats.</p></div></div>
+          </div>
+        </div>
+        <div class="about-card">
+          <div class="section-header"><h3>FAQ</h3></div>
+          <div class="faq-list">
+            <div class="faq-item"><div class="faq-q">How does ordering work?</div><div class="faq-a">Reserve through the Order tab, then we confirm details on WhatsApp before delivery.</div></div>
+            <div class="faq-item"><div class="faq-q">When do you deliver?</div><div class="faq-a">Usually Sunday delivery, with the batch cutoff shown live on the order page.</div></div>
+            <div class="faq-item"><div class="faq-q">How long does it stay fresh?</div><div class="faq-a">Kombucha keeps 2–3 weeks refrigerated. Yoghurt is best within 5–7 days chilled.</div></div>
+            <div class="faq-item"><div class="faq-q">Can I order in bulk?</div><div class="faq-a">Yes — message ahead of release and we’ll see what can be reserved before the batch opens fully.</div></div>
+          </div>
+          <a href="https://wa.me/639209106731" id="about-wa-link" class="wa-strip-btn" style="margin-top:16px;width:100%;text-decoration:none">Message us on WhatsApp</a>
+        </div>
+      </section>
     </div>
-
-    <!-- Empty cart hint -->
-    <div id="empty-cart-hint" class="empty-cart">
-      <div class="big">🌿</div>
-      Add items above to place an order
-    </div>
-
-    <!-- Customer Details Form -->
-    <div id="order-form" style="display:none">
-      <div class="divider"></div>
-      <div class="section-header">
-        <h3>Your details</h3>
-      </div>
-
-      <div class="form-section">
-        <label>Your name</label>
-        <input type="text" id="cust-name" placeholder="e.g. Maria Santos">
-      </div>
-      <div class="form-section">
-        <label>WhatsApp number</label>
-        <input type="tel" id="cust-wa" placeholder="e.g. 09171234567">
-      </div>
-      <div class="form-section">
-        <label>Delivery area</label>
-        <select id="cust-area">
-          <option value="">Choose your area…</option>
-          <option value="General QC">General QC</option>
-          <option value="Ortigas">Ortigas</option>
-        </select>
-      </div>
-      <div class="form-section">
-        <label>Notes (optional)</label>
-        <textarea id="cust-notes" placeholder="Delivery instructions, preferred time, etc."></textarea>
-      </div>
-
-      <button class="btn-primary" onclick="placeOrder()">Confirm Order →</button>
-      <p style="font-size:12px;color:var(--text-muted);text-align:center;margin-top:0.75rem;">We'll confirm via WhatsApp before delivery.</p>
-    </div>
-
-    <!-- Success State -->
-    <div class="success-state" id="order-success">
-      <div class="success-icon">
-        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
-        </svg>
-      </div>
-      <h2>Order placed!</h2>
-      <p id="success-msg">We'll reach out on WhatsApp to confirm your delivery.</p>
-      <br>
-      <button class="btn-secondary" onclick="resetOrder()">Place another order</button>
-    </div>
-
-  </div>
+  </main>
 </div>
 
-<!-- ════════ SELLER SECTION ════════ -->
-<div id="tab-seller" class="section">
-  <div class="container">
-
-    <!-- Batch Tracker -->
-    <div class="section-header" style="margin-top:0.5rem">
-      <h3>Active batches</h3>
-      <button class="btn-secondary" onclick="showAddBatch()">+ New batch</button>
-    </div>
-
-    <div id="batch-list">
-      <div class="batch-card" id="sample-batch">
-        <div class="batch-header">
-          <span class="batch-title">Keg #4</span>
-          <span class="status-badge status-brewing">Brewing</span>
-        </div>
-        <div class="batch-stats">
-          <div class="stat-box"><div class="val">18</div><div class="lbl">Bottles</div></div>
-          <div class="stat-box"><div class="val">Apr 12</div><div class="lbl">Ready date</div></div>
-          <div class="stat-box"><div class="val" id="days-til">—</div><div class="lbl">Days left</div></div>
-        </div>
-        <div style="display:flex;gap:8px">
-          <button class="btn-secondary" style="flex:1;font-size:12px" onclick="markReady('sample-batch')">Mark ready</button>
-          <button class="btn-secondary" style="flex:1;font-size:12px;color:var(--kombucha);border-color:var(--kombucha)" onclick="deleteBatch('sample-batch')">Remove</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Add Batch Form (hidden by default) -->
-    <div id="add-batch-form" style="display:none" class="batch-card">
-      <div class="batch-title" style="margin-bottom:1rem">New batch</div>
-      <div class="form-section">
-        <label>Keg number</label>
-        <input type="number" id="new-keg" placeholder="e.g. 5">
-      </div>
-      <div class="form-section">
-        <label>Estimated yield (bottles)</label>
-        <input type="number" id="new-yield" placeholder="e.g. 20">
-      </div>
-      <div class="form-section">
-        <label>Ready date</label>
-        <input type="date" id="new-date">
-      </div>
-      <div style="display:flex;gap:8px">
-        <button class="btn-primary" style="flex:1" onclick="saveBatch()">Save</button>
-        <button class="btn-secondary" style="flex:1" onclick="document.getElementById('add-batch-form').style.display='none'">Cancel</button>
-      </div>
-    </div>
-
-    <div class="divider"></div>
-
-    <!-- Orders -->
-    <div class="section-header">
-      <h3>Orders</h3>
-      <span id="order-count-label">0 pending</span>
-    </div>
-
-    <div class="orders-list" id="seller-orders">
-      <div style="text-align:center;padding:2rem 0;color:var(--text-muted);font-size:14px">
-        No orders yet — they appear here when customers submit them.
-      </div>
-    </div>
-
-    <div class="divider"></div>
-
-    <!-- WhatsApp template -->
-    <div class="section-header">
-      <h3>Delivery message</h3>
-    </div>
-    <div class="template-box">
-      <div class="template-text" id="wa-template-text">
-        Hi [name]! Your Kboost is ready! I'll DM you once I'm on the way! — Komboostcha 🌿
-      </div>
-      <button class="btn-secondary" style="width:100%" onclick="copyTemplate()">Copy message</button>
-    </div>
-
-  </div>
-</div>
-
-<!-- ════════ ABOUT SECTION ════════ -->
-<div id="tab-about" class="section">
-  <div class="container">
-    <div class="about-hero">
-      <h2>Made with care,<br>not shortcuts.</h2>
-      <p>Komboostcha is a home fermentation project — real probiotics, real ingredients, real passion.</p>
-    </div>
-
-    <div class="section-header">
-      <h3>How we make it</h3>
-    </div>
-    <div style="background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:1rem 1.25rem;margin-bottom:1.5rem">
-      <div class="process-step">
-        <div class="step-num">1</div>
-        <div class="step-content">
-          <h4>Source the culture</h4>
-          <p>A live SCOBY (symbiotic culture of bacteria and yeast) is the heart of every batch — it's what ferments the tea into kombucha.</p>
-        </div>
-      </div>
-      <div class="process-step">
-        <div class="step-num">2</div>
-        <div class="step-content">
-          <h4>First fermentation</h4>
-          <p>Brewed tea and raw sugar feed the culture for 7–10 days in our keg, producing that naturally tart, lightly fizzy base.</p>
-        </div>
-      </div>
-      <div class="process-step">
-        <div class="step-num">3</div>
-        <div class="step-content">
-          <h4>Bottle & condition</h4>
-          <p>Bottled in 500ml glass bottles and left to naturally carbonate for 2–3 more days before delivery.</p>
-        </div>
-      </div>
-      <div class="process-step">
-        <div class="step-num">4</div>
-        <div class="step-content">
-          <h4>Greek yoghurt strain</h4>
-          <p>Full-fat milk cultured overnight and then strained to give that thick, protein-rich texture. No thickeners, ever.</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="section-header">
-      <h3>FAQ</h3>
-    </div>
-    <div style="background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:0.5rem 1.25rem 1rem;margin-bottom:1.5rem">
-      <div class="faq-item">
-        <div class="faq-q">Where do you deliver?</div>
-        <div class="faq-a">General QC and Ortigas only for now. If you're just outside the zone, message us — we'll see what we can do.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">How does ordering work?</div>
-        <div class="faq-a">Submit the order form on the Order tab. We'll WhatsApp you within a few hours to confirm your order and arrange delivery timing.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">When do you brew and deliver?</div>
-        <div class="faq-a">We brew in small batches — typically one keg every 1–2 weeks. The order form shows what's available from the current batch. Order by Friday midnight for Sunday delivery when available.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">How long does the kombucha stay fresh?</div>
-        <div class="faq-a">2–3 weeks refrigerated. Keep it cold from the moment you receive it. The live cultures continue to slowly ferment in the bottle — it gets slightly tangier over time, which is completely normal.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">Is it sweet or sour?</div>
-        <div class="faq-a">Lightly tart with a gentle natural sweetness. Not as sweet as store-bought, not as sharp as vinegar. First-timers usually find it easy to enjoy straight from the bottle over ice.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">Can I return or exchange?</div>
-        <div class="faq-a">We stand behind every batch. If something is wrong with your order, message us on WhatsApp immediately and we'll sort it out.</div>
-      </div>
-      <div class="faq-item" style="border-bottom:none">
-        <div class="faq-q">Can I order larger quantities?</div>
-        <div class="faq-a">Batches are small by design — usually 18–24 bottles. For bulk orders (6+ bottles), message us before the batch is ready and we'll reserve yours first.</div>
-      </div>
-    </div>
-
-    <div style="background:var(--moss);color:#fff;border-radius:var(--radius);padding:1.5rem;text-align:center">
-      <div style="font-family:'DM Serif Display',serif;font-size:1.3rem;margin-bottom:0.5rem">Curious? Questions?</div>
-      <p style="font-size:14px;opacity:0.85;margin-bottom:1rem">We love talking fermentation. Reach out on WhatsApp.</p>
-      <a href="https://wa.me/639209106731" id="about-wa-link" style="display:inline-block;background:#25D366;color:#fff;text-decoration:none;padding:10px 24px;border-radius:100px;font-size:14px;font-weight:600">Message us on WhatsApp</a>
+<div id="pin-modal">
+  <div class="pin-dialog">
+    <h3>Seller access</h3>
+    <p>Enter the seller PIN to unlock the operational console.</p>
+    <input id="pin-input" type="password" inputmode="numeric" maxlength="6" placeholder="••••" onkeydown="if(event.key==='Enter') checkPin()">
+    <div id="pin-error">Incorrect PIN. Try again.</div>
+    <div class="dialog-actions">
+      <button class="btn-secondary" onclick="closePinModal()">Cancel</button>
+      <button class="btn-primary" onclick="checkPin()">Unlock</button>
     </div>
   </div>
 </div>
 
-<!-- PIN Modal -->
-<div id="pin-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:200;align-items:center;justify-content:center;padding:1.5rem">
-  <div style="background:#fff;border-radius:var(--radius);padding:2rem 1.5rem;width:100%;max-width:320px;text-align:center">
-    <div style="font-family:'DM Serif Display',serif;font-size:1.4rem;margin-bottom:0.4rem;color:var(--text-dark)">Seller access</div>
-    <p style="font-size:13px;color:var(--text-muted);margin-bottom:1.25rem">Enter your PIN to continue</p>
-    <input id="pin-input" type="password" inputmode="numeric" maxlength="6" placeholder="••••"
-      style="width:100%;text-align:center;font-size:1.5rem;letter-spacing:0.3em;padding:0.75rem;border:1.5px solid var(--border-mid);border-radius:var(--radius-sm);margin-bottom:0.75rem;font-family:'DM Sans',sans-serif"
-      onkeydown="if(event.key==='Enter') checkPin()">
-    <div id="pin-error" style="display:none;font-size:12px;color:var(--kombucha);margin-bottom:0.75rem;font-weight:500">Incorrect PIN. Try again.</div>
-    <div style="display:flex;gap:8px">
-      <button class="btn-secondary" style="flex:1" onclick="closePinModal()">Cancel</button>
-      <button class="btn-primary" style="flex:1;padding:0.65rem" onclick="checkPin()">Unlock</button>
-    </div>
-  </div>
-</div>
-
-<!-- Cart float button -->
 <button class="cart-float" id="cart-float-btn" onclick="switchTab('order');scrollToForm()">
   <span>View cart</span>
   <span class="cart-count" id="float-count">0</span>
 </button>
 
-<!-- Toast -->
 <div class="toast" id="toast"></div>
 
 <script>
@@ -1079,18 +1392,19 @@ function loadBatches(){try{batches=JSON.parse(localStorage.getItem(STORE_BATCHES
 function saveBatches(){localStorage.setItem(STORE_BATCHES,JSON.stringify(batches))}
 function currentBatch(){return batches[0]||defaultBatchEntry()}
 function totalQtyOrdered(){return qty.kombucha+qty.yoghurt}
-function updateStaticLinks(){const about=document.getElementById('about-wa-link');if(about)about.href='https://wa.me/'+WA_NUMBER}
-function updateBatchMeta(){const b=currentBatch();const n=String(b.name||('Keg #'+DEFAULT_BATCH.id)).match(/\d+/)?.[0]||DEFAULT_BATCH.id;const label=document.querySelector('.avail-label');if(label)label.textContent='Batch #'+n+' availability';const ready=document.getElementById('batch-ready-label');if(ready)ready.textContent=b.status==='brewing'?'Brewing now':'Ready to order'}
-function updateAvailBar(){const b=currentBatch();const total=Math.max(1,Number(b.total)||DEFAULT_BATCH.total||18);const remainingBase=Math.max(0,Number(b.remaining)||0);const remaining=Math.max(0,remainingBase-totalQtyOrdered());const pct=Math.max(0,Math.min(100,Math.round((remaining/total)*100)));document.getElementById('avail-bar').style.width=pct+'%';const count=document.querySelector('.avail-count');if(count)count.innerHTML=`<strong id="avail-remaining">${remaining}</strong> of ${total} bottles left`;const cutoff=document.getElementById('avail-cutoff-text');const dot=document.getElementById('avail-dot');const bar=document.getElementById('avail-bar');if(remaining===0){bar.classList.add('low');dot.classList.add('urgent');cutoff.textContent='This batch is fully reserved'}else if(remaining<=4){bar.classList.add('low');dot.classList.add('urgent');cutoff.textContent=`Only ${remaining} left — order before they're gone`}else{bar.classList.remove('low');dot.classList.remove('urgent');cutoff.textContent=b.cutoffText||DEFAULT_BATCH.cutoffText}}
+function updateStaticLinks(){['about-wa-link','header-wa-link'].forEach(id=>{const el=document.getElementById(id);if(el)el.href='https://wa.me/'+WA_NUMBER})}
+function updateBatchMeta(){const b=currentBatch();const n=String(b.name||('Keg #'+DEFAULT_BATCH.id)).match(/\d+/)?.[0]||DEFAULT_BATCH.id;document.querySelectorAll('.avail-label').forEach(el=>el.textContent='Batch #'+n+' availability');const ready=document.getElementById('batch-ready-label');if(ready)ready.textContent=b.status==='brewing'?'Brewing now':'Ready to order'}
+function applyAvailabilityState(remaining,total,text,isUrgent){const pct=Math.max(0,Math.min(100,Math.round((remaining/Math.max(1,total))*100)));['avail-bar','avail-bar-banner'].forEach(id=>{const el=document.getElementById(id);if(el){el.style.width=pct+'%';el.classList.toggle('low',!!isUrgent)}});['avail-dot','avail-dot-banner'].forEach(id=>{const el=document.getElementById(id);if(el)el.classList.toggle('urgent',!!isUrgent)});const remMain=document.getElementById('avail-remaining'); if(remMain) remMain.textContent=remaining; const remBanner=document.getElementById('avail-remaining-banner'); if(remBanner) remBanner.textContent=remaining; const countMain=document.querySelector('.floating-card .avail-count'); if(countMain) countMain.innerHTML=`<strong id="avail-remaining">${remaining}</strong> left`; const countBanner=document.querySelector('.avail-banner .avail-count'); if(countBanner) countBanner.innerHTML=`<strong id="avail-remaining-banner">${remaining}</strong> of ${total} bottles left`; const cutMain=document.getElementById('avail-cutoff-text'); if(cutMain) cutMain.textContent=text; const cutBanner=document.getElementById('avail-cutoff-banner'); if(cutBanner) cutBanner.textContent=text;}
+function updateAvailBar(){const b=currentBatch();const total=Math.max(1,Number(b.total)||DEFAULT_BATCH.total||18);const remainingBase=Math.max(0,Number(b.remaining)||0);const remaining=Math.max(0,remainingBase-totalQtyOrdered());let text=b.cutoffText||DEFAULT_BATCH.cutoffText;let urgent=false;if(remaining===0){text='This batch is fully reserved';urgent=true}else if(remaining<=4){text=`Only ${remaining} left — order before they're gone`;urgent=true}applyAvailabilityState(remaining,total,text,urgent)}
 function updateCartUI(){const total=qty.kombucha*prices.kombucha+qty.yoghurt*prices.yoghurt;const has=totalQtyOrdered()>0;document.getElementById('empty-cart-hint').style.display=has?'none':'block';document.getElementById('cart-summary').style.display=has?'block':'none';document.getElementById('order-form').style.display=has?'block':'none';let lines='';if(qty.kombucha>0)lines+=`<div class="summary-row"><span>${labels.kombucha} ×${qty.kombucha}</span><span>₱${(qty.kombucha*prices.kombucha).toLocaleString()}</span></div>`;if(qty.yoghurt>0)lines+=`<div class="summary-row"><span>${labels.yoghurt} ×${qty.yoghurt}</span><span>₱${(qty.yoghurt*prices.yoghurt).toLocaleString()}</span></div>`;document.getElementById('summary-lines').innerHTML=lines;document.getElementById('summary-total').textContent='₱'+total.toLocaleString();const fb=document.getElementById('cart-float-btn');if(has&&!document.getElementById('tab-order').classList.contains('active'))fb.classList.add('visible');else fb.classList.remove('visible');document.getElementById('float-count').textContent=totalQtyOrdered()}
 function changeQty(item,delta){const b=currentBatch();const lim=Math.max(0,Number(b.remaining)||0);const nv=Math.max(0,qty[item]+delta);const nt=totalQtyOrdered()-qty[item]+nv;if(nt>lim){showToast(`Only ${lim} bottles left this batch`);return}qty[item]=nv;document.getElementById('qty-'+item).textContent=qty[item];updateCartUI();updateAvailBar()}
 async function sendBackend(order){if(!WEBHOOK)return false;try{const res=await fetch(WEBHOOK,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({source:'komboostcha-storefront',order})});return res.ok}catch{return false}}
 async function placeOrder(){const name=document.getElementById('cust-name').value.trim();const wa=document.getElementById('cust-wa').value.trim();const area=document.getElementById('cust-area').value;const notes=document.getElementById('cust-notes').value.trim();const waClean=wa.replace(/[\s()-]/g,'');if(!name||!wa||!area){showToast('Please fill in all required fields');return}if(!/^\+?\d{10,15}$/.test(waClean)){showToast('Enter a valid WhatsApp number');return}if(!totalQtyOrdered()){showToast('Add at least one item first');return}const total=qty.kombucha*prices.kombucha+qty.yoghurt*prices.yoghurt;const items=[];if(qty.kombucha>0)items.push(`Kombucha ×${qty.kombucha}`);if(qty.yoghurt>0)items.push(`Yoghurt ×${qty.yoghurt}`);const b=currentBatch();const order={id:Date.now(),name,wa:waClean,area,notes,qty:{...qty},items,total,batchId:b.id,batchName:b.name,time:new Date().toLocaleTimeString('en-PH',{hour:'2-digit',minute:'2-digit'}),createdAt:new Date().toISOString(),source:'storefront'};orders.unshift(order);saveOrders();if(batches.length){batches[0].remaining=Math.max(0,(Number(batches[0].remaining)||0)-totalQtyOrdered());saveBatches()}renderSellerOrders();renderBatches();updateBatchMeta();updateAvailBar();const synced=await sendBackend(order);const msg=['🌿 *New Komboostcha Order*','',`*Name:* ${name}`,`*Items:* ${items.join(', ')}`,`*Total:* ₱${total.toLocaleString()}`,`*Area:* ${area}`,`*Their WA:* ${waClean}`,notes?`*Notes:* ${notes}`:null,'',synced?'_Saved to backend log too._':'_WhatsApp/local fallback used._'].filter(Boolean).join('\n');window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`,'_blank');document.getElementById('success-msg').textContent=`Thanks, ${name}! Your order was sent to us via WhatsApp${synced?' and logged to the order sheet':''}. We'll confirm delivery to ${area} shortly.`;document.getElementById('order-form').style.display='none';document.getElementById('cart-summary').style.display='none';document.getElementById('empty-cart-hint').style.display='none';document.getElementById('order-success').style.display='block'}
 function resetOrder(){qty={kombucha:0,yoghurt:0};document.getElementById('qty-kombucha').textContent=0;document.getElementById('qty-yoghurt').textContent=0;document.getElementById('cust-name').value='';document.getElementById('cust-wa').value='';document.getElementById('cust-area').value='';document.getElementById('cust-notes').value='';document.getElementById('order-success').style.display='none';updateCartUI();updateAvailBar()}
 function sendWA(number,name){const clean=String(number||'').replace(/\D/g,'');const msg=encodeURIComponent(`Hi ${name}! Your Kboost is ready! I'll DM you once I'm on the way! — Komboostcha 🌿`);window.open(`https://wa.me/${clean}?text=${msg}`,'_blank')}
-function renderSellerOrders(){const c=document.getElementById('seller-orders');document.getElementById('order-count-label').textContent=orders.length+' pending';if(!orders.length){c.innerHTML='<div style="text-align:center;padding:2rem 0;color:var(--text-muted);font-size:14px">No orders yet — they appear here when customers submit them.</div>';return}c.innerHTML=orders.map(o=>`<div class="order-row"><div style="flex:1;min-width:0"><div class="name">${safe(o.name)}</div><div class="details">${safe((o.items||[]).join(' · '))} · ${safe(o.area)} · ${safe(o.time||'')}</div></div><div class="amount">₱${Number(o.total||0).toLocaleString()}</div><button class="wa-btn" onclick="sendWA(${JSON.stringify(String(o.wa||''))}, ${JSON.stringify(String(o.name||'Customer'))})">WA</button></div>`).join('')}
+function renderSellerOrders(){const c=document.getElementById('seller-orders');const label=document.getElementById('order-count-label');if(label)label.textContent=orders.length+' pending';if(!orders.length){c.innerHTML='<div class="batch-card" style="text-align:center;color:var(--ink-soft)">No orders yet — they appear here when customers submit them.</div>';return}c.innerHTML=orders.map(o=>`<div class="order-row"><div style="flex:1;min-width:0"><div class="name">${safe(o.name)}</div><div class="details">${safe((o.items||[]).join(' · '))} · ${safe(o.area)} · ${safe(o.time||'')}</div></div><div class="amount">₱${Number(o.total||0).toLocaleString()}</div><button class="wa-btn" onclick="sendWA(${JSON.stringify(String(o.wa||''))}, ${JSON.stringify(String(o.name||'Customer'))})">WA</button></div>`).join('')}
 function daysUntil(d){if(!d)return '—';const diff=Math.ceil((new Date(d)-new Date())/86400000);return Math.max(0,diff)}
-function renderBatches(){const list=document.getElementById('batch-list');if(!batches.length){list.innerHTML='<div class="batch-card">No batches yet.</div>';return}list.innerHTML=batches.map(b=>`<div class="batch-card" id="${safe(b.id)}"><div class="batch-header"><span class="batch-title">${safe(b.name)}</span><span class="status-badge ${b.status==='ready'?'status-ready':'status-brewing'}">${safe(b.status)}</span></div><div class="batch-stats"><div class="stat-box"><div class="val">${Number(b.total||0)}</div><div class="lbl">Bottles</div></div><div class="stat-box"><div class="val">${b.readyDate?safe(new Date(b.readyDate).toLocaleDateString('en-PH',{month:'short',day:'numeric'})):'—'}</div><div class="lbl">Ready date</div></div><div class="stat-box"><div class="val">${b.status==='ready'?Number(b.remaining||0):daysUntil(b.readyDate)}</div><div class="lbl">${b.status==='ready'?'Left':'Days left'}</div></div></div><div style="display:flex;gap:8px"><button class="btn-secondary" style="flex:1;font-size:12px" onclick="markReady(${JSON.stringify(String(b.id))})">Mark ${b.status==='ready'?'brewing':'ready'}</button><button class="btn-secondary" style="flex:1;font-size:12px;color:var(--kombucha);border-color:var(--kombucha)" onclick="deleteBatch(${JSON.stringify(String(b.id))})">Remove</button></div></div>`).join('')}
+function renderBatches(){const list=document.getElementById('batch-list');if(!batches.length){list.innerHTML='<div class="batch-card">No batches yet.</div>';return}list.innerHTML=batches.map(b=>`<div class="batch-card" id="${safe(b.id)}"><div class="batch-header"><span class="batch-title">${safe(b.name)}</span><span class="status-badge ${b.status==='ready'?'status-ready':'status-brewing'}">${safe(b.status)}</span></div><div class="batch-stats"><div class="stat-box"><div class="val">${Number(b.total||0)}</div><div class="lbl">Bottles</div></div><div class="stat-box"><div class="val">${b.readyDate?safe(new Date(b.readyDate).toLocaleDateString('en-PH',{month:'short',day:'numeric'})):'—'}</div><div class="lbl">Ready date</div></div><div class="stat-box"><div class="val">${b.status==='ready'?Number(b.remaining||0):daysUntil(b.readyDate)}</div><div class="lbl">${b.status==='ready'?'Left':'Days left'}</div></div></div><div class="dialog-actions"><button class="btn-secondary" onclick="markReady(${JSON.stringify(String(b.id))})">Mark ${b.status==='ready'?'brewing':'ready'}</button><button class="btn-secondary" style="color:#9d5c18;border-color:rgba(157,92,24,0.26)" onclick="deleteBatch(${JSON.stringify(String(b.id))})">Remove</button></div></div>`).join('')}
 function showAddBatch(){document.getElementById('add-batch-form').style.display='block';document.getElementById('new-date').valueAsDate=new Date(Date.now()+8*86400000)}
 function saveBatch(){const keg=document.getElementById('new-keg').value.trim();const yld=Number(document.getElementById('new-yield').value);const date=document.getElementById('new-date').value;if(!keg||!yld||!date){showToast('Fill in all batch fields');return}batches.unshift({id:'batch-'+Date.now(),name:'Keg #'+keg,total:yld,remaining:yld,readyDate:date,status:'brewing',cutoffText:DEFAULT_BATCH.cutoffText,zones:DEFAULT_BATCH.zones});saveBatches();renderBatches();updateBatchMeta();updateAvailBar();document.getElementById('add-batch-form').style.display='none';document.getElementById('new-keg').value='';document.getElementById('new-yield').value='';showToast('Batch saved')}
 function markReady(id){batches=batches.map(b=>b.id===id?{...b,status:b.status==='ready'?'brewing':'ready'}:b);saveBatches();renderBatches();updateBatchMeta();updateAvailBar();showToast('Batch updated')}
@@ -1102,7 +1416,8 @@ function secretTap(){tapCount++;clearTimeout(tapTimer);tapTimer=setTimeout(()=>{
 function showPinModal(){document.getElementById('pin-modal').style.display='flex';document.getElementById('pin-input').value='';setTimeout(()=>document.getElementById('pin-input').focus(),100)}
 function closePinModal(){document.getElementById('pin-modal').style.display='none'}
 function checkPin(){const entered=document.getElementById('pin-input').value.trim();if(entered===SELLER_PIN){localStorage.setItem(STORE_UNLOCK,'1');closePinModal();ensureSellerTab();switchTab('seller');showToast('Seller mode unlocked')}else{document.getElementById('pin-input').value='';document.getElementById('pin-error').style.display='block';setTimeout(()=>document.getElementById('pin-error').style.display='none',2000)}}
-function scrollToForm(){setTimeout(()=>{const form=document.getElementById('order-form');if(form&&form.style.display!=='none')form.scrollIntoView({behavior:'smooth'})},100)}
+function scrollToForm(){setTimeout(()=>{const form=document.getElementById('order-form');if(form&&form.style.display!=='none')form.scrollIntoView({behavior:'smooth',block:'start'})},100)}
+function toggleAccordion(btn){const body=btn.nextElementSibling;const open=btn.classList.toggle('open');if(body)body.classList.toggle('open',open)}
 (function init(){loadOrders();loadBatches();updateStaticLinks();updateBatchMeta();renderBatches();renderSellerOrders();updateCartUI();updateAvailBar();if(localStorage.getItem(STORE_UNLOCK)==='1')ensureSellerTab()})();
 </script>
 </body>
