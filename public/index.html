@@ -267,7 +267,7 @@ img { display: block; max-width: 100%; }
         <div class="hero-meta">
           <div class="meta-chip">General QC & Ortigas</div>
           <div class="meta-chip">Chilled handoff</div>
-          <div class="meta-chip">WhatsApp confirmation</div>
+          <div class="meta-chip">Viber confirmation</div>
         </div>
       </div>
       <div class="hero-visual">
@@ -313,7 +313,7 @@ img { display: block; max-width: 100%; }
           </div>
           <div class="note-card">
             <div class="note-label">How ordering works</div>
-            <div class="note-value">Choose your items, review your total, then confirm delivery or pickup on WhatsApp.</div>
+            <div class="note-value">Choose your items, review your total, then confirm delivery or pickup on Viber.</div>
           </div>
         </div>
       </div>
@@ -436,7 +436,7 @@ img { display: block; max-width: 100%; }
               <strong>Need a sanity check before you order?</strong>
               <span>Ask about storage, flavor profile, batch timing, or bulk reservations.</span>
             </div>
-            <a href="https://wa.me/639209106731" id="header-wa-link" class="wa-strip-btn">Chat on WhatsApp</a>
+            <a href="viber://chat?number=%2B639209106731" id="header-wa-link" class="wa-strip-btn">Chat on Viber</a>
           </div>
         </div>
       </section>
@@ -446,14 +446,14 @@ img { display: block; max-width: 100%; }
           <div class="panel-header">
             <div>
               <span class="eyebrow">Reserve this batch</span>
-              <h2 class="panel-title">Choose your items, then confirm on WhatsApp.</h2>
+              <h2 class="panel-title">Choose your items, then confirm on Viber.</h2>
             </div>
             <div class="muted-badge">Simple order flow · local delivery</div>
           </div>
           <div class="faq-list" style="margin:0 0 18px 0">
             <div class="faq-item"><div class="faq-q">1. Pick your items</div><div class="faq-a">Choose your kombucha, yoghurt, or both from the current batch.</div></div>
             <div class="faq-item"><div class="faq-q">2. Review your reservation</div><div class="faq-a">Your total updates instantly so you can see exactly what you’re ordering.</div></div>
-            <div class="faq-item"><div class="faq-q">3. Confirm on WhatsApp</div><div class="faq-a">Send the order, then we finalize delivery or pickup details directly.</div></div>
+            <div class="faq-item"><div class="faq-q">3. Confirm on Viber</div><div class="faq-a">Send the order, then we finalize delivery or pickup details directly.</div></div>
           </div>
           <div class="order-layout">
             <div>
@@ -482,7 +482,7 @@ img { display: block; max-width: 100%; }
                       <input type="text" id="cust-name" placeholder="e.g. Maria Santos">
                     </div>
                     <div class="form-section">
-                      <label for="cust-wa">WhatsApp number</label>
+                      <label for="cust-wa">Viber number</label>
                       <input type="tel" id="cust-wa" placeholder="e.g. 09171234567">
                     </div>
                     <div class="form-section">
@@ -499,14 +499,14 @@ img { display: block; max-width: 100%; }
                     </div>
                   </div>
                   <button class="btn-primary" style="width:100%;margin-top:8px" onclick="placeOrder()">Send order for confirmation</button>
-                  <p class="form-note">We’ll confirm via WhatsApp before delivery or pickup. Keep everything refrigerated once received for best freshness.</p>
+                  <p class="form-note">We’ll confirm via Viber before delivery or pickup. Keep everything refrigerated once received for best freshness.</p>
                 </div>
               </div>
 
               <div class="success-state" id="order-success">
                 <div class="success-icon"><svg fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div>
                 <h2>Reservation sent.</h2>
-                <p id="success-msg">We’ll reach out on WhatsApp to confirm your delivery.</p>
+                <p id="success-msg">We’ll reach out on Viber to confirm your delivery.</p>
                 <button class="btn-secondary" style="margin-top:16px" onclick="resetOrder()">Place another order</button>
               </div>
             </div>
@@ -595,7 +595,7 @@ img { display: block; max-width: 100%; }
               <div class="editor-meta">
                 <div>
                   <h4>Storefront content</h4>
-                  <p>Change the hero, prices, batch info, FAQ, and WhatsApp number here. Save goes to local storage now, and to Google Sheets too once you add the deployed Apps Script content URL.</p>
+                  <p>Change the hero, prices, batch info, FAQ, and Viber number here. Save goes to local storage now, and to Google Sheets too once you add the deployed Apps Script content URL.</p>
                 </div>
                 <div class="editor-status" id="editor-status">Ready</div>
               </div>
@@ -615,7 +615,7 @@ img { display: block; max-width: 100%; }
                 <div class="editor-field"><label for="editor-faq1a">FAQ 1 answer</label><textarea id="editor-faq1a"></textarea></div>
                 <div class="editor-field"><label for="editor-faq2q">FAQ 2 question</label><input id="editor-faq2q" type="text"></div>
                 <div class="editor-field"><label for="editor-faq2a">FAQ 2 answer</label><textarea id="editor-faq2a"></textarea></div>
-                <div class="editor-field"><label for="editor-wa-number">WhatsApp number</label><input id="editor-wa-number" type="text"></div>
+                <div class="editor-field"><label for="editor-wa-number">Viber number</label><input id="editor-wa-number" type="text"></div>
               </div>
               <div class="editor-actions" style="margin-top:16px">
                 <button class="btn-primary" onclick="saveOwnerContent()">Save storefront content</button>
@@ -651,7 +651,7 @@ img { display: block; max-width: 100%; }
           <div class="faq-list">
             <div class="faq-item"><div class="faq-q">Limited quantity by design</div><div class="faq-a">We’d rather run out than let the product feel anonymous.</div></div>
             <div class="faq-item"><div class="faq-q">Tight delivery radius</div><div class="faq-a">General QC and Ortigas let us keep handoff quality high.</div></div>
-            <div class="faq-item"><div class="faq-q">WhatsApp confirmation</div><div class="faq-a">Human, direct, and clear instead of a bloated checkout flow.</div></div>
+            <div class="faq-item"><div class="faq-q">Viber confirmation</div><div class="faq-a">Human, direct, and clear instead of a bloated checkout flow.</div></div>
           </div>
         </div>
       </section>
@@ -669,12 +669,12 @@ img { display: block; max-width: 100%; }
         <div class="about-card">
           <div class="section-header"><h3>FAQ</h3></div>
           <div class="faq-list">
-            <div class="faq-item"><div class="faq-q" id="faq1q">How do I place an order?</div><div class="faq-a" id="faq1a">Choose your items in the Order tab, review your total, and send the order through WhatsApp so we can confirm delivery or pickup details.</div></div>
+            <div class="faq-item"><div class="faq-q" id="faq1q">How do I place an order?</div><div class="faq-a" id="faq1a">Choose your items in the Order tab, review your total, and send the order through Viber so we can confirm delivery or pickup details.</div></div>
             <div class="faq-item"><div class="faq-q" id="faq2q">Where do you deliver?</div><div class="faq-a" id="faq2a">We currently serve General QC and Ortigas. Batch cutoff and delivery timing are shown live on the order page.</div></div>
             <div class="faq-item"><div class="faq-q">How long does it stay fresh?</div><div class="faq-a">Kombucha keeps 2–3 weeks refrigerated. Yoghurt is best within 5–7 days chilled.</div></div>
             <div class="faq-item"><div class="faq-q">Can I order in bulk?</div><div class="faq-a">Yes — message ahead of release and we’ll see what can be reserved before the batch opens fully.</div></div>
           </div>
-          <a href="https://wa.me/639209106731" id="about-wa-link" class="wa-strip-btn" style="margin-top:16px;width:100%;text-decoration:none">Message us on WhatsApp</a>
+          <a href="viber://chat?number=%2B639209106731" id="about-wa-link" class="wa-strip-btn" style="margin-top:16px;width:100%;text-decoration:none">Message us on Viber</a>
         </div>
       </section>
     </div>
@@ -725,7 +725,7 @@ const DEFAULT_CONTENT = {
   deliveryZones: (DEFAULT_BATCH.zones || ['General QC', 'Ortigas']).join(', '),
   aboutIntro: 'Komboostcha is a small local fermentation project built around fresh batches, honest ingredients, and a simpler ordering experience for nearby customers.',
   faq1q: 'How do I place an order?',
-  faq1a: 'Choose your items in the Order tab, review your total, and send the order through WhatsApp so we can confirm delivery or pickup details.',
+  faq1a: 'Choose your items in the Order tab, review your total, and send the order through Viber so we can confirm delivery or pickup details.',
   faq2q: 'Where do you deliver?',
   faq2a: 'We currently serve General QC and Ortigas. Batch cutoff and delivery timing are shown live on the order page.',
   whatsAppNumber: FALLBACK_WA_NUMBER
@@ -746,7 +746,7 @@ function saveBatches(){localStorage.setItem(STORE_BATCHES,JSON.stringify(batches
 function syncBatchFromContent(){if(!batches.length) batches=[defaultBatchEntry()]; const zones=String(editableContent.deliveryZones||'').split(',').map(s=>s.trim()).filter(Boolean); batches[0]={...batches[0], total:Number(editableContent.batchTotal||DEFAULT_BATCH.total||18), remaining:Number(editableContent.batchRemaining||DEFAULT_BATCH.remaining||14), cutoffText: editableContent.batchCutoffText || DEFAULT_BATCH.cutoffText, zones: zones.length?zones:(DEFAULT_BATCH.zones||['General QC','Ortigas'])}; saveBatches();}
 function currentBatch(){return batches[0]||defaultBatchEntry()}
 function totalQtyOrdered(){return qty.kombucha+qty.yoghurt}
-function updateStaticLinks(){const wa=currentWaNumber(); ['about-wa-link','header-wa-link'].forEach(id=>{const el=document.getElementById(id);if(el)el.href='https://wa.me/'+wa}); const endpointLabel=document.getElementById('content-endpoint-label'); if(endpointLabel) endpointLabel.textContent=CONTENT_WEBHOOK || 'not set'; const mode=document.getElementById('editor-mode-label'); if(mode) mode.textContent=CONTENT_WEBHOOK ? 'Sheets sync enabled' : 'Local fallback mode';}
+function updateStaticLinks(){const wa=currentWaNumber(); const viberLink='viber://chat?number=%2B'+wa; ['about-wa-link','header-wa-link'].forEach(id=>{const el=document.getElementById(id);if(el)el.href=viberLink}); const endpointLabel=document.getElementById('content-endpoint-label'); if(endpointLabel) endpointLabel.textContent=CONTENT_WEBHOOK || 'not set'; const mode=document.getElementById('editor-mode-label'); if(mode) mode.textContent=CONTENT_WEBHOOK ? 'Sheets sync enabled' : 'Local fallback mode';}
 function updateBatchMeta(){const b=currentBatch();const n=String(b.name||('Keg #'+DEFAULT_BATCH.id)).match(/\d+/)?.[0]||DEFAULT_BATCH.id;document.querySelectorAll('.avail-label').forEach(el=>el.textContent='Batch #'+n+' availability');const ready=document.getElementById('batch-ready-label');if(ready)ready.textContent=b.status==='brewing'?'Small-batch release':'Ready to order'}
 function applyAvailabilityState(remaining,total,text,isUrgent){const pct=Math.max(0,Math.min(100,Math.round((remaining/Math.max(1,total))*100)));['avail-bar','avail-bar-banner'].forEach(id=>{const el=document.getElementById(id);if(el){el.style.width=pct+'%';el.classList.toggle('low',!!isUrgent)}});['avail-dot','avail-dot-banner'].forEach(id=>{const el=document.getElementById(id);if(el)el.classList.toggle('urgent',!!isUrgent)});const remMain=document.getElementById('avail-remaining'); if(remMain) remMain.textContent=remaining; const remBanner=document.getElementById('avail-remaining-banner'); if(remBanner) remBanner.textContent=remaining; const countMain=document.querySelector('.floating-card .avail-count'); if(countMain) countMain.innerHTML=`<strong id="avail-remaining">${remaining}</strong> left`; const countBanner=document.querySelector('.avail-banner .avail-count'); if(countBanner) countBanner.innerHTML=`<strong id="avail-remaining-banner">${remaining}</strong> of ${total} bottles left`; const cutMain=document.getElementById('avail-cutoff-text'); if(cutMain) cutMain.textContent=text; const cutBanner=document.getElementById('avail-cutoff-banner'); if(cutBanner) cutBanner.textContent=text;}
 function updateAvailBar(){const b=currentBatch();const total=Math.max(1,Number(b.total)||DEFAULT_BATCH.total||18);const remainingBase=Math.max(0,Number(b.remaining)||0);const remaining=Math.max(0,remainingBase-totalQtyOrdered());let text=b.cutoffText||DEFAULT_BATCH.cutoffText;let urgent=false;if(remaining===0){text='This batch is fully reserved';urgent=true}else if(remaining<=4){text=`Only ${remaining} left — order before they're gone`;urgent=true}applyAvailabilityState(remaining,total,text,urgent)}
@@ -762,9 +762,9 @@ async function loadOwnerEditor(){populateEditorForm(); if(CONTENT_WEBHOOK) await
 async function sendBackend(order){if(!WEBHOOK)return false;try{const res=await fetch(WEBHOOK,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({source:'komboostcha-storefront',order})});return res.ok}catch{return false}}
 function updateCartUI(){const total=qty.kombucha*prices.kombucha+qty.yoghurt*prices.yoghurt;const has=totalQtyOrdered()>0;document.getElementById('empty-cart-hint').style.display=has?'none':'block';document.getElementById('cart-summary').style.display=has?'block':'none';document.getElementById('order-form').style.display=has?'block':'none';let lines='';if(qty.kombucha>0)lines+=`<div class="summary-row"><span>${labels.kombucha} ×${qty.kombucha}</span><span>₱${(qty.kombucha*prices.kombucha).toLocaleString()}</span></div>`;if(qty.yoghurt>0)lines+=`<div class="summary-row"><span>${labels.yoghurt} ×${qty.yoghurt}</span><span>₱${(qty.yoghurt*prices.yoghurt).toLocaleString()}</span></div>`;document.getElementById('summary-lines').innerHTML=lines;document.getElementById('summary-total').textContent='₱'+total.toLocaleString();const fb=document.getElementById('cart-float-btn');if(has&&!document.getElementById('tab-order').classList.contains('active'))fb.classList.add('visible');else fb.classList.remove('visible');document.getElementById('float-count').textContent=totalQtyOrdered()}
 function changeQty(item,delta){const b=currentBatch();const lim=Math.max(0,Number(b.remaining)||0);const nv=Math.max(0,qty[item]+delta);const nt=totalQtyOrdered()-qty[item]+nv;if(nt>lim){showToast(`Only ${lim} bottles left this batch`);return}qty[item]=nv;document.getElementById('qty-'+item).textContent=qty[item];updateCartUI();updateAvailBar()}
-async function placeOrder(){const name=document.getElementById('cust-name').value.trim();const wa=document.getElementById('cust-wa').value.trim();const area=document.getElementById('cust-area').value;const notes=document.getElementById('cust-notes').value.trim();const waClean=wa.replace(/[\s()-]/g,'');if(!name||!wa||!area){showToast('Please fill in all required fields');return}if(!/^\+?\d{10,15}$/.test(waClean)){showToast('Enter a valid WhatsApp number');return}if(!totalQtyOrdered()){showToast('Add at least one item first');return}const total=qty.kombucha*prices.kombucha+qty.yoghurt*prices.yoghurt;const items=[];if(qty.kombucha>0)items.push(`Kombucha ×${qty.kombucha}`);if(qty.yoghurt>0)items.push(`Yoghurt ×${qty.yoghurt}`);const b=currentBatch();const order={id:Date.now(),name,wa:waClean,area,notes,qty:{...qty},items,total,batchId:b.id,batchName:b.name,time:new Date().toLocaleTimeString('en-PH',{hour:'2-digit',minute:'2-digit'}),createdAt:new Date().toISOString(),source:'storefront'};orders.unshift(order);saveOrders();if(batches.length){batches[0].remaining=Math.max(0,(Number(batches[0].remaining)||0)-totalQtyOrdered()); editableContent.batchRemaining=String(batches[0].remaining); saveLocalContent(); saveBatches()}renderSellerOrders();renderBatches();updateBatchMeta();updateAvailBar();const synced=await sendBackend(order);const msg=['🌿 *New Komboostcha Order*','',`*Name:* ${name}`,`*Items:* ${items.join(', ')}`,`*Total:* ₱${total.toLocaleString()}`,`*Area:* ${area}`,`*Their WA:* ${waClean}`,notes?`*Notes:* ${notes}`:null,'',synced?'_Saved to backend log too._':'_WhatsApp/local fallback used._'].filter(Boolean).join('\n');window.open(`https://wa.me/${currentWaNumber()}?text=${encodeURIComponent(msg)}`,'_blank');document.getElementById('success-msg').textContent=`Thanks, ${name}! Your order was sent to us via WhatsApp${synced?' and logged to the order sheet':''}. We'll confirm delivery to ${area} shortly.`;document.getElementById('order-form').style.display='none';document.getElementById('cart-summary').style.display='none';document.getElementById('empty-cart-hint').style.display='none';document.getElementById('order-success').style.display='block'}
+async function placeOrder(){const name=document.getElementById('cust-name').value.trim();const wa=document.getElementById('cust-wa').value.trim();const area=document.getElementById('cust-area').value;const notes=document.getElementById('cust-notes').value.trim();const waClean=wa.replace(/[\s()-]/g,'');if(!name||!wa||!area){showToast('Please fill in all required fields');return}if(!/^\+?\d{10,15}$/.test(waClean)){showToast('Enter a valid Viber number');return}if(!totalQtyOrdered()){showToast('Add at least one item first');return}const total=qty.kombucha*prices.kombucha+qty.yoghurt*prices.yoghurt;const items=[];if(qty.kombucha>0)items.push(`Kombucha ×${qty.kombucha}`);if(qty.yoghurt>0)items.push(`Yoghurt ×${qty.yoghurt}`);const b=currentBatch();const order={id:Date.now(),name,wa:waClean,area,notes,qty:{...qty},items,total,batchId:b.id,batchName:b.name,time:new Date().toLocaleTimeString('en-PH',{hour:'2-digit',minute:'2-digit'}),createdAt:new Date().toISOString(),source:'storefront'};orders.unshift(order);saveOrders();if(batches.length){batches[0].remaining=Math.max(0,(Number(batches[0].remaining)||0)-totalQtyOrdered()); editableContent.batchRemaining=String(batches[0].remaining); saveLocalContent(); saveBatches()}renderSellerOrders();renderBatches();updateBatchMeta();updateAvailBar();const synced=await sendBackend(order);const msg=['🌿 *New Komboostcha Order*','',`*Name:* ${name}`,`*Items:* ${items.join(', ')}`,`*Total:* ₱${total.toLocaleString()}`,`*Area:* ${area}`,`*Their Viber:* ${waClean}`,notes?`*Notes:* ${notes}`:null,'',synced?'_Saved to backend log too._':'_Viber/local fallback used._'].filter(Boolean).join('\n');window.open(`viber://chat?number=%2B${currentWaNumber()}`,'_blank');document.getElementById('success-msg').textContent=`Thanks, ${name}! Your order is ready for Viber confirmation${synced?' and was logged to the order sheet':''}. We'll confirm delivery to ${area} shortly.`;document.getElementById('order-form').style.display='none';document.getElementById('cart-summary').style.display='none';document.getElementById('empty-cart-hint').style.display='none';document.getElementById('order-success').style.display='block'}
 function resetOrder(){qty={kombucha:0,yoghurt:0};document.getElementById('qty-kombucha').textContent=0;document.getElementById('qty-yoghurt').textContent=0;document.getElementById('cust-name').value='';document.getElementById('cust-wa').value='';document.getElementById('cust-area').value='';document.getElementById('cust-notes').value='';document.getElementById('order-success').style.display='none';updateCartUI();updateAvailBar()}
-function sendWA(number,name){const clean=String(number||'').replace(/\D/g,'');const msg=encodeURIComponent(`Hi ${name}! Your Kboost is ready! I'll DM you once I'm on the way! — Komboostcha 🌿`);window.open(`https://wa.me/${clean}?text=${msg}`,'_blank')}
+function sendWA(number,name){const clean=String(number||'').replace(/\D/g,'');window.open(`viber://chat?number=%2B${clean}`,'_blank')}
 function renderSellerOrders_DISABLED(){const c=document.getElementById('seller-orders');const label=document.getElementById('order-count-label');if(label)label.textContent=orders.length+' pending';if(!orders.length){c.innerHTML='<div class="batch-card" style="text-align:center;color:var(--ink-soft)">No orders yet — they appear here when customers submit them.</div>';return}c.innerHTML=orders.map(o=>`<div class="order-row"><div style="flex:1;min-width:0"><div class="name">${safe(o.name)}</div><div class="details">${safe((o.items||[]).join(' · '))} · ${safe(o.area)} · ${safe(o.time||'')}</div></div><div class="amount">₱${Number(o.total||0).toLocaleString()}</div><button class="wa-btn" onclick="sendWA(${JSON.stringify(String(o.wa||''))}, ${JSON.stringify(String(o.name||'Customer'))})">WA</button></div>`).join('')}
 function daysUntil(d){if(!d)return '—';const diff=Math.ceil((new Date(d)-new Date())/86400000);return Math.max(0,diff)}
 function renderBatches_DISABLED(){const list=document.getElementById('batch-list');if(!batches.length){list.innerHTML='<div class="batch-card">No batches yet.</div>';return}list.innerHTML=batches.map(b=>`<div class="batch-card" id="${safe(b.id)}"><div class="batch-header"><span class="batch-title">${safe(b.name)}</span><span class="status-badge ${b.status==='ready'?'status-ready':'status-brewing'}">${safe(b.status)}</span></div><div class="batch-stats"><div class="stat-box"><div class="val">${Number(b.total||0)}</div><div class="lbl">Bottles</div></div><div class="stat-box"><div class="val">${b.readyDate?safe(new Date(b.readyDate).toLocaleDateString('en-PH',{month:'short',day:'numeric'})):'—'}</div><div class="lbl">Ready date</div></div><div class="stat-box"><div class="val">${b.status==='ready'?Number(b.remaining||0):daysUntil(b.readyDate)}</div><div class="lbl">${b.status==='ready'?'Left':'Days left'}</div></div></div><div class="dialog-actions"><button class="btn-secondary" onclick="markReady(${JSON.stringify(String(b.id))})">Mark ${b.status==='ready'?'brewing':'ready'}</button><button class="btn-secondary" style="color:#9d5c18;border-color:rgba(157,92,24,0.26)" onclick="deleteBatch(${JSON.stringify(String(b.id))})">Remove</button></div></div>`).join('')}
