@@ -681,6 +681,8 @@ img { display: block; max-width: 100%; }
   </main>
 </div>
 
+<div class="footer-access"><a href="./seller.html">Owner access</a></div>
+
 <div id="pin-modal">
   <div class="pin-dialog">
     <h3>Seller access</h3>
@@ -777,9 +779,9 @@ function switchTab(id){document.querySelectorAll('.section').forEach(s=>s.classL
 function ensureSellerTab(){const nav=document.querySelector('.nav-tabs');if(!document.getElementById('seller-tab-btn')){const btn=document.createElement('button');btn.className='tab-btn';btn.id='seller-tab-btn';btn.textContent='Seller';btn.onclick=()=>switchTab('seller');nav.appendChild(btn)}}
 function exitSellerMode(){localStorage.removeItem(STORE_UNLOCK);const sellerBtn=document.getElementById('seller-tab-btn');if(sellerBtn)sellerBtn.remove();if(new URLSearchParams(location.search).has('seller')){location.href='./index.html';return}switchTab('order');showToast('Seller mode closed')}
 function showPinModal(){document.getElementById('pin-modal').style.display='flex';document.getElementById('pin-input').value='';setTimeout(()=>document.getElementById('pin-input').focus(),100)}
-function closePinModal(){document.getElementById('pin-modal').style.display='none'}
+function closePinModal(){document.getElementById('pin-modal').style.display='none';if(new URLSearchParams(location.search).has('seller')&&localStorage.getItem(STORE_UNLOCK)!=='1'){location.href='./index.html';}} 
 function checkPin(){const entered=document.getElementById('pin-input').value.trim();if(entered===SELLER_PIN){localStorage.setItem(STORE_UNLOCK,'1');closePinModal();ensureSellerTab();switchTab('seller');loadOwnerEditor();showToast('Seller mode unlocked')}else{document.getElementById('pin-input').value='';document.getElementById('pin-error').style.display='block';setTimeout(()=>document.getElementById('pin-error').style.display='none',2000)}}
-function handleSellerRoute(){const isSellerRoute=new URLSearchParams(location.search).has('seller');if(!isSellerRoute)return;if(localStorage.getItem(STORE_UNLOCK)==='1'){ensureSellerTab();switchTab('seller');loadOwnerEditor();return}ensureSellerTab();showPinModal();}
+function handleSellerRoute(){const isSellerRoute=new URLSearchParams(location.search).has('seller');if(!isSellerRoute)return;ensureSellerTab();switchTab('seller');if(localStorage.getItem(STORE_UNLOCK)==='1'){loadOwnerEditor();return}showPinModal();}
 function scrollToForm(){setTimeout(()=>{const form=document.getElementById('order-form');if(form&&form.style.display!=='none')form.scrollIntoView({behavior:'smooth',block:'start'})},100)}
 function toggleAccordion(btn){const body=btn.nextElementSibling;const open=btn.classList.toggle('open');if(body)body.classList.toggle('open',open)}
 (async function init(){loadOrders();loadBatches();loadLocalContent(); updateStaticLinks(); updateBatchMeta(); updateCartUI(); updateAvailBar(); if(localStorage.getItem(STORE_UNLOCK)==='1') { ensureSellerTab(); } handleSellerRoute(); await fetchRemoteContent(); populateEditorForm();})();
