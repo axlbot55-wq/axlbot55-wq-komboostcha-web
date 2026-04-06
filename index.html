@@ -251,7 +251,7 @@ img { display: block; max-width: 100%; }
       </div>
       <div class="hero-visual">
         <div class="hero-image">
-          <img src="https://axlbot55-wq.github.io/axlbot55-wq-komboostcha-web/assets/bottling-tomorrow.jpg" alt="Fresh bottled cultured goods from Komboostcha" onerror="this.src='https://axlbot55-wq.github.io/axlbot55-wq-komboostcha-web/assets/brand-system.jpg'">
+          <img src="https://axlbot55-wq.github.io/axlbot55-wq-komboostcha-web/assets/kombucha-logo-v1.jpg" alt="Fresh bottled cultured goods from Komboostcha" onerror="this.src='https://axlbot55-wq.github.io/axlbot55-wq-komboostcha-web/assets/brand-system.jpg'">
           <div class="hero-brand-card">
             <div class="hero-brand-mark">
               <div class="hero-brand-seal" aria-hidden="true"></div>
@@ -263,16 +263,16 @@ img { display: block; max-width: 100%; }
             <p class="hero-brand-sub">Kombucha & cultured yoghurt</p>
           </div>
           <div class="floating-card">
-            <div class="floating-label">Current release</div>
+            <div class="floating-label">Fresh batch goods</div>
             <div class="floating-top">
               <div>
                 <strong id="batch-ready-label">Current batch</strong>
-                <span class="avail-label">Batch #4 availability</span>
+                <span class="avail-label">Fresh local release</span>
               </div>
               <div class="avail-count"><strong id="avail-remaining">14</strong> left</div>
             </div>
             <div class="avail-bar-track"><div class="avail-bar-fill" id="avail-bar" style="width:78%"></div></div>
-            <div class="floating-foot"><span class="dot" id="avail-dot"></span><span id="avail-cutoff-text">Order by Friday midnight for Sunday delivery</span></div>
+            <div class="floating-foot"><span class="dot" id="avail-dot"></span><span id="avail-cutoff-text">Fresh local delivery and pickup coordination</span></div>
           </div>
         </div>
         <div class="hero-notes">
@@ -313,11 +313,11 @@ img { display: block; max-width: 100%; }
 
           <div class="avail-banner" id="avail-banner">
             <div class="avail-top">
-              <span class="avail-label">Batch #4 availability</span>
+              <span class="avail-label">Fresh local release</span>
               <span class="avail-count"><strong id="avail-remaining-banner">14</strong> of 18 bottles left</span>
             </div>
             <div class="avail-bar-track"><div class="avail-bar-fill" id="avail-bar-banner" style="width:78%"></div></div>
-            <div class="avail-cutoff"><span class="dot" id="avail-dot-banner"></span><span id="avail-cutoff-banner">Order by Friday midnight for Sunday delivery</span></div>
+            <div class="avail-cutoff"><span class="dot" id="avail-dot-banner"></span><span id="avail-cutoff-banner">Fresh local delivery and pickup coordination</span></div>
           </div>
 
           <div class="product-grid">
@@ -356,7 +356,7 @@ img { display: block; max-width: 100%; }
 
             <article class="product-card">
               <div class="product-media">
-                <img class="product-img" src="https://axlbot55-wq.github.io/axlbot55-wq-komboostcha-web/assets/bottling-tomorrow.jpg" alt="HMGY Greek yoghurt" onerror="this.style.background='#f7f2ec';this.removeAttribute('src')">
+                <img class="product-img" src="https://axlbot55-wq.github.io/axlbot55-wq-komboostcha-web/assets/kombucha-logo-v1.jpg" alt="HMGY Greek yoghurt" onerror="this.style.background='#f7f2ec';this.removeAttribute('src')">
                 <div class="product-badge">
                   <span class="tag">High protein</span>
                   <span class="tag amber">Thick · cultured overnight</span>
@@ -677,7 +677,7 @@ const FALLBACK_WA_NUMBER = String(cfg.waNumber || '639209106731').replace(/\D/g,
 const SELLER_PIN = String(cfg.sellerPin || '2025');
 const WEBHOOK = String(cfg.orderWebhookUrl || '').trim();
 const CONTENT_WEBHOOK = String(cfg.contentWebhookUrl || '').trim();
-const DEFAULT_BATCH = Object.assign({ id: 4, total: 18, remaining: 14, zones: ['General QC', 'Ortigas'], cutoffText: 'Order by Friday midnight for Sunday delivery' }, cfg.batch || {});
+const DEFAULT_BATCH = Object.assign({ id: 4, total: 18, remaining: 14, zones: ['General QC', 'Ortigas'], cutoffText: 'Fresh local delivery and pickup coordination' }, cfg.batch || {});
 const DEFAULT_CONTENT = {
   heroTitle: 'Fresh small-batch <em>cultures</em> for everyday drinking.',
   heroSubtitle: 'Small-batch kombucha and thick cultured yoghurt, brewed locally and delivered fresh in General QC and Ortigas. Clear ordering, chilled handoff, and no supermarket energy.',
@@ -687,7 +687,7 @@ const DEFAULT_CONTENT = {
   yoghurtDescription: 'Thick, creamy cultured yoghurt made from full-fat milk with no thickeners, stabilizers, or fake texture tricks.',
   batchTotal: String(DEFAULT_BATCH.total || 18),
   batchRemaining: String(DEFAULT_BATCH.remaining || 14),
-  batchCutoffText: DEFAULT_BATCH.cutoffText || 'Order by Friday midnight for Sunday delivery',
+  batchCutoffText: DEFAULT_BATCH.cutoffText || 'Fresh local delivery and pickup coordination',
   deliveryZones: (DEFAULT_BATCH.zones || ['General QC', 'Ortigas']).join(', '),
   aboutIntro: 'Komboostcha is a small local fermentation project built around fresh batches, honest ingredients, and a simpler ordering experience for nearby customers.',
   faq1q: 'How do I place an order?',
@@ -713,7 +713,7 @@ function syncBatchFromContent(){if(!batches.length) batches=[defaultBatchEntry()
 function currentBatch(){return batches[0]||defaultBatchEntry()}
 function totalQtyOrdered(){return qty.kombucha+qty.yoghurt}
 function updateStaticLinks(){const wa=currentWaNumber(); ['about-wa-link','header-wa-link'].forEach(id=>{const el=document.getElementById(id);if(el)el.href='https://wa.me/'+wa}); const endpointLabel=document.getElementById('content-endpoint-label'); if(endpointLabel) endpointLabel.textContent=CONTENT_WEBHOOK || 'not set'; const mode=document.getElementById('editor-mode-label'); if(mode) mode.textContent=CONTENT_WEBHOOK ? 'Sheets sync enabled' : 'Local fallback mode';}
-function updateBatchMeta(){const b=currentBatch();const n=String(b.name||('Keg #'+DEFAULT_BATCH.id)).match(/\d+/)?.[0]||DEFAULT_BATCH.id;document.querySelectorAll('.avail-label').forEach(el=>el.textContent='Batch #'+n+' availability');const ready=document.getElementById('batch-ready-label');if(ready)ready.textContent=b.status==='brewing'?'Brewing now':'Ready to order'}
+function updateBatchMeta(){const b=currentBatch();const n=String(b.name||('Keg #'+DEFAULT_BATCH.id)).match(/\d+/)?.[0]||DEFAULT_BATCH.id;document.querySelectorAll('.avail-label').forEach(el=>el.textContent='Batch #'+n+' availability');const ready=document.getElementById('batch-ready-label');if(ready)ready.textContent=b.status==='brewing'?'Small-batch release':'Ready to order'}
 function applyAvailabilityState(remaining,total,text,isUrgent){const pct=Math.max(0,Math.min(100,Math.round((remaining/Math.max(1,total))*100)));['avail-bar','avail-bar-banner'].forEach(id=>{const el=document.getElementById(id);if(el){el.style.width=pct+'%';el.classList.toggle('low',!!isUrgent)}});['avail-dot','avail-dot-banner'].forEach(id=>{const el=document.getElementById(id);if(el)el.classList.toggle('urgent',!!isUrgent)});const remMain=document.getElementById('avail-remaining'); if(remMain) remMain.textContent=remaining; const remBanner=document.getElementById('avail-remaining-banner'); if(remBanner) remBanner.textContent=remaining; const countMain=document.querySelector('.floating-card .avail-count'); if(countMain) countMain.innerHTML=`<strong id="avail-remaining">${remaining}</strong> left`; const countBanner=document.querySelector('.avail-banner .avail-count'); if(countBanner) countBanner.innerHTML=`<strong id="avail-remaining-banner">${remaining}</strong> of ${total} bottles left`; const cutMain=document.getElementById('avail-cutoff-text'); if(cutMain) cutMain.textContent=text; const cutBanner=document.getElementById('avail-cutoff-banner'); if(cutBanner) cutBanner.textContent=text;}
 function updateAvailBar(){const b=currentBatch();const total=Math.max(1,Number(b.total)||DEFAULT_BATCH.total||18);const remainingBase=Math.max(0,Number(b.remaining)||0);const remaining=Math.max(0,remainingBase-totalQtyOrdered());let text=b.cutoffText||DEFAULT_BATCH.cutoffText;let urgent=false;if(remaining===0){text='This batch is fully reserved';urgent=true}else if(remaining<=4){text=`Only ${remaining} left — order before they're gone`;urgent=true}applyAvailabilityState(remaining,total,text,urgent)}
 function applyContent(content){editableContent=normalizeContent(content); prices.kombucha=Number(editableContent.kombuchaPrice)||350; prices.yoghurt=Number(editableContent.yoghurtPrice)||350; document.getElementById('hero-title').innerHTML=editableContent.heroTitle; document.getElementById('hero-subtitle').textContent=editableContent.heroSubtitle; document.getElementById('kombucha-description').textContent=editableContent.kombuchaDescription; document.getElementById('yoghurt-description').textContent=editableContent.yoghurtDescription; document.getElementById('kombucha-price').textContent='₱'+(Number(editableContent.kombuchaPrice)||0).toLocaleString(); document.getElementById('yoghurt-price').textContent='₱'+(Number(editableContent.yoghurtPrice)||0).toLocaleString(); document.getElementById('about-intro').textContent=editableContent.aboutIntro; document.getElementById('faq1q').textContent=editableContent.faq1q; document.getElementById('faq1a').textContent=editableContent.faq1a; document.getElementById('faq2q').textContent=editableContent.faq2q; document.getElementById('faq2a').textContent=editableContent.faq2a; const zonesText=String(editableContent.deliveryZones||'').trim(); document.getElementById('topbar-zones').textContent='Now accepting orders in '+(zonesText||'General QC & Ortigas'); document.getElementById('hero-zones-note').textContent='Available in '+(zonesText||'General QC & Ortigas')+' with a tight delivery radius for fresher handoff and better batch control.'; syncBatchFromContent(); updateStaticLinks(); updateBatchMeta(); updateAvailBar(); updateCartUI(); renderBatches(); renderSellerOrders(); populateEditorForm();}
