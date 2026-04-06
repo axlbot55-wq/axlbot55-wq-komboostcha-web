@@ -8,5 +8,6 @@ window.KOMBOOSTCHA_CONFIG = {
     zones: ['General QC', 'Ortigas'],
     cutoffText: 'Order by Friday midnight for Sunday delivery'
   },
-  orderWebhookUrl: ''
+  orderWebhookUrl: '',
+  contentWebhookUrl: ''
 };
