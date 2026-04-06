@@ -49,7 +49,7 @@ img { display: block; max-width: 100%; }
 .brand-mark { display: inline-flex; align-items: center; gap: 10px; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; }
 .brand-mark .dot { width: 10px; height: 10px; border-radius: 999px; background: linear-gradient(135deg, var(--amber), #cf9558); box-shadow: 0 0 0 5px rgba(185,120,51,0.12); }
 .mini-note { font-size: 13px; color: var(--ink-muted); }
-.hero { position: relative; overflow: hidden; border: 1px solid rgba(255,255,255,0.55); border-radius: 34px; background: radial-gradient(circle at 80% 18%, rgba(231,207,170,0.35), transparent 24%), radial-gradient(circle at 12% 18%, rgba(255,255,255,0.7), transparent 20%), linear-gradient(135deg, #f5ecde 0%, #efe1cc 48%, #e6d5bc 100%); box-shadow: var(--shadow-card); padding: 24px; margin-bottom: 18px; }
+.hero { position: relative; overflow: hidden; border: 1px solid rgba(255,255,255,0.55); border-radius: 34px; background: radial-gradient(circle at 80% 18%, rgba(231,207,170,0.35), transparent 24%), radial-gradient(circle at 12% 18%, rgba(255,255,255,0.7), transparent 20%), linear-gradient(135deg, #f5ecde 0%, #efe1cc 48%, #e6d5bc 100%); box-shadow: var(--shadow-card); padding: 24px; margin-bottom: 24px; }
 .hero::before { content: ''; position: absolute; inset: auto -60px -100px auto; width: 220px; height: 220px; border-radius: 50%; background: rgba(49,75,56,0.06); filter: blur(4px); }
 .hero-grid { display: grid; grid-template-columns: 1.2fr 0.9fr; gap: 24px; align-items: stretch; }
 .hero-copy,.hero-visual { position: relative; z-index: 1; }
@@ -67,10 +67,17 @@ img { display: block; max-width: 100%; }
 .hero-meta { display: flex; flex-wrap: wrap; gap: 10px; }
 .meta-chip { display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px; border-radius: 999px; background: rgba(255,253,248,0.7); border: 1px solid rgba(49,75,56,0.1); font-size: 13px; color: var(--ink-soft); }
 .hero-visual { display: grid; grid-template-rows: 1fr auto; gap: 16px; }
-.hero-image { position: relative; min-height: 360px; border-radius: 28px; overflow: hidden; background: linear-gradient(180deg, rgba(49,75,56,0.08), rgba(49,75,56,0.18)); }
-.hero-image img { width: 100%; height: 100%; object-fit: cover; }
-.hero-image::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(17,20,18,0.02), rgba(17,20,18,0.25)); }
-.floating-card { position: absolute; right: 18px; bottom: 18px; width: min(240px, calc(100% - 36px)); background: rgba(255,251,245,0.92); border: 1px solid rgba(255,255,255,0.75); border-radius: 22px; padding: 16px; backdrop-filter: blur(12px); box-shadow: 0 18px 40px rgba(29,36,30,0.14); }
+.hero-image { position: relative; min-height: 360px; border-radius: 28px; overflow: hidden; background: linear-gradient(180deg, rgba(49,75,56,0.08), rgba(49,75,56,0.18)); isolation: isolate; }
+.hero-image img { width: 100%; height: 100%; object-fit: cover; object-position: center 38%; transform: scale(1.02); }
+.hero-image::before { content: ''; position: absolute; inset: 18px; border-radius: 24px; border: 1px solid rgba(255,251,245,0.45); z-index: 1; pointer-events: none; }
+.hero-image::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(17,20,18,0.04), rgba(17,20,18,0.34)); }
+.hero-brand-card { position: absolute; left: 22px; top: 22px; z-index: 2; width: min(290px, calc(100% - 44px)); padding: 18px 18px 16px; border-radius: 24px; background: rgba(255,248,240,0.84); border: 1px solid rgba(255,255,255,0.7); backdrop-filter: blur(12px); box-shadow: 0 18px 40px rgba(29,36,30,0.14); }
+.hero-brand-mark { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+.hero-brand-seal { width: 54px; height: 54px; border-radius: 50%; background: radial-gradient(circle at 30% 30%, #f2e5d0, #d7b68e 58%, #b97833 100%); box-shadow: inset 0 1px 0 rgba(255,255,255,0.55), 0 10px 20px rgba(91,58,18,0.16); flex: 0 0 auto; }
+.hero-brand-overline { font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-muted); font-weight: 700; margin-bottom: 4px; }
+.hero-brand-title { font-family: 'DM Serif Display', serif; font-size: clamp(1.6rem, 2.8vw, 2.15rem); line-height: 0.96; letter-spacing: -0.03em; color: var(--moss); }
+.hero-brand-sub { max-width: 20ch; margin-top: 10px; font-size: 0.95rem; line-height: 1.5; color: var(--ink-soft); }
+.floating-card { position: absolute; right: 24px; bottom: 18px; z-index: 2; width: min(240px, calc(100% - 36px)); background: rgba(255,251,245,0.92); border: 1px solid rgba(255,255,255,0.75); border-radius: 22px; padding: 16px; backdrop-filter: blur(12px); box-shadow: 0 18px 40px rgba(29,36,30,0.14); }
 .floating-label { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 8px; font-weight: 700; }
 .floating-top { display: flex; align-items: end; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
 .floating-top strong { display: block; font-family: 'DM Serif Display', serif; font-size: 1.55rem; line-height: 1; color: var(--moss); }
@@ -113,8 +120,14 @@ img { display: block; max-width: 100%; }
 .product-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
 .product-card { display: flex; flex-direction: column; min-height: 100%; border-radius: 26px; overflow: hidden; background: var(--milk); border: 1px solid rgba(49,75,56,0.08); box-shadow: 0 16px 32px rgba(49,75,56,0.08); }
 .product-media { position: relative; min-height: 240px; background: linear-gradient(180deg, rgba(49,75,56,0.06), rgba(49,75,56,0.12)); }
+.product-media.logo-media { background: linear-gradient(180deg, #fbf6ee 0%, #f3eadb 100%); isolation: isolate; }
 .product-img { width: 100%; height: 100%; object-fit: cover; }
-.product-badge { position: absolute; left: 16px; top: 16px; display: inline-flex; gap: 8px; flex-wrap: wrap; }
+.logo-media .product-img { object-position: center top; transform: scale(1.05); }
+.logo-media::after { content: ''; position: absolute; inset: auto 0 0 0; height: 48%; background: linear-gradient(180deg, rgba(243,234,219,0) 0%, rgba(243,234,219,0.82) 30%, #f3eadb 100%); z-index: 1; }
+.logo-wordmark { position: absolute; left: 18px; right: 18px; bottom: 18px; z-index: 2; padding: 14px 16px; border-radius: 20px; background: rgba(255,251,245,0.9); border: 1px solid rgba(255,255,255,0.72); box-shadow: 0 16px 32px rgba(49,75,56,0.08); }
+.logo-wordmark-title { font-family: 'DM Serif Display', serif; font-size: 1.75rem; line-height: 0.95; letter-spacing: -0.03em; color: var(--moss); margin-bottom: 6px; }
+.logo-wordmark-sub { font-size: 0.85rem; line-height: 1.45; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-muted); font-weight: 700; }
+.product-badge { position: absolute; left: 16px; top: 16px; display: inline-flex; gap: 8px; flex-wrap: wrap; z-index: 2; }
 .tag { display: inline-flex; align-items: center; gap: 6px; padding: 7px 10px; border-radius: 999px; font-size: 11px; font-weight: 700; letter-spacing: 0.04em; background: rgba(255,251,245,0.86); color: var(--moss); border: 1px solid rgba(255,255,255,0.55); backdrop-filter: blur(10px); }
 .tag.amber { color: #8a5516; }
 .product-body { display: flex; flex: 1; flex-direction: column; justify-content: space-between; gap: 20px; padding: 20px; }
@@ -208,7 +221,7 @@ img { display: block; max-width: 100%; }
 #pin-error { display: none; color: #9d5c18; font-size: 13px; margin-bottom: 12px; font-weight: 700; }
 .dialog-actions { display: flex; gap: 10px; }
 .dialog-actions button { flex: 1; }
-@media (max-width: 960px) { .hero-grid,.order-layout,.about-grid,.batch-grid,.seller-lower,.seller-editor-layout,.product-grid { grid-template-columns: 1fr; } .hero-notes { grid-template-columns: 1fr; } .hero-image { min-height: 300px; } }
+@media (max-width: 960px) { .hero-grid,.order-layout,.about-grid,.batch-grid,.seller-lower,.seller-editor-layout,.product-grid { grid-template-columns: 1fr; } .hero-notes { grid-template-columns: 1fr; } .hero-image { min-height: 320px; } }
 @media (max-width: 640px) { .shell { padding: 14px 12px 42px; } .hero { padding: 16px; border-radius: 28px; } .panel-inner,.about-hero,.about-card,.batch-card,.template-box,.form-shell,.order-summary,.editor-panel { padding: 18px; } .topbar { flex-direction: column; align-items: flex-start; } .hero-actions,.wa-strip,.panel-header,.section-header,.avail-top,.batch-header,.order-row,.product-footer,.editor-actions,.editor-meta { flex-direction: column; align-items: flex-start; } .wa-strip-btn,.btn-primary,.btn-secondary { width: 100%; justify-content: center; } .tab-btn { font-size: 12px; padding: 12px 8px; } .hero h1 { max-width: none; } }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; } }
 </style>
@@ -238,12 +251,22 @@ img { display: block; max-width: 100%; }
       </div>
       <div class="hero-visual">
         <div class="hero-image">
-          <img src="https://axlbot55-wq.github.io/axlbot55-wq-komboostcha-web/assets/brand-system.jpg" alt="Komboostcha bottled cultured goods" onerror="this.src='https://axlbot55-wq.github.io/axlbot55-wq-komboostcha-web/assets/kombucha-logo-v1.jpg'">
+          <img src="https://axlbot55-wq.github.io/axlbot55-wq-komboostcha-web/assets/bottling-tomorrow.jpg" alt="Fresh bottled cultured goods from Komboostcha" onerror="this.src='https://axlbot55-wq.github.io/axlbot55-wq-komboostcha-web/assets/brand-system.jpg'">
+          <div class="hero-brand-card">
+            <div class="hero-brand-mark">
+              <div class="hero-brand-seal" aria-hidden="true"></div>
+              <div>
+                <div class="hero-brand-overline">Fresh batch house</div>
+                <div class="hero-brand-title">Komboostcha</div>
+              </div>
+            </div>
+            <p class="hero-brand-sub">Small-batch cultured goods</p>
+          </div>
           <div class="floating-card">
             <div class="floating-label">Current release</div>
             <div class="floating-top">
               <div>
-                <strong id="batch-ready-label">Ready to order</strong>
+                <strong id="batch-ready-label">Current batch</strong>
                 <span class="avail-label">Batch #4 availability</span>
               </div>
               <div class="avail-count"><strong id="avail-remaining">14</strong> left</div>
@@ -299,8 +322,12 @@ img { display: block; max-width: 100%; }
 
           <div class="product-grid">
             <article class="product-card">
-              <div class="product-media">
-                <img class="product-img" src="https://axlbot55-wq.github.io/axlbot55-wq-komboostcha-web/assets/kombucha-logo-v1.jpg" alt="Handcrafted Kombucha bottle" onerror="this.style.background='#dce8d9';this.removeAttribute('src')">
+              <div class="product-media logo-media">
+                <img class="product-img" src="https://axlbot55-wq.github.io/axlbot55-wq-komboostcha-web/assets/kombucha-logo-v1.jpg" alt="Komboostcha and yoghurt brand logos" onerror="this.style.background='#efe4d3';this.removeAttribute('src')">
+                <div class="logo-wordmark">
+                  <div class="logo-wordmark-title">Komboostcha</div>
+                  <div class="logo-wordmark-sub">Small-batch cultured goods</div>
+                </div>
                 <div class="product-badge">
                   <span class="tag">Live cultures</span>
                   <span class="tag amber">Bright · easy first sip</span>
